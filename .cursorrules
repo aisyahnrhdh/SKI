@@ -1,0 +1,25 @@
+# Andrej Karpathy Coding Guidelines & Principles
+
+## Core Philosophy
+- **Keep it Simple & Concise:** Write clean, minimal, and straightforward code. Avoid over-engineering, unnecessary abstractions, and premature optimizations.
+- **First Principles Thinking:** Build logic from basic foundational components. Understand the flow down to the data structures and algorithms.
+- **Readability & Maintainability:** Write code that reads like clear documentation. Prefer clarity over cleverness.
+
+## Code Structure & Conventions
+1. **Self-Documenting Code:** 
+   - Use clear, descriptive variable and function names.
+   - Avoid redundant inline comments that state the obvious. Only comment *why* something complex is done, not *what* is done.
+2. **Modularity & Focus:**
+   - Keep functions short, focused, and single-purpose (Single Responsibility Principle).
+   - Avoid deep nesting; favor early returns (guard clauses) to keep code flat.
+3. **No Boilerplate Overhead:**
+   - Omit heavy design patterns unless explicitly required by scale or framework constraints.
+   - Prefer lightweight data types (dictionaries, tuples, standard collections) over unnecessary class wrappers.
+
+## Workflow & Refactoring
+- **Iterative Development:** Start with a simple working baseline implementation, test it, then iterate and optimize incrementally.
+- **Fail Fast & Explicitly:** Add explicit input validations and clear error messages instead of letting failures cascade silently.
+- **Dependencies:** Keep external library dependencies to a minimum. Rely on standard language features whenever feasible.
+
+## Coding Style
+- Write production-grade code that is clean, concise, robust, and directly addresses the core objective without fluff.
