@@ -224,7 +224,7 @@ if ($action === 'init_data') {
     $stmtAud = $db->query("
         SELECT a.*, u.nama_lengkap FROM audit_logs a
         JOIN users u ON a.id_user = u.id_user
-        ORDER BY a.timestamp_aktivitas DESC LIMIT 100
+        ORDER BY a.timestamp_aktivitas DESC LIMIT 300
     ");
     $auditLogs = $stmtAud->fetchAll();
 
@@ -1270,7 +1270,7 @@ if ($action === 'upload_eviden') {
 
     // Validasi modul pengawasan harus berstatus terbit dan aktif
     $stmtModCheck = $db->prepare("
-        SELECT m.status_template 
+        SELECT m.id_modul, m.nama_modul, m.status_template 
         FROM indikators i 
         JOIN moduls m ON i.id_modul = m.id_modul 
         WHERE i.id_indikator = ?
@@ -1342,12 +1342,12 @@ if ($action === 'upload_eviden') {
             $newVer = (int)$oldEv['versi'] + 1;
             $stmtUp = $db->prepare("UPDATE evidens SET nama_file = ?, path_file = ?, ukuran_file_mb = ?, format_file = ?, versi = ?, status_eviden = 'u', waktu_unggah = NOW(), nilai_isian = ? WHERE id_eviden = ?");
             $stmtUp->execute([$displayTitle, $savedPath, $sizeMb, $formatFile, $newVer, $nilaiIsian !== '' ? $nilaiIsian : null, $oldEv['id_eviden']]);
-            writeAuditLog('Perbaikan Isian Tagihan', $displayTitle . ' (v' . $newVer . ')');
+            writeAuditLog('Perbaikan Isian Tagihan', ($modCheck['nama_modul'] ?? 'Modul') . ' - ' . $displayTitle . ' (v' . $newVer . ')');
         } else {
             $idEviden = generateUUID();
             $stmtIns = $db->prepare("INSERT INTO evidens (id_eviden, id_jadwal, id_indikator, id_user_pic, nama_file, path_file, ukuran_file_mb, format_file, versi, status_eviden, waktu_unggah, nilai_isian) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 'u', NOW(), ?)");
             $stmtIns->execute([$idEviden, $idJadwal, $idIndikator, $currentUser['id'], $displayTitle, $savedPath, $sizeMb, $formatFile, $nilaiIsian !== '' ? $nilaiIsian : null]);
-            writeAuditLog('Input Isian Tagihan Baru', $displayTitle);
+            writeAuditLog('Input Isian Tagihan Baru', ($modCheck['nama_modul'] ?? 'Modul') . ' - ' . $displayTitle);
         }
 
         echo json_encode(['success' => true, 'message' => 'Data tagihan berhasil disimpan dan diajukan ke SKI.']);
@@ -1412,12 +1412,12 @@ if ($action === 'upload_eviden') {
             $newVer = (int)$oldEv['versi'] + 1;
             $stmtUp = $db->prepare("UPDATE evidens SET nama_file = ?, path_file = ?, ukuran_file_mb = 0, format_file = ?, versi = ?, status_eviden = 'u', waktu_unggah = NOW(), nilai_isian = NULL WHERE id_eviden = ?");
             $stmtUp->execute([$linkTitle, $linkUrl, $formatFile, $newVer, $oldEv['id_eviden']]);
-            writeAuditLog('Upload perbaikan tautan eviden', $linkTitle . ' (v' . $newVer . ')');
+            writeAuditLog('Upload perbaikan tautan eviden', ($modCheck['nama_modul'] ?? 'Modul') . ' - ' . $linkTitle . ' (v' . $newVer . ')');
         } else {
             $idEviden = generateUUID();
             $stmtIns = $db->prepare("INSERT INTO evidens (id_eviden, id_jadwal, id_indikator, id_user_pic, nama_file, path_file, ukuran_file_mb, format_file, versi, status_eviden, waktu_unggah, nilai_isian) VALUES (?, ?, ?, ?, ?, ?, 0, ?, 1, 'u', NOW(), NULL)");
             $stmtIns->execute([$idEviden, $idJadwal, $idIndikator, $currentUser['id'], $linkTitle, $linkUrl, $formatFile]);
-            writeAuditLog('Upload tautan eviden baru', $linkTitle);
+            writeAuditLog('Upload tautan eviden baru', ($modCheck['nama_modul'] ?? 'Modul') . ' - ' . $linkTitle);
         }
 
         echo json_encode(['success' => true, 'message' => 'Tautan eviden berhasil disimpan dan diajukan ke SKI.']);
@@ -1478,12 +1478,12 @@ if ($action === 'upload_eviden') {
         $newVer = (int)$oldEv['versi'] + 1;
         $stmtUp = $db->prepare("UPDATE evidens SET nama_file = ?, path_file = ?, ukuran_file_mb = ?, format_file = ?, versi = ?, status_eviden = 'u', waktu_unggah = NOW(), nilai_isian = NULL WHERE id_eviden = ?");
         $stmtUp->execute([$finalDisplayName, 'uploads/evidens/' . $newFileName, $sizeMb, $ext, $newVer, $oldEv['id_eviden']]);
-        writeAuditLog('Upload perbaikan eviden', $finalDisplayName . ' (v' . $newVer . ')');
+        writeAuditLog('Upload perbaikan eviden', ($modCheck['nama_modul'] ?? 'Modul') . ' - ' . $finalDisplayName . ' (v' . $newVer . ')');
     } else {
         $idEviden = generateUUID();
         $stmtIns = $db->prepare("INSERT INTO evidens (id_eviden, id_jadwal, id_indikator, id_user_pic, nama_file, path_file, ukuran_file_mb, format_file, versi, status_eviden, waktu_unggah, nilai_isian) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1, 'u', NOW(), NULL)");
         $stmtIns->execute([$idEviden, $idJadwal, $idIndikator, $currentUser['id'], $finalDisplayName, 'uploads/evidens/' . $newFileName, $sizeMb, $ext]);
-        writeAuditLog('Upload eviden baru', $finalDisplayName);
+        writeAuditLog('Upload eviden baru', ($modCheck['nama_modul'] ?? 'Modul') . ' - ' . $finalDisplayName);
     }
 
     echo json_encode(['success' => true, 'message' => 'Berkas eviden berhasil diunggah.']);
@@ -1496,7 +1496,13 @@ if ($action === 'delete_eviden') {
         exit;
     }
     $idEviden = trim($_POST['id_eviden'] ?? '');
-    $stmt = $db->prepare("SELECT * FROM evidens WHERE id_eviden = ? LIMIT 1");
+    $stmt = $db->prepare("
+        SELECT e.*, m.nama_modul 
+        FROM evidens e 
+        JOIN indikators i ON e.id_indikator = i.id_indikator 
+        JOIN moduls m ON i.id_modul = m.id_modul 
+        WHERE e.id_eviden = ? LIMIT 1
+    ");
     $stmt->execute([$idEviden]);
     $ev = $stmt->fetch();
     if (!$ev) {
@@ -1510,8 +1516,31 @@ if ($action === 'delete_eviden') {
     $stmtRev->execute([$idEviden]);
     $stmtDel = $db->prepare("DELETE FROM evidens WHERE id_eviden = ?");
     $stmtDel->execute([$idEviden]);
-    writeAuditLog('Hapus berkas eviden', $ev['nama_file']);
+    writeAuditLog('Hapus berkas eviden', ($ev['nama_modul'] ?? 'Modul') . ' - ' . $ev['nama_file']);
     echo json_encode(['success' => true, 'message' => 'Berkas eviden berhasil dihapus.']);
+    exit;
+}
+
+if ($action === 'log_view_eviden') {
+    $targetName = trim($_POST['modul_name'] ?? $_POST['target_name'] ?? 'Modul Eviden');
+    $jenisAksi = trim($_POST['jenis_aksi'] ?? 'Membaca & Melihat Modul');
+    if ($currentUser) {
+        $stmtRecent = $db->prepare("SELECT COUNT(*) FROM audit_logs WHERE id_user = ? AND jenis_aksi = ? AND objek_target = ? AND timestamp_aktivitas >= DATE_SUB(NOW(), INTERVAL 2 MINUTE)");
+        $stmtRecent->execute([$currentUser['id'], $jenisAksi, $targetName]);
+        if ((int)$stmtRecent->fetchColumn() === 0) {
+            writeAuditLog($jenisAksi, $targetName);
+        }
+    }
+    echo json_encode(['success' => true]);
+    exit;
+}
+
+if ($action === 'log_download_template') {
+    $tplName = trim($_POST['template_name'] ?? 'Template Acuan');
+    $modName = trim($_POST['modul_name'] ?? '');
+    $target = $modName !== '' ? ($modName . ' - Template: ' . $tplName) : $tplName;
+    writeAuditLog('Unduh Template Acuan', $target);
+    echo json_encode(['success' => true]);
     exit;
 }
 
@@ -1653,6 +1682,73 @@ if ($action === 'approve_ketua') {
         $stmtEv->execute([$idModul]);
         writeAuditLog('Kirim rekomendasi ke Pimpinan', 'Modul ID: ' . $idModul);
         echo json_encode(['success' => true, 'message' => 'Rekomendasi resmi pengawasan berhasil dikirim ke Meja Pimpinan.']);
+        exit;
+    }
+}
+
+if ($action === 'bulk_approve_pic_to_pimpinan') {
+    if (!hasPermission('rev', 'u') && !hasPermission('rev', 's') && !hasPermission('apr', 's') && !hasPermission('upl', 'u') && !hasPermission('upl', 't')) {
+        echo json_encode(['success' => false, 'message' => 'Akses approval massal ke Pimpinan ditolak.']);
+        exit;
+    }
+
+    $idModul = trim($_POST['id_modul'] ?? '');
+    if ($idModul === '') {
+        echo json_encode(['success' => false, 'message' => 'Parameter modul tidak valid.']);
+        exit;
+    }
+
+    $stmtMod = $db->prepare("SELECT id_modul, nama_modul, id_jadwal FROM moduls WHERE id_modul = ? LIMIT 1");
+    $stmtMod->execute([$idModul]);
+    $mod = $stmtMod->fetch();
+    if (!$mod) {
+        echo json_encode(['success' => false, 'message' => 'Data modul tidak ditemukan.']);
+        exit;
+    }
+
+    $idJadwal = trim($_POST['id_jadwal'] ?? '') ?: ($mod['id_jadwal'] ?? '');
+    $ids = json_decode($_POST['ids'] ?? '[]', true);
+
+    $db->beginTransaction();
+    try {
+        if (!empty($ids) && is_array($ids)) {
+            $inQuery = implode(',', array_fill(0, count($ids), '?'));
+            $stmtUp = $db->prepare("UPDATE evidens SET status_eviden = 'a' WHERE id_eviden IN ($inQuery)");
+            $stmtUp->execute($ids);
+            $totalUpdated = count($ids);
+        } else {
+            $stmtUp = $db->prepare("
+                UPDATE evidens SET status_eviden = 'a' 
+                WHERE id_indikator IN (SELECT id_indikator FROM indikators WHERE id_modul = ?) 
+                AND status_eviden IN ('u', 'o', 'r', 'n')
+            ");
+            $stmtUp->execute([$idModul]);
+            $totalUpdated = $stmtUp->rowCount();
+        }
+
+        // Pastikan ada rekomendasi resmi ke Meja Pimpinan
+        $poinRekomendasi = trim($_POST['rekomendasi'] ?? '') ?: ('Seluruh berkas eviden modul ' . $mod['nama_modul'] . ' telah diverifikasi dan diserahkan untuk pengesahan Kepala BBPK.');
+        $stmtCheckRec = $db->prepare("SELECT id_rekomendasi FROM rekomendasi_approvals WHERE id_modul = ?");
+        $stmtCheckRec->execute([$idModul]);
+        $existingRecId = $stmtCheckRec->fetchColumn();
+
+        if ($existingRecId) {
+            $stmtRec = $db->prepare("UPDATE rekomendasi_approvals SET poin_rekomendasi = ?, status_approval_ketua = 'Disetujui', is_dilihat_pimpinan = 0, waktu_dilihat_pimpinan = NULL, keputusan_pimpinan = 'Menunggu', catatan_disposisi = NULL, id_pimpinan = NULL, waktu_keputusan = NULL WHERE id_rekomendasi = ?");
+            $stmtRec->execute([$poinRekomendasi, $existingRecId]);
+        } else {
+            $stmtKet = $db->query("SELECT id_user FROM users WHERE id_role = 'ket' AND status_aktif = 1 LIMIT 1");
+            $idKetua = $stmtKet->fetchColumn() ?: $currentUser['id'];
+            $stmtRec = $db->prepare("INSERT INTO rekomendasi_approvals (id_rekomendasi, id_jadwal, id_modul, id_ketua_ski, poin_rekomendasi, status_approval_ketua, is_dilihat_pimpinan, keputusan_pimpinan) VALUES (?, ?, ?, ?, ?, 'Disetujui', 0, 'Menunggu')");
+            $stmtRec->execute([generateUUID(), $idJadwal, $idModul, $idKetua, $poinRekomendasi]);
+        }
+
+        $db->commit();
+        writeAuditLog('Bulk Approval Eviden PIC ke Pimpinan', $mod['nama_modul'] . ' - Seluruh eviden disetujui & diserahkan ke Meja Pimpinan');
+        echo json_encode(['success' => true, 'message' => 'Seluruh berkas eviden PIC pada modul ' . $mod['nama_modul'] . ' berhasil disetujui dan diserahkan ke Meja Pimpinan.']);
+        exit;
+    } catch (Exception $e) {
+        $db->rollBack();
+        echo json_encode(['success' => false, 'message' => 'Gagal memproses approval massal: ' . $e->getMessage()]);
         exit;
     }
 }

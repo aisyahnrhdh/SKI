@@ -1923,6 +1923,231 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   flex-wrap: wrap;
   padding: 4px 2px;
 }
+
+/* Workspace 2-Column Grid Layout */
+.upl-workspace-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .upl-workspace-layout {
+    grid-template-columns: 1fr;
+  }
+}
+.upl-main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+/* Workflow Stepper Pipeline */
+.upl-pipeline-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 6px 0 2px;
+}
+.upl-pipeline-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all .2s ease;
+  white-space: nowrap;
+}
+.upl-pipeline-step.done {
+  background: #006a55;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,106,85,0.22);
+}
+.upl-pipeline-step.active {
+  background: #fef08a;
+  color: #713f12;
+  border: 1px solid #facc15;
+  box-shadow: 0 2px 6px rgba(234,179,8,0.18);
+}
+.upl-pipeline-step.pending {
+  background: #ffffff;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+.upl-pipeline-arrow {
+  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+/* Right Activity & Active Users Panel */
+.upl-side-panel {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 80px;
+}
+.upl-side-tabs {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #f1f5f9;
+  gap: 20px;
+  padding-bottom: 2px;
+}
+.upl-side-tab-btn {
+  background: none;
+  border: none;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #64748b;
+  padding: 6px 2px;
+  cursor: pointer;
+  position: relative;
+  transition: color .15s ease;
+}
+.upl-side-tab-btn:hover {
+  color: #006a55;
+}
+.upl-side-tab-btn.active {
+  color: #006a55;
+  font-weight: 700;
+}
+.upl-side-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: #006a55;
+  border-radius: 9999px;
+}
+
+/* Section: Pengguna Aktif */
+.upl-active-users-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.upl-sec-subtitle {
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: #64748b;
+}
+.upl-sec-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -.2px;
+}
+.upl-avatar-stack {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+.upl-avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  margin-left: -7px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: transform .15s ease, z-index .15s ease;
+  position: relative;
+}
+.upl-avatar-circle:first-child {
+  margin-left: 0;
+}
+.upl-avatar-circle:hover {
+  transform: translateY(-2px) scale(1.08);
+  z-index: 5;
+}
+.upl-avatar-more-text {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 4px;
+}
+
+/* Section: Riwayat Aktivitas Timeline */
+.upl-timeline-sec {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.upl-timeline-wrap {
+  position: relative;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.upl-timeline-wrap::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 6px;
+  bottom: 8px;
+  width: 2px;
+  background: #cbd5e1;
+}
+.upl-timeline-item {
+  position: relative;
+  font-size: 12.5px;
+}
+.upl-timeline-dot {
+  position: absolute;
+  left: -18px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #10b981;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px #cbd5e1;
+}
+.upl-timeline-item.in-progress .upl-timeline-dot {
+  background: #f59e0b;
+}
+.upl-timeline-head {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.35;
+}
+.upl-timeline-desc {
+  font-size: 12px;
+  color: #475569;
+  margin-top: 2px;
+}
+.upl-timeline-box-highlight {
+  background: #fefce8;
+  border: 1px solid #fde047;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-top: 4px;
+}
 .upl-breadcrumb {
   display: flex;
   align-items: center;
@@ -2178,19 +2403,16 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   transform: translateY(-1px);
 }
 
-/* 4-Column Indicator Grid (Folder View) */
+/* Indicator Grid (Folder View) */
 .upl-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
-@media (max-width: 1200px) {
+@media (min-width: 1400px) {
   .upl-grid { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 900px) {
-  .upl-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .upl-grid { grid-template-columns: 1fr; }
 }
 
@@ -3424,6 +3646,9 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   var uplCatTab = 'all'; // 'all' | 'revisi' | 'belum_selesai' | 'selesai'
   var uplCatSearchQuery = '';
   var uplCatPeriod = '2026-10';
+  var uplActivityTab = 'all'; // 'all' | 'upload' | 'activity'
+  var uplRealtimeTimer = null;
+  var uplLoggedViews = {};
 
   var revFilterTab = 'pending'; // 'pending' | 'history' | 'all'
   var revSearchQuery = '';
@@ -3741,6 +3966,10 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   }
 
   function showScreen(s) {
+    if (s !== 'upl' && uplRealtimeTimer) {
+      clearInterval(uplRealtimeTimer);
+      uplRealtimeTimer = null;
+    }
     if (s === 'apr') s = 'rev';
     if (s !== 'dash' && s !== 'prof' && !can(s, 'l')) {
       s = 'dash';
@@ -6070,18 +6299,54 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       return matchDesc || matchFile;
     });
 
+    // Pipeline Workflow Calculation (PIC -> Anggota SKI -> Ketua SKI -> Pimpinan)
+    var rec = (STATE.rekomendasi || []).find(function(r){ return r.id_modul === activeMod.id_modul; });
+    var hasUnderReviewAnggota = allModInds.some(function(ind){
+      var ev = STATE.evidens.find(function(e){ return e.id_indikator === ind.id_indikator; });
+      return ev && ev.status_eviden === 'u';
+    });
+    var hasKetuaReview = allModInds.some(function(ind){
+      var ev = STATE.evidens.find(function(e){ return e.id_indikator === ind.id_indikator; });
+      return ev && ev.status_eviden === 'o';
+    });
+    var hasPimpinanReview = allModInds.some(function(ind){
+      var ev = STATE.evidens.find(function(e){ return e.id_indikator === ind.id_indikator; });
+      return ev && ev.status_eviden === 'a';
+    });
+    var allApproved = totalInd > 0 && fulfilledCount === totalInd && allModInds.every(function(ind){
+      var ev = STATE.evidens.find(function(e){ return e.id_indikator === ind.id_indikator; });
+      return ev && (ev.status_eviden === 'f' || ev.status_eviden === 's');
+    });
+
+    var picStatus = (totalInd > 0 && fulfilledCount === totalInd) ? 'done' : 'active';
+    var angStatus = 'pending';
+    var ketStatus = 'pending';
+    var pimStatus = 'pending';
+
+    if (allApproved || (rec && rec.keputusan_pimpinan === 'Disetujui')) {
+      picStatus = 'done'; angStatus = 'done'; ketStatus = 'done'; pimStatus = 'done';
+    } else if (hasPimpinanReview || (rec && rec.status_approval === 'diajukan_pimpinan')) {
+      picStatus = 'done'; angStatus = 'done'; ketStatus = 'done'; pimStatus = 'active';
+    } else if (hasKetuaReview || (rec && rec.status_approval === 'draf_ski')) {
+      picStatus = 'done'; angStatus = 'done'; ketStatus = 'active'; pimStatus = 'pending';
+    } else if (hasUnderReviewAnggota) {
+      picStatus = 'done'; angStatus = 'active'; ketStatus = 'pending'; pimStatus = 'pending';
+    } else if (picStatus === 'done') {
+      angStatus = 'done'; ketStatus = 'active'; pimStatus = 'pending';
+    }
+
     var h = '<div class="upl-container">';
 
     // 1. Secondary Toolbar: Breadcrumb + Search + View Switcher
     h += '<div class="upl-sub-bar">';
     h += '<div class="upl-breadcrumb">';
-    h += '<button class="btn o sm" id="btnBackToUplCatalog" style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;font-size:12px;font-weight:600;border-radius:8px;background:#ffffff;border:1px solid #cbd5e1;color:#087066;cursor:pointer">' +
+    h += '<button class="btn o sm" id="btnBackToUplCatalog" style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;font-size:12.5px;font-weight:700;border-radius:10px;background:#ffffff;border:1px solid #cbd5e1;color:#006a55;cursor:pointer">' +
          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg> Daftar Modul</button>';
     h += '<span class="upl-crumb-sep">/</span>';
     h += '<span class="upl-crumb-root" id="uplCrumbRoot" title="Klik untuk kembali ke Daftar Modul">' + (isSuperadmin ? 'Superadmin Eviden' : 'Eviden PIC') + '</span>';
     h += '<span class="upl-crumb-sep">›</span>';
     if (availableModuls.length > 1) {
-      h += '<select class="upl-modul-select" id="uplModulSwitcher">';
+      h += '<select class="upl-modul-select" id="uplModulSwitcher" style="border-radius:10px;padding:6px 12px;font-weight:700">';
       availableModuls.forEach(function(m){
         var unitSuffix = isSuperadmin ? (' [' + (m.nama_unit || 'Unit') + ']') : '';
         h += '<option value="' + m.id_modul + '"' + (m.id_modul === activeMod.id_modul ? ' selected' : '') + '>' + escapeAttr(m.nama_modul) + unitSuffix + '</option>';
@@ -6093,9 +6358,9 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     h += '</div>';
 
     h += '<div class="upl-tools-right">';
-    h += '<div class="upl-search-wrap">';
+    h += '<div class="upl-search-wrap" style="width:260px">';
     h += '<svg class="upl-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>';
-    h += '<input type="text" class="upl-search-input" id="uplSearchBox" placeholder="Cari berkas atau indikator..." value="' + escapeAttr(uplSearchQuery) + '">';
+    h += '<input type="text" class="upl-search-input" id="uplSearchBox" placeholder="Cari berkas atau indikator..." value="' + escapeAttr(uplSearchQuery) + '" style="border-radius:10px;padding:8px 12px 8px 34px">';
     h += '</div>';
     h += '<div class="upl-view-tabs">';
     h += '<button class="upl-view-btn ' + (uplActiveView === 'folder' ? 'on' : '') + '" id="uplBtnViewFolder" title="Tampilan Kartu">';
@@ -6106,207 +6371,261 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     h += '</div>';
     h += '</div>'; // end .upl-sub-bar
 
-    // 2. Hero Progress Card
-    h += '<div class="upl-hero-card">';
-    h += '<div class="upl-hero-top">';
-    h += '<h2 class="upl-hero-title">' + escapeAttr(activeMod.nama_modul) + '</h2>';
-    h += '<div class="upl-badge-status ' + (isLocked ? 'kunci' : 'bebas') + '">';
-    h += '<span class="upl-pulse-dot"></span> ' + (isLocked ? 'Terkunci' : 'Bebas diubah');
+    // 2. Workspace 2-Column Grid Layout (Left: Main Workspace, Right: Activity & Users)
+    h += '<div class="upl-workspace-layout">';
+
+    // Left Column
+    h += '<div class="upl-main-col">';
+
+    // Hero Progress Card
+    h += '<div class="upl-hero-card" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:20px;padding:22px;box-shadow:0 4px 20px rgba(0,0,0,0.03);display:flex;flex-direction:column;gap:12px">';
+    h += '<div class="upl-hero-top" style="display:flex;align-items:center;justify-content:space-between;gap:12px">';
+    h += '<h2 class="upl-hero-title" style="margin:0;font-size:20px;font-weight:800;color:#0f172a;letter-spacing:-.3px">' + escapeAttr(activeMod.nama_modul) + '</h2>';
+    h += '<div class="upl-badge-status ' + (isLocked ? 'kunci' : 'bebas') + '" style="border-radius:9999px;padding:4px 14px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px;' + (isLocked ? 'background:#f1f5f9;color:#475569' : 'background:#dcfce7;color:#166534') + '">';
+    h += '<span class="upl-pulse-dot" style="width:7px;height:7px;border-radius:50%;' + (isLocked ? 'background:#64748b' : 'background:#16a34a') + '"></span> ' + (isLocked ? 'Terkunci' : 'Bebas diubah');
     h += '</div>';
     h += '</div>';
 
-    h += '<div class="upl-hero-sub">' + fulfilledCount + ' dari ' + totalInd + ' indikator terpenuhi · tenggat ' + tenggatStr + ' · penilaian SKI mulai ' + mulaiStr + '</div>';
+    h += '<div class="upl-hero-sub" style="font-size:13px;color:#64748b;margin-top:-2px">' +
+         '<b style="color:#0f172a">' + fulfilledCount + ' Indikator Terpenuhi</b> • Batas Waktu: ' + tenggatStr + '</div>';
 
-    h += '<div class="upl-progress-track">';
-    h += '<div class="upl-progress-fill ' + (pct >= 100 ? 'done' : '') + '" style="width:' + pct + '%"></div>';
+    // Full-width Progress Bar
+    h += '<div class="upl-progress-track" style="height:10px;border-radius:9999px;background:#e2e8f0;overflow:hidden;margin:4px 0 6px">';
+    h += '<div class="upl-progress-fill ' + (pct >= 100 ? 'done' : '') + '" style="height:100%;border-radius:9999px;background:#059669;width:' + pct + '%;transition:width .4s ease"></div>';
     h += '</div>';
 
-    // KKR Calculation Banner (Threshold Kelulusan Checklist Otomatis)
-    var modKkr = calculateModuleKKR(activeMod.id_modul);
-    if (modKkr && modKkr.total > 0) {
-      h += '<div class="upl-kkr-banner ' + (modKkr.isPass ? 'pass' : 'fail') + '" style="margin:12px 0 6px">' +
-             '<div>' +
-               '<div style="display:flex;align-items:center;gap:12px">' +
-                 '<span class="upl-kkr-score ' + (modKkr.isPass ? 'pass' : 'fail') + '">' + modKkr.percentage + '%</span>' +
-                 '<div>' +
-                   '<b style="font-size:14px;color:var(--dk);display:block">' + (modKkr.isPass ? 'Memenuhi Standar Ambang Batas KKR SKI' : 'Perhatian: Belum Memenuhi Ambang Batas KKR SKI') + '</b>' +
-                   '<span style="font-size:12px;color:var(--tx)">' + modKkr.scoreYa + ' dari ' + modKkr.total + ' Butir Checklist Kepatuhan Dinyatakan YA (Target Minimum: ' + modKkr.target + '%)</span>' +
-                 '</div>' +
-               '</div>' +
-             '</div>' +
-             '<div style="text-align:right">' +
-               '<span class="tag ' + (modKkr.isPass ? 't-ok' : 't-er') + '" style="font-size:12px;padding:5px 12px;font-weight:700">' + (modKkr.isPass ? 'LOLOS KKR' : 'PERBAIKAN KKR') + '</span>' +
-             '</div>' +
-           '</div>';
-    }
-
-    // Missing chips
-    h += '<div class="upl-missing-row">';
-    h += '<span class="upl-missing-label">Yang masih kurang:</span>';
+    // Missing chips row
+    h += '<div class="upl-missing-row" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px;margin:2px 0">';
+    h += '<span class="upl-missing-label" style="color:#64748b;font-weight:600">Yang masih kurang:</span>';
     if (missingInds.length > 0) {
       missingInds.forEach(function(mi){
-        h += '<span class="upl-missing-chip" data-scroll-to="ind-' + mi.id_indikator + '">' + escapeAttr(mi.deskripsi_indikator) + '</span>';
+        h += '<span class="upl-missing-chip" data-scroll-to="ind-' + mi.id_indikator + '" style="background:#fee2e2;color:#991b1b;padding:3px 10px;border-radius:9999px;font-size:11.5px;font-weight:600;cursor:pointer">' + escapeAttr(mi.deskripsi_indikator) + '</span>';
       });
     } else {
-      h += '<span class="upl-all-done-chip">Semua butir tagihan indikator telah terpenuhi</span>';
+      h += '<span class="upl-all-done-chip" style="background:#dcfce7;color:#166534;border:1px solid #bbf7d0;padding:4px 14px;border-radius:9999px;font-size:12px;font-weight:600">Semua butir tagihan indikator telah terpenuhi</span>';
     }
     h += '</div>';
 
-    // Notice callout
-    h += '<div class="upl-notice-banner">';
-    h += (isLocked
-      ? 'Jadwal pengunggahan berkas telah jatuh tempo pada ' + tenggatStr + '. Dokumen telah terkunci secara otomatis untuk tahap verifikasi SKI.'
-      : 'Sampai ' + tenggatStr + ' Anda bebas mengunggah, mengganti, atau menghapus berkas. Setelah itu berkas terkunci otomatis.');
-    h += '</div>';
+    // 4-Step Pipeline Stepper (PIC -> Anggota SKI -> Ketua SKI -> Pimpinan)
+    h += '<div class="upl-pipeline-row">';
+    
+    // Step 1: PIC
+    if (picStatus === 'done') {
+      h += '<div class="upl-pipeline-step done"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> PIC</div>';
+    } else {
+      h += '<div class="upl-pipeline-step active"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#b45309"></span> PIC</div>';
+    }
+    h += '<span class="upl-pipeline-arrow">→</span>';
 
-    // Template row
-    var hasTpl = !!activeMod.file_referensi;
-    h += '<div class="upl-template-row">';
-    h += '<div class="upl-template-info">';
-    h += '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>';
-    if (hasTpl) {
-      h += '<span>Template &amp; format acuan dari SKI: <b>' + escapeAttr(activeMod.file_referensi) + '</b></span>';
+    // Step 2: Anggota SKI
+    if (angStatus === 'done') {
+      h += '<div class="upl-pipeline-step done"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Anggota SKI</div>';
+    } else if (angStatus === 'active') {
+      h += '<div class="upl-pipeline-step active"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#b45309"></span> Anggota SKI</div>';
+    } else {
+      h += '<div class="upl-pipeline-step pending">Anggota SKI <span style="display:inline-block;width:6px;height:6px;border-radius:50%;border:1px solid #94a3b8"></span></div>';
+    }
+    h += '<span class="upl-pipeline-arrow">→</span>';
+
+    // Step 3: Ketua SKI
+    if (ketStatus === 'done') {
+      h += '<div class="upl-pipeline-step done"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Ketua SKI</div>';
+    } else if (ketStatus === 'active') {
+      h += '<div class="upl-pipeline-step active"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#b45309"></span> Ketua SKI</div>';
+    } else {
+      h += '<div class="upl-pipeline-step pending">Ketua SKI <span style="display:inline-block;width:6px;height:6px;border-radius:50%;border:1px solid #94a3b8"></span></div>';
+    }
+    h += '<span class="upl-pipeline-arrow">→</span>';
+
+    // Step 4: Pimpinan
+    if (pimStatus === 'done') {
+      h += '<div class="upl-pipeline-step done"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Pimpinan</div>';
+    } else if (pimStatus === 'active') {
+      h += '<div class="upl-pipeline-step active"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#0284c7"></span> Pimpinan</div>';
+    } else {
+      h += '<div class="upl-pipeline-step pending">Pimpinan <span style="display:inline-block;width:6px;height:6px;border-radius:50%;border:1px solid #94a3b8"></span></div>';
+    }
+
+    h += '</div>'; // end .upl-pipeline-row
+
+    // Bulk Approval to Pimpinan Action Box
+    if (pimStatus === 'done') {
+      h += '<div class="upl-bulk-approval-card" style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:12px;margin-top:6px">';
+      h += '<div style="width:36px;height:36px;border-radius:10px;background:#dcfce7;display:grid;place-items:center;color:#16a34a">';
+      h += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
       h += '</div>';
-      h += '<a href="uploads/templates/' + encodeURIComponent(activeMod.file_referensi) + '" download="' + escapeAttr(activeMod.file_referensi) + '" target="_blank" class="upl-btn-unduh" id="btnUnduhTemplate" style="text-decoration:none">';
+      h += '<div>';
+      h += '<div style="font-size:13.5px;font-weight:800;color:#166534">Seluruh Eviden Telah Disetujui Pimpinan</div>';
+      h += '<div style="font-size:11.5px;color:#475569;margin-top:2px">Kepala BBPK telah menetapkan dan menyetujui evaluasi kepatuhan untuk modul ini secara tuntas.</div>';
+      h += '</div>';
+      h += '</div>';
+    } else if (pimStatus === 'active') {
+      h += '<div class="upl-bulk-approval-card" style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:14px;padding:12px 18px;display:flex;align-items:center;gap:12px;margin-top:6px">';
+      h += '<div style="width:36px;height:36px;border-radius:10px;background:#e0f2fe;display:grid;place-items:center;color:#0284c7">';
+      h += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+      h += '</div>';
+      h += '<div>';
+      h += '<div style="display:flex;align-items:center;gap:8px">';
+      h += '<span style="font-size:13.5px;font-weight:800;color:#0369a1">Berkas Berada di Meja Pimpinan</span>';
+      h += '<span style="background:#e0f2fe;color:#0369a1;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;border:1px solid #bae6fd">Menunggu Pengesahan</span>';
+      h += '</div>';
+      h += '<div style="font-size:11.5px;color:#475569;margin-top:2px">Seluruh eviden PIC telah diserahkan dan saat ini sedang ditelaah oleh Kepala BBPK Jakarta.</div>';
+      h += '</div>';
+      h += '</div>';
+    } else if (fulfilledCount > 0) {
+      h += '<div class="upl-bulk-approval-card" style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:14px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:6px">';
+      h += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:1">';
+      h += '<div style="width:36px;height:36px;border-radius:10px;background:#ccfbf1;display:grid;place-items:center;color:#0f766e">';
+      h += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+      h += '</div>';
+      h += '<div>';
+      h += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
+      h += '<span style="font-size:13.5px;font-weight:800;color:#0f766e">Bulk Approval Eviden PIC</span>';
+      h += '<span style="background:#ccfbf1;color:#115e59;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;border:1px solid #99f6e4">' + fulfilledCount + ' Berkas Siap</span>';
+      h += '</div>';
+      h += '<div style="font-size:11.5px;color:#475569;margin-top:2px">Setujui seluruh berkas eviden PIC secara massal di tingkat SKI dan langsung serahkan ke Meja Pimpinan (Kepala BBPK).</div>';
+      h += '</div>';
+      h += '</div>';
+      h += '<button type="button" class="btn sm" id="btnBulkApproveToPimpinan" style="background:#006a55;color:#ffffff;border:none;border-radius:10px;padding:9px 18px;font-weight:700;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;box-shadow:0 2px 8px rgba(0,106,85,0.25)">';
+      h += '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+      h += 'Bulk Approve &amp; Serahkan ke Pimpinan';
+      h += '</button>';
+      h += '</div>';
+    }
+
+    // Template row (Template Acuan dari SKI)
+    var hasTpl = !!activeMod.file_referensi;
+    h += '<div class="upl-template-row" style="background:#f8fafc;padding:12px 16px;border-radius:14px;border:1px solid #e2e8f0;margin-top:6px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">';
+    h += '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:1">';
+    h += '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#006a55" stroke-width="2"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>';
+    if (hasTpl) {
+      h += '<div>';
+      h += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
+      h += '<span style="background:#dcfce7;color:#166534;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;border:1px solid #bbf7d0">Template Tersedia</span>';
+      h += '<span style="font-size:13px;color:#1e293b">Template format acuan dari SKI: <b>' + escapeAttr(activeMod.file_referensi) + '</b></span>';
+      h += '</div>';
+      h += '<div style="font-size:11.5px;color:#64748b;margin-top:2px">Unduh dan sesuaikan dokumen Anda dengan format acuan resmi dari Tim SKI.</div>';
+      h += '</div>';
+      h += '</div>';
+      h += '<a href="uploads/templates/' + encodeURIComponent(activeMod.file_referensi) + '" download="' + escapeAttr(activeMod.file_referensi) + '" target="_blank" class="upl-btn-unduh" id="btnUnduhTemplate" style="text-decoration:none;border-color:#006a55;color:#006a55">';
       h += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Unduh Template</a>';
     } else {
-      h += '<span style="color:var(--mut)">Template format acuan belum diunggah oleh SKI (PIC dapat menggunakan format standar).</span>';
+      h += '<div>';
+      h += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
+      h += '<span style="background:#fef3c7;color:#92400e;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;border:1px solid #fde68a">Belum Ada Template Khusus</span>';
+      h += '</div>';
+      h += '<div style="font-size:11.5px;color:#64748b;margin-top:2px">PIC dapat menggunakan format laporan internal atau mengunduh template standar BBPK di samping.</div>';
+      h += '</div>';
+      h += '</div>';
+      h += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
+      h += '<a href="uploads/templates/Form_bantu_LRA_LO_LPE_Neraca.xlsx" download="Form_Standar_BBPK.xlsx" class="upl-btn-unduh" style="text-decoration:none;border-color:#94a3b8;color:#334155">';
+      h += '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Unduh Format Standar BBPK</a>';
       h += '</div>';
     }
     h += '</div>';
+
     h += '</div>'; // end .upl-hero-card
 
-    // 3. Views: Folder (Grid) vs Daftar (Table)
+    // Views: Folder (Grid) vs Daftar (Table)
     if (uplActiveView === 'folder') {
       h += '<div class="upl-grid">';
       if (displayInds.length === 0) {
-        h += '<div style="grid-column:1/-1;text-align:center;padding:36px;color:var(--mut)">Tidak ada indikator yang sesuai dengan pencarian "<b>' + escapeAttr(uplSearchQuery) + '</b>"</div>';
+        h += '<div style="grid-column:1/-1;text-align:center;padding:36px;color:#64748b;background:#fff;border-radius:16px;border:1px dashed #cbd5e1">Tidak ada indikator yang sesuai dengan pencarian "<b>' + escapeAttr(uplSearchQuery) + '</b>"</div>';
       } else {
         displayInds.forEach(function(ind, idx){
           var ev = STATE.evidens.find(function(e){ return e.id_indikator === ind.id_indikator; });
           var st = ev ? ev.status_eviden : 'n';
-          var indTypeMeta = getInputTypeMeta(ind.input_type || 'file');
           var isMand = parseInt(ind.is_mandatory) === 1;
 
-                    h += '<div class="upl-card" id="card-ind-' + ind.id_indikator + '">';
-          h += '<div class="upl-card-header" style="display:flex;flex-direction:column;gap:4px">' +
-                 '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">' +
-                   '<span class="ind-type-badge type-' + indTypeMeta.id + ' font-weight:700">' + indTypeMeta.label + '</span>' +
-                   (isMand ? '<span style="color:#ef4444;font-size:10px;font-weight:700;background:#fee2e2;padding:1px 5px;border-radius:3px" title="Wajib Diisi PIC">* Wajib</span>' : '') +
-                 '</div>' +
-                 '<div>' + (idx + 1) + '. ' + escapeAttr(ind.deskripsi_indikator) + '</div>' +
-                 (ind.guide_notes ? '<div style="font-size:11px;color:var(--mut);font-weight:normal;line-height:1.3;font-style:italic">Petunjuk: ' + escapeAttr(ind.guide_notes) + '</div>' : '') +
-               '</div>';
+          h += '<div class="upl-card" id="card-ind-' + ind.id_indikator + '" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 2px 12px rgba(0,0,0,0.03)">';
+          
+          // Card Header: Number left, Banana / category icon right
+          h += '<div style="display:flex;align-items:center;justify-content:space-between">';
+          h += '<span style="font-size:18px;font-weight:800;color:#0f172a">1.' + (idx + 1) + '</span>';
+          h += '</div>';
 
-          // File / Structured Isian Box
+          // Description
+          h += '<div style="font-size:13px;font-weight:600;color:#1e293b;line-height:1.4">';
+          h += escapeAttr(ind.deskripsi_indikator);
+          if (isMand) h += ' <span style="color:#ef4444;font-size:10px;font-weight:700">* Wajib</span>';
+          h += '</div>';
+
+          // File / Structured Area
           h += '<div class="upl-file-area">';
           if (!ev || st === 'n') {
-            h += '<div class="upl-empty-box">Belum diisi / diunggah</div>';
+            h += '<div class="upl-empty-box" style="width:100%;height:68px;border:1.5px dashed #cbd5e1;background:#f8fafc;border-radius:14px;display:grid;place-items:center;color:#94a3b8;font-size:12.5px;font-weight:500">';
+            h += 'Belum diisi / diunggah';
+            h += '</div>';
           } else {
             var parsed = parseEvidenNilai(ev);
             if (parsed) {
-              h += '<div class="upl-structured-box">';
+              h += '<div class="upl-structured-box" style="width:100%;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:12px">';
               if (parsed._type === 'numeric') {
-                h += '<div class="upl-structured-title">Data Realisasi Kuantitatif</div>' +
-                     '<div class="upl-structured-grid">' +
-                       '<div><span style="color:var(--mut)">Pagu Anggaran:</span><br><b>' + formatRupiah(parsed.pagu) + '</b></div>' +
-                       '<div><span style="color:var(--mut)">Realisasi:</span><br><b>' + formatRupiah(parsed.realisasi) + '</b></div>' +
-                       '<div><span style="color:var(--mut)">Persentase:</span><br><b style="color:var(--pri)">' + (parsed.persen || 0) + '%</b></div>' +
-                       '<div><span style="color:var(--mut)">Rekap Pegawai:</span><br><b>' + (parsed.pegawai || 0) + ' Orang</b></div>' +
-                     '</div>' +
-                     (parsed.catatan ? '<div style="margin-top:6px;font-size:11.5px;color:var(--tx)"><i>' + escapeAttr(parsed.catatan) + '</i></div>' : '');
+                h += '<div style="font-size:11px;font-weight:700;color:#006a55;text-transform:uppercase;margin-bottom:4px">Data Realisasi Kuantitatif</div>' +
+                     '<div style="font-size:12px;color:#1e293b"><b>Realisasi:</b> ' + formatRupiah(parsed.realisasi) + ' (' + (parsed.persen || 0) + '%)</div>';
               } else if (parsed._type === 'binary_score') {
                 var isYa = parseInt(parsed.skor) === 1;
-                h += '<div class="upl-structured-title">Checklist Kelulusan KKR</div>' +
-                     '<div style="display:flex;align-items:center;gap:8px;margin:4px 0">' +
-                       '<span class="tag ' + (isYa ? 't-ok' : 't-er') + '" style="font-size:12px;font-weight:700">' + (isYa ? 'YA (Skor: 1 - Memenuhi Standar)' : 'TIDAK (Skor: 0 - Belum Memenuhi)') + '</span>' +
-                     '</div>' +
-                     (parsed.catatan ? '<div style="margin-top:4px;font-size:11.5px;color:var(--tx)"><b>Justifikasi:</b> ' + escapeAttr(parsed.catatan) + '</div>' : '');
-              } else if (parsed._type === 'pbj_matrix') {
-                var countSesuai = (parsed.kualitas ? 1 : 0) + (parsed.jumlah ? 1 : 0) + (parsed.harga ? 1 : 0) + (parsed.penyedia ? 1 : 0);
-                h += '<div class="upl-structured-title">Matriks 4 Tepat Pengadaan (PBJ)</div>' +
-                     '<div class="upl-pbj-grid">' +
-                       '<div class="upl-pbj-cell ' + (parsed.kualitas ? 'ok' : 'no') + '">Kualitas: <b>' + (parsed.kualitas ? 'Tepat' : 'Tidak') + '</b></div>' +
-                       '<div class="upl-pbj-cell ' + (parsed.jumlah ? 'ok' : 'no') + '">Jumlah: <b>' + (parsed.jumlah ? 'Tepat' : 'Tidak') + '</b></div>' +
-                       '<div class="upl-pbj-cell ' + (parsed.harga ? 'ok' : 'no') + '">Harga: <b>' + (parsed.harga ? 'Tepat' : 'Tidak') + '</b></div>' +
-                       '<div class="upl-pbj-cell ' + (parsed.penyedia ? 'ok' : 'no') + '">Penyedia: <b>' + (parsed.penyedia ? 'Tepat' : 'Tidak') + '</b></div>' +
-                     '</div>' +
-                     '<div style="margin-top:6px;font-size:11.5px;display:flex;justify-content:space-between;align-items:center">' +
-                       '<span>Skor: <b>' + countSesuai + '/4 Tepat</b></span>' +
-                       '<span>Nilai: <b>' + formatRupiah(parsed.nilai_kontrak) + '</b></span>' +
-                     '</div>' +
-                     (parsed.catatan ? '<div style="margin-top:4px;font-size:11.5px;color:var(--tx)"><i>' + escapeAttr(parsed.catatan) + '</i></div>' : '');
-              } else if (parsed._type === 'risk_scale') {
-                var rScore = parseInt(parsed.skor_risiko) || (parseInt(parsed.kemungkinan) * parseInt(parsed.dampak)) || 1;
-                var rLvl = rScore >= 16 ? 'Ekstrem' : (rScore >= 10 ? 'Tinggi' : (rScore >= 5 ? 'Sedang' : 'Rendah'));
-                var rCls = rScore >= 16 ? 't-er' : (rScore >= 10 ? 't-wn' : (rScore >= 5 ? 't-in' : 't-ok'));
-                h += '<div class="upl-structured-title">Matriks Level Risiko</div>' +
-                     '<div style="display:flex;align-items:center;justify-content:space-between;margin:4px 0">' +
-                       '<span>Kemungkinan: <b>' + parsed.kemungkinan + '/5</b> · Dampak: <b>' + parsed.dampak + '/5</b></span>' +
-                       '<span class="tag ' + rCls + '" style="font-weight:700">Skor: ' + rScore + ' (' + rLvl + ')</span>' +
-                     '</div>' +
-                     (parsed.mitigasi ? '<div style="margin-top:4px;font-size:11.5px;color:var(--tx)"><b>Mitigasi:</b> ' + escapeAttr(parsed.mitigasi) + '</div>' : '');
+                h += '<div style="font-size:11px;font-weight:700;color:#006a55;text-transform:uppercase;margin-bottom:4px">Checklist KKR</div>' +
+                     '<div><span class="tag ' + (isYa ? 't-ok' : 't-er') + '" style="font-size:11.5px;font-weight:700">' + (isYa ? 'YA (Memenuhi)' : 'TIDAK (Belum)') + '</span></div>';
+              } else {
+                h += '<div style="font-size:12px;color:#1e293b"><b>Isian:</b> ' + escapeAttr(ev.nama_file) + '</div>';
               }
               if (ev.path_file && ev.path_file !== '#') {
-                var isLink = isEvidenUrl(ev.path_file) || ev.format_file === 'link' || ev.format_file === 'gdrive';
-                h += '<div style="margin-top:8px;padding-top:6px;border-top:1px dashed var(--bd);font-size:11.5px">' +
-                       '<span style="color:var(--mut)">Berkas Pendukung:</span> ' +
-                       '<a href="' + ev.path_file + '" target="_blank" rel="noopener noreferrer" style="color:var(--pri);font-weight:600;text-decoration:none">' + escapeAttr(ev.nama_file) + '</a>' +
-                     '</div>';
+                h += '<div style="margin-top:6px;font-size:11.5px"><a href="' + ev.path_file + '" target="_blank" style="color:#006a55;font-weight:700;text-decoration:none">' + escapeAttr(ev.nama_file) + '</a></div>';
               }
               h += '</div>';
             } else {
-              var isLink = isEvidenUrl(ev.path_file) || ev.format_file === 'link' || ev.format_file === 'gdrive' || ev.format_file === 'onedrive' || ev.format_file === 'dropbox';
-              var providerText = (ev.format_file === 'gdrive' || (ev.path_file && ev.path_file.indexOf('drive.google.com') > -1)) ? 'Google Drive' : (ev.format_file === 'onedrive' ? 'OneDrive' : (ev.format_file === 'dropbox' ? 'Dropbox' : 'Cloud Link'));
-              h += '<div class="upl-file-box' + (isLink ? ' is-link' : '') + '">';
-              h += '<div class="upl-file-icon">' + getFileIconSvg(ev.nama_file, ev.format_file, ev.path_file) + '</div>';
-              h += '<div class="upl-file-meta">';
-              h += '<a href="' + ev.path_file + '" target="_blank" rel="noopener noreferrer" class="upl-file-name" title="' + escapeAttr(ev.nama_file) + '">' + escapeAttr(ev.nama_file) + '</a>';
-              h += '<span class="upl-file-sub">v' + ev.versi + ' · ' + (isLink ? providerText : ev.ukuran_file_mb + ' MB') + ' · ' + formatDateIndo(ev.waktu_unggah) + '</span>';
+              var isPdf = (ev.nama_file || '').toLowerCase().indexOf('.pdf') > -1;
+              var isXls = (ev.nama_file || '').toLowerCase().indexOf('.xls') > -1;
+              var strokeCol = isPdf ? '#ef4444' : (isXls ? '#10b981' : '#0284c7');
+
+              h += '<div class="upl-file-box" style="width:100%;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:12px">';
+              h += '<div class="upl-file-icon" style="flex-shrink:0">';
+              h += '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="' + strokeCol + '" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>';
+              h += '</div>';
+              h += '<div class="upl-file-meta" style="flex:1;min-width:0">';
+              h += '<a href="' + (ev.path_file || '#') + '" target="_blank" rel="noopener noreferrer" class="upl-file-name" title="' + escapeAttr(ev.nama_file) + '" style="font-size:12.5px;font-weight:700;color:#0f172a;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block">';
+              h += escapeAttr(ev.nama_file);
+              h += '</a>';
+              h += '<span class="upl-file-sub" style="font-size:11px;color:#64748b;margin-top:2px;display:block">v' + ev.versi + ' • ' + formatDateIndo(ev.waktu_unggah) + '</span>';
               h += '</div>';
               h += '</div>';
             }
           }
           h += '</div>';
 
-          // SKI Finding Note (Catatan SKI)
+          // Catatan SKI
           if (ev && ev.catatan_temuan) {
-            h += '<div class="upl-finding-box"><b>Catatan SKI:</b> ' + escapeAttr(ev.catatan_temuan) + '</div>';
+            h += '<div class="upl-finding-box" style="background:#fff1f2;color:#9f1239;border-left:3px solid #f43f5e;border-radius:8px;padding:6px 10px;font-size:11.5px"><b>Catatan SKI:</b> ' + escapeAttr(ev.catatan_temuan) + '</div>';
           }
 
-          // Status Badge + Mini Progress Bar
-          h += '<div class="upl-status-row">';
+          // Status Badge
+          h += '<div>';
           if (!ev || st === 'n') {
-            h += '<span class="upl-status-tag upl-st-empty"><span class="upl-dot"></span> Belum diisi</span>';
-            h += '<div class="upl-mini-prog"><div class="upl-mini-fill gray" style="width:0%"></div></div>';
+            h += '<span style="background:#fef3c7;color:#92400e;border:1px solid #fde68a;border-radius:8px;padding:3.5px 10px;font-size:11.5px;font-weight:700;display:inline-block">Belum Diunggah</span>';
           } else if (st === 'r') {
-            h += '<span class="upl-status-tag upl-st-revisi"><span class="upl-dot"></span> Perlu tindak lanjut</span>';
-            h += '<div class="upl-mini-prog"><div class="upl-mini-fill red" style="width:25%"></div></div>';
-          } else if (st === 'f') {
-            h += '<span class="upl-status-tag upl-st-done"><span class="upl-dot"></span> Sesuai (Disetujui)</span>';
-            h += '<div class="upl-mini-prog"><div class="upl-mini-fill teal" style="width:100%"></div></div>';
+            h += '<span style="background:#ffe4e6;color:#9f1239;border:1px solid #fecdd3;border-radius:8px;padding:3.5px 10px;font-size:11.5px;font-weight:700;display:inline-block">Perlu Tindak Lanjut</span>';
+          } else if (st === 'f' || st === 's') {
+            h += '<span style="background:#dcfce7;color:#166534;border:1px solid #bbf7d0;border-radius:8px;padding:3.5px 10px;font-size:11.5px;font-weight:700;display:inline-block">Sesuai (Disetujui)</span>';
           } else {
-            var stLabel = (st === 'u' ? 'Menunggu review SKI' : (st === 'o' ? 'Menunggu Ketua SKI' : 'Menunggu review Pimpinan'));
-            h += '<span class="upl-status-tag upl-st-wait"><span class="upl-dot"></span> ' + stLabel + '</span>';
-            h += '<div class="upl-mini-prog"><div class="upl-mini-fill teal" style="width:60%"></div></div>';
+            var waitTxt = (st === 'u' ? 'Menunggu Review' : (st === 'o' ? 'Menunggu Ketua SKI' : 'Menunggu Pimpinan'));
+            h += '<span style="background:#dbeafe;color:#1e40af;border:1px solid #bfdbfe;border-radius:8px;padding:3.5px 10px;font-size:11.5px;font-weight:700;display:inline-block">' + waitTxt + '</span>';
           }
           h += '</div>';
 
           // Action Buttons
-          h += '<div class="upl-card-actions">';
+          h += '<div class="upl-card-actions" style="margin-top:auto;display:flex;align-items:center;gap:10px">';
           if (isLocked) {
             h += '<span class="tag t-gy" style="font-size:11px">Terkunci (Jatuh Tempo)</span>';
           } else if (!ev || st === 'n') {
-            h += '<button class="upl-btn-action upl-btn-unggah btnOpenUploadPopup" data-type="' + (ind.input_type || 'file') + '" data-ind="' + ind.id_indikator + '" data-jdw="' + (activeMod.id_jadwal || '') + '" data-mod="' + escapeAttr(activeMod.nama_modul) + '" data-desc="' + escapeAttr(ind.deskripsi_indikator) + '" data-cat="">Isi / Unggah</button>';
+            h += '<button class="upl-btn-action upl-btn-unggah btnOpenUploadPopup" data-type="' + (ind.input_type || 'file') + '" data-ind="' + ind.id_indikator + '" data-jdw="' + (activeMod.id_jadwal || '') + '" data-mod="' + escapeAttr(activeMod.nama_modul) + '" data-desc="' + escapeAttr(ind.deskripsi_indikator) + '" data-cat="" style="background:#006a55;color:#ffffff;border:none;border-radius:8px;padding:6px 14px;font-weight:700;font-size:12px;cursor:pointer">Isi / Unggah</button>';
           } else if (st === 'r') {
-            h += '<button class="upl-btn-action upl-btn-tindaklanjut btnOpenUploadPopup" data-type="' + (ind.input_type || 'file') + '" data-ind="' + ind.id_indikator + '" data-jdw="' + (activeMod.id_jadwal || '') + '" data-mod="' + escapeAttr(activeMod.nama_modul) + '" data-desc="' + escapeAttr(ind.deskripsi_indikator) + '" data-cat="' + escapeAttr(ev.catatan_temuan || '') + '">Tindak lanjut</button>';
+            h += '<button class="upl-btn-action upl-btn-tindaklanjut btnOpenUploadPopup" data-type="' + (ind.input_type || 'file') + '" data-ind="' + ind.id_indikator + '" data-jdw="' + (activeMod.id_jadwal || '') + '" data-mod="' + escapeAttr(activeMod.nama_modul) + '" data-desc="' + escapeAttr(ind.deskripsi_indikator) + '" data-cat="' + escapeAttr(ev.catatan_temuan || '') + '" style="background:#006a55;color:#ffffff;border:none;border-radius:8px;padding:6px 14px;font-weight:700;font-size:12px;cursor:pointer">Tindak Lanjut</button>';
           } else {
-            h += '<div class="upl-actions-split">';
-            h += '<button class="upl-btn-action upl-btn-ganti btnOpenUploadPopup" data-type="' + (ind.input_type || 'file') + '" data-ind="' + ind.id_indikator + '" data-jdw="' + (activeMod.id_jadwal || '') + '" data-mod="' + escapeAttr(activeMod.nama_modul) + '" data-desc="' + escapeAttr(ind.deskripsi_indikator) + '" data-cat="">Ubah Isian</button>';
-            h += '<button class="upl-btn-action upl-btn-hapus btnDeleteEviden" data-ev="' + ev.id_eviden + '" data-file="' + escapeAttr(ev.nama_file) + '">Hapus</button>';
-            h += '</div>';
+            h += '<button class="upl-btn-action upl-btn-ganti btnOpenUploadPopup" data-type="' + (ind.input_type || 'file') + '" data-ind="' + ind.id_indikator + '" data-jdw="' + (activeMod.id_jadwal || '') + '" data-mod="' + escapeAttr(activeMod.nama_modul) + '" data-desc="' + escapeAttr(ind.deskripsi_indikator) + '" data-cat="" style="background:#ffffff;border:1px solid #cbd5e1;color:#1e293b;border-radius:8px;padding:5px 12px;font-weight:600;font-size:12px;cursor:pointer">Ubah Isian</button>';
+            h += '<button class="btnDeleteEviden" data-ev="' + ev.id_eviden + '" data-file="' + escapeAttr(ev.nama_file) + '" style="background:none;border:none;color:#e11d48;font-weight:600;font-size:12px;cursor:pointer;padding:5px">Hapus</button>';
           }
-          h += '</div>'; // end .upl-card-actions
+          h += '</div>';
 
           h += '</div>'; // end .upl-card
         });
@@ -6326,7 +6645,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
           var isMand = parseInt(ind.is_mandatory) === 1;
           var parsed = ev ? parseEvidenNilai(ev) : null;
           var isLink = ev && (isEvidenUrl(ev.path_file) || ev.format_file === 'link' || ev.format_file === 'gdrive' || ev.format_file === 'onedrive' || ev.format_file === 'dropbox');
-          var iconSymbol = '';
 
           h += '<tr>';
           h += '<td><b>' + (idx + 1) + '</b></td>';
@@ -6340,7 +6658,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                  (ev && ev.catatan_temuan ? '<br><small style="color:var(--er)"><b>Catatan SKI:</b> ' + escapeAttr(ev.catatan_temuan) + '</small>' : '') +
                '</td>';
 
-          // Dokumen / Isian column
           h += '<td>';
           if (!ev || st === 'n') {
             h += '<span style="color:var(--mut)">Belum ada</span>';
@@ -6349,17 +6666,14 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
               h += '<div><b>Pagu:</b> ' + formatRupiah(parsed.pagu) + ' · <b>Realisasi:</b> ' + formatRupiah(parsed.realisasi) + ' (' + (parsed.persen || 0) + '%)</div>';
             } else if (parsed._type === 'binary_score') {
               h += '<div><span class="tag ' + (parseInt(parsed.skor) === 1 ? 't-ok' : 't-er') + '">' + (parseInt(parsed.skor) === 1 ? 'YA (1)' : 'TIDAK (0)') + '</span> ' + escapeAttr(parsed.catatan || '') + '</div>';
-            } else if (parsed._type === 'pbj_matrix') {
-              h += '<div><b>PBJ 4 Tepat:</b> ' + (parsed.kualitas ? 'Tepat' : 'Tidak') + ' Kualitas, ' + (parsed.jumlah ? 'Tepat' : 'Tidak') + ' Jumlah, ' + (parsed.harga ? 'Tepat' : 'Tidak') + ' Harga, ' + (parsed.penyedia ? 'Tepat' : 'Tidak') + ' Penyedia</div>';
-            } else if (parsed._type === 'risk_scale') {
-              var rScore = parseInt(parsed.skor_risiko) || (parseInt(parsed.kemungkinan) * parseInt(parsed.dampak)) || 1;
-              h += '<div><b>Skala Risiko:</b> Skor ' + rScore + ' (K:' + parsed.kemungkinan + ' × D:' + parsed.dampak + ')</div>';
+            } else {
+              h += '<div>' + escapeAttr(ev.nama_file) + '</div>';
             }
             if (ev.path_file && ev.path_file !== '#') {
               h += '<div style="margin-top:4px"><a href="' + ev.path_file + '" target="_blank" rel="noopener noreferrer" style="color:var(--pri);font-size:11.5px;text-decoration:none">' + escapeAttr(ev.nama_file) + '</a></div>';
             }
           } else {
-            h += '<a href="' + ev.path_file + '" target="_blank" rel="noopener noreferrer" style="color:var(--pri);font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:4px">' + iconSymbol + escapeAttr(ev.nama_file) + ' ↗</a>';
+            h += '<a href="' + ev.path_file + '" target="_blank" rel="noopener noreferrer" style="color:var(--pri);font-weight:600;text-decoration:none">' + escapeAttr(ev.nama_file) + ' ↗</a>';
           }
           h += '</td>';
 
@@ -6387,7 +6701,222 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       h += '</table></div></div>';
     }
 
+    h += '</div>'; // end .upl-main-col
+
+    // Right Column: Activity History & Active Users Panel
+    h += '<aside class="upl-side-panel">';
+
+    // Tabs: Semua | Upload | Aktivitas
+    h += '<div class="upl-side-tabs">';
+    h += '<button class="upl-side-tab-btn ' + (uplActivityTab === 'all' ? 'active' : '') + '" data-tab="all">Semua</button>';
+    h += '<button class="upl-side-tab-btn ' + (uplActivityTab === 'upload' ? 'active' : '') + '" data-tab="upload">Upload</button>';
+    h += '<button class="upl-side-tab-btn ' + (uplActivityTab === 'activity' ? 'active' : '') + '" data-tab="activity">Aktivitas</button>';
+    h += '</div>';
+
+    // Metadata untuk isolasi aktivitas modul
+    var curModName = (activeMod.nama_modul || '').trim().toLowerCase();
+    var curModId = (activeMod.id_modul || '').trim().toLowerCase();
+    var curUnitId = (activeMod.id_unit || '').trim();
+    var curTplName = (activeMod.file_referensi || '').trim().toLowerCase();
+
+    var allModInds = (STATE.indikators || []).filter(function(i){ return i.id_modul === activeMod.id_modul; });
+    var modIndIds = allModInds.map(function(i){ return i.id_indikator; });
+
+    var modEvidens = (STATE.evidens || []).filter(function(e){ return modIndIds.indexOf(e.id_indikator) > -1; });
+    var modFileNames = modEvidens.map(function(e){ return (e.nama_file || '').trim().toLowerCase(); }).filter(Boolean);
+
+    // Filter audit logs: Terpisah per modul & tanpa login/logout/audit sistem
+    var modAuditLogs = (STATE.audit || []).filter(function(a){
+      var actLower = (a.jenis_aksi || '').trim().toLowerCase();
+      var objLower = (a.objek_target || '').trim().toLowerCase();
+
+      // Buang aktivitas login, logout, sesi, dan akun sistem secara mutlak
+      if (actLower === 'login' || actLower === 'logout' || actLower.indexOf('login') > -1 || actLower.indexOf('logout') > -1) return false;
+      if (objLower.indexOf('sistem monev ski') > -1 || objLower.indexOf('sesi') > -1 || objLower.indexOf('portal bbpk') > -1) return false;
+      if (actLower.indexOf('rbac') > -1 || actLower.indexOf('pengguna') > -1 || actLower.indexOf('akun') > -1) return false;
+
+      // Pastikan aktivitas terkait modul aktif ini
+      var isThisModul = false;
+      if (curModName && (objLower.indexOf(curModName) > -1 || actLower.indexOf(curModName) > -1)) {
+        isThisModul = true;
+      } else if (curModId && objLower.indexOf(curModId) > -1) {
+        isThisModul = true;
+      } else if (curTplName && objLower.indexOf(curTplName) > -1) {
+        isThisModul = true;
+      } else {
+        for (var f = 0; f < modFileNames.length; f++) {
+          if (modFileNames[f] && objLower.indexOf(modFileNames[f]) > -1) {
+            isThisModul = true;
+            break;
+          }
+        }
+      }
+
+      if (!isThisModul) return false;
+
+      // Filter tab
+      var isUploadAction = actLower.indexOf('upload') > -1 || actLower.indexOf('unggah') > -1 || actLower.indexOf('hapus') > -1 || actLower.indexOf('isian') > -1 || actLower.indexOf('tagihan') > -1;
+      if (uplActivityTab === 'upload' && !isUploadAction) return false;
+      if (uplActivityTab === 'activity' && isUploadAction) return false;
+
+      return true;
+    });
+
+    // Section 1: Pengguna Aktif (Spesifik Pengguna yang Terlibat / Melihat Modul Ini)
+    h += '<div class="upl-active-users-sec">';
+    h += '<div class="upl-sec-subtitle">PENGGUNA AKTIF</div>';
+    h += '<div class="upl-sec-title">Siapa saja yang melihat?</div>';
+    h += '<div class="upl-avatar-stack">';
+
+    var activeViewerList = [];
+    var seenUsers = {};
+
+    // User yang sedang membuka halaman saat ini
+    if (STATE.user && STATE.user.nama) {
+      activeViewerList.push({ name: STATE.user.nama, role: STATE.user.nama_role || 'User', id_role: STATE.user.role });
+      seenUsers[STATE.user.nama.toLowerCase()] = true;
+    }
+
+    // User yang aktif di modul ini dari audit logs modul
+    modAuditLogs.forEach(function(l){
+      var nm = (l.nama_lengkap || '').trim();
+      if (nm && !seenUsers[nm.toLowerCase()]) {
+        seenUsers[nm.toLowerCase()] = true;
+        activeViewerList.push({ name: nm, role: l.role_saat_aksi || 'User', id_role: '' });
+      }
+    });
+
+    // PIC unit kerja modul ini
+    (STATE.users || []).forEach(function(u){
+      var nm = (u.nama_lengkap || '').trim();
+      if (!nm || seenUsers[nm.toLowerCase()]) return;
+      if (curUnitId && u.id_unit === curUnitId && u.id_role === 'pic') {
+        seenUsers[nm.toLowerCase()] = true;
+        activeViewerList.push({ name: nm, role: u.nama_role || 'PIC Unit', id_role: u.id_role });
+      }
+    });
+
+    // Reviewer SKI (Ketua / Anggota)
+    (STATE.users || []).forEach(function(u){
+      var nm = (u.nama_lengkap || '').trim();
+      if (!nm || seenUsers[nm.toLowerCase()]) return;
+      if (u.id_role === 'ket' || u.id_role === 'ang') {
+        seenUsers[nm.toLowerCase()] = true;
+        activeViewerList.push({ name: nm, role: u.nama_role || 'Tim SKI', id_role: u.id_role });
+      }
+    });
+
+    var roleColors = {
+      'adm': '#006a55',
+      'pic': '#006a55',
+      'ang': '#8b5cf6',
+      'ket': '#eab308',
+      'pim': '#0284c7',
+      'itj': '#059669'
+    };
+    var palette = ['#006a55', '#8b5cf6', '#059669', '#d97706', '#2563eb'];
+
+    var displayAvatars = activeViewerList.slice(0, 4);
+    displayAvatars.forEach(function(av, i){
+      var initials = av.name.split(/\s+/).slice(0, 2).map(function(w){ return w[0]; }).join('').toUpperCase();
+      var col = roleColors[av.id_role] || palette[i % palette.length];
+      h += '<div class="upl-avatar-circle" style="background:' + col + '" title="' + escapeAttr(av.name) + ' (' + escapeAttr(av.role) + ')">' + initials + '</div>';
+    });
+    if (activeViewerList.length > 4) {
+      var moreCount = activeViewerList.length - 4;
+      h += '<div class="upl-avatar-circle" style="background:#64748b;font-size:11px">+' + moreCount + '</div>';
+    }
+    h += '</div>'; // end .upl-avatar-stack
+    var remainingText = (activeViewerList.length > 4) ? ('+' + (activeViewerList.length - 4) + ' Orang Lainnya') : (activeViewerList.length + ' Pengguna Terlibat');
+    h += '<div class="upl-avatar-more-text">' + remainingText + '</div>';
+    h += '</div>'; // end .upl-active-users-sec
+
+    // Section 2: Riwayat Aktivitas Modul
+    h += '<div class="upl-timeline-sec">';
+    h += '<div class="upl-sec-subtitle">RIWAYAT AKTIVITAS</div>';
+    h += '<div class="upl-timeline-wrap">';
+
+    // If Pimpinan, Ketua, or Anggota is currently reviewing, show highlighted on-progress box
+    if (pimStatus === 'active') {
+      h += '<div class="upl-timeline-item in-progress">';
+      h += '<div class="upl-timeline-dot" style="background:#0284c7"></div>';
+      h += '<div class="upl-timeline-box-highlight" style="background:#f0f9ff;border-color:#bae6fd">';
+      h += '<div class="upl-timeline-head" style="color:#0369a1;display:flex;align-items:center;gap:6px">';
+      h += '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#0284c7"></span>';
+      h += 'Pimpinan / Kepala BBPK (On Progress) • Hari ini</div>';
+      h += '<div class="upl-timeline-desc" style="color:#075985;font-weight:600">Sedang menelaah berkas pengesahan</div>';
+      h += '</div>';
+      h += '</div>';
+    } else if (ketStatus === 'active') {
+      h += '<div class="upl-timeline-item in-progress">';
+      h += '<div class="upl-timeline-dot"></div>';
+      h += '<div class="upl-timeline-box-highlight">';
+      h += '<div class="upl-timeline-head" style="color:#92400e;display:flex;align-items:center;gap:6px">';
+      h += '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#f59e0b"></span>';
+      h += 'Ketua SKI (On Progress) • Hari ini, 09:30</div>';
+      h += '<div class="upl-timeline-desc" style="color:#78350f;font-weight:600">Sedang meninjau</div>';
+      h += '</div>';
+      h += '</div>';
+    } else if (angStatus === 'active') {
+      h += '<div class="upl-timeline-item in-progress">';
+      h += '<div class="upl-timeline-dot"></div>';
+      h += '<div class="upl-timeline-box-highlight">';
+      h += '<div class="upl-timeline-head" style="color:#92400e;display:flex;align-items:center;gap:6px">';
+      h += '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#f59e0b"></span>';
+      h += 'Anggota SKI (On Progress) • Hari ini</div>';
+      h += '<div class="upl-timeline-desc" style="color:#78350f;font-weight:600">Sedang meninjau</div>';
+      h += '</div>';
+      h += '</div>';
+    }
+
+    if (modAuditLogs.length === 0) {
+      h += '<div style="font-size:12px;color:#94a3b8;font-style:italic;padding:10px 0">Belum ada riwayat aktivitas pada modul ini.</div>';
+    } else {
+      modAuditLogs.slice(0, 10).forEach(function(l){
+        var timeFormatted = l.timestamp_aktivitas ? l.timestamp_aktivitas.substr(5, 11).replace('-', '/') : '';
+        try {
+          var dt = new Date(l.timestamp_aktivitas.replace(/-/g, '/'));
+          var months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+          var hh = ('0' + dt.getHours()).slice(-2);
+          var mm = ('0' + dt.getMinutes()).slice(-2);
+          timeFormatted = dt.getDate() + ' ' + months[dt.getMonth()] + ', ' + hh + ':' + mm;
+        } catch(e) {}
+
+        var actLow = (l.jenis_aksi || '').toLowerCase();
+        var isDel = actLow.indexOf('hapus') > -1;
+        var isView = actLow.indexOf('lihat') > -1 || actLow.indexOf('baca') > -1;
+        var isAppr = actLow.indexOf('setuju') > -1 || actLow.indexOf('approval') > -1;
+        var isRev = actLow.indexOf('revisi') > -1 || actLow.indexOf('tindak lanjut') > -1;
+        var dotColor = isDel ? '#ef4444' : (isAppr ? '#10b981' : (isRev ? '#f59e0b' : (isView ? '#0284c7' : '#10b981')));
+
+        var actDesc = l.jenis_aksi;
+        if (actLow.indexOf('bulk approval') > -1) actDesc = 'Bulk Approval eviden & diserahkan ke Pimpinan';
+        else if (actLow.indexOf('upload eviden baru') > -1) actDesc = 'Mengunggah berkas baru';
+        else if (actLow.indexOf('upload perbaikan') > -1 || actLow.indexOf('perbaikan eviden') > -1) actDesc = 'Mengunggah perbaikan berkas';
+        else if (actLow.indexOf('input isian') > -1) actDesc = 'Mengisi tagihan indikator';
+        else if (actLow.indexOf('ubah isian') > -1) actDesc = 'Mengubah isian tagihan';
+        else if (actLow.indexOf('hapus') > -1) actDesc = 'Menghapus berkas eviden';
+        else if (actLow.indexOf('unduh template') > -1) actDesc = 'Mengunduh template acuan';
+        else if (actLow.indexOf('melihat') > -1 || actLow.indexOf('membaca') > -1) actDesc = 'Membaca & memeriksa modul';
+        else if (actLow.indexOf('setuju') > -1) actDesc = 'Membaca & menyetujui';
+        else if (actLow.indexOf('revisi') > -1) actDesc = 'Meminta perbaikan / revisi';
+
+        h += '<div class="upl-timeline-item">';
+        h += '<div class="upl-timeline-dot" style="background:' + dotColor + '"></div>';
+        h += '<div class="upl-timeline-head">' + escapeHtml(l.nama_lengkap || 'Pengguna') + ' (' + escapeHtml(l.role_saat_aksi || 'User') + ') • ' + escapeHtml(timeFormatted) + '</div>';
+        h += '<div class="upl-timeline-desc">' + escapeHtml(actDesc) + '</div>';
+        h += '</div>';
+      });
+    }
+
+    h += '</div>'; // end .upl-timeline-wrap
+    h += '</div>'; // end .upl-timeline-sec
+    h += '</aside>'; // end .upl-side-panel
+
+    h += '</div>'; // end .upl-workspace-layout
+
     h += '</div>'; // end .upl-container
+
     document.getElementById("uplC").innerHTML = h;
 
     // Attach Event Handlers:
@@ -6992,6 +7521,99 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
         }
       };
     });
+
+    // 8. Right side activity panel tab switching
+    document.querySelectorAll(".upl-side-tab-btn").forEach(function(btn){
+      btn.onclick = function(){
+        uplActivityTab = this.dataset.tab;
+        renderUploadDetail(activeMod, availableModuls);
+      };
+    });
+
+    // 9. Log activity view modul eviden (baca / lihat)
+    if (!uplLoggedViews[activeMod.id_modul]) {
+      uplLoggedViews[activeMod.id_modul] = true;
+      var fdV = new FormData();
+      fdV.append('action', 'log_view_eviden');
+      fdV.append('modul_name', activeMod.nama_modul || 'Eviden');
+      fdV.append('target_name', activeMod.nama_modul || 'Modul Eviden');
+      fdV.append('jenis_aksi', 'Membaca & Memeriksa Modul');
+      fetch('ajax.php', { method: 'POST', body: fdV });
+    }
+
+    // Listener unduh template acuan
+    var btnUnduhTpl = document.getElementById("btnUnduhTemplate");
+    if (btnUnduhTpl) {
+      btnUnduhTpl.onclick = function(){
+        var fdT = new FormData();
+        fdT.append('action', 'log_download_template');
+        fdT.append('modul_name', activeMod.nama_modul || '');
+        fdT.append('template_name', activeMod.file_referensi || '');
+        fetch('ajax.php', { method: 'POST', body: fdT });
+      };
+    }
+
+    // Listener Bulk Approve & Serahkan ke Pimpinan
+    var btnBulkPim = document.getElementById("btnBulkApproveToPimpinan");
+    if (btnBulkPim) {
+      btnBulkPim.onclick = function(){
+        var mName = activeMod.nama_modul || 'modul ini';
+        if (!confirm("Konfirmasi Bulk Approval:\n\nSetujui seluruh berkas eviden PIC pada modul '" + mName + "' di tingkat SKI dan langsung serahkan ke Meja Pimpinan (Kepala BBPK) untuk pengesahan?")) return;
+        btnBulkPim.disabled = true;
+        btnBulkPim.innerHTML = '<span class="spinner" style="width:13px;height:13px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;display:inline-block;animation:spin 1s linear infinite"></span> Memproses ke Pimpinan...';
+        
+        var fd = new FormData();
+        fd.append('action', 'bulk_approve_pic_to_pimpinan');
+        fd.append('id_modul', activeMod.id_modul);
+        fd.append('id_jadwal', activeMod.id_jadwal || '');
+
+        fetch('ajax.php', { method: 'POST', body: fd })
+          .then(function(r){ return r.json(); })
+          .then(function(res){
+            toast(res.message);
+            if (res.success) {
+              fetchInit(function(){
+                var m = STATE.moduls.find(function(item){ return item.id_modul === activeMod.id_modul; });
+                if (m) renderUploadDetail(m, availableModuls);
+              });
+            } else {
+              btnBulkPim.disabled = false;
+              btnBulkPim.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bulk Approve &amp; Serahkan ke Pimpinan';
+            }
+          }).catch(function(err){
+            btnBulkPim.disabled = false;
+            toast('Terjadi kesalahan koneksi.');
+          });
+      };
+    }
+
+    // 10. Real-time background sync interval
+    if (uplRealtimeTimer) clearInterval(uplRealtimeTimer);
+    uplRealtimeTimer = setInterval(function(){
+      if (ACTIVE_SCREEN !== 'upl' || !uplSelectedModulId) {
+        clearInterval(uplRealtimeTimer);
+        uplRealtimeTimer = null;
+        return;
+      }
+      var isModalOpen = document.querySelector(".modal-backdrop") || document.querySelector(".m-wrap") || document.querySelector(".modal-card") || document.getElementById("popupDropZone");
+      var sBoxActive = document.getElementById("uplSearchBox");
+      if (isModalOpen || (sBoxActive && document.activeElement === sBoxActive)) return;
+
+      fetch('ajax.php?action=init_data')
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          if (!res.success) return;
+          STATE.moduls = res.moduls;
+          STATE.indikators = res.indikators;
+          STATE.evidens = res.evidens;
+          STATE.rekomendasi = res.rekomendasi;
+          STATE.audit = res.audit;
+          var m = STATE.moduls.find(function(item){ return item.id_modul === uplSelectedModulId; });
+          if (m) {
+            renderUploadDetail(m, STATE.moduls.filter(function(x){ return x.status_template === 'terbit' && !!x.id_jadwal; }));
+          }
+        }).catch(function(){});
+    }, 7000);
   }
 
   function renderUpload() {
@@ -7155,6 +7777,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                STATE.units.map(function(u){ return '<option value="' + u.id_unit + '" ' + (String(revUnitFilter) === String(u.id_unit) ? 'selected' : '') + '>' + escapeHtml(u.nama_unit) + '</option>'; }).join('') +
              '</select>' +
              (pimApprovedItems.length > 0 ? '<button class="rev-btn-bulk" id="btnBulkFinalSesuai" style="background:#006a55;color:#fff;font-weight:700" disabled>Selesaikan Terpilih (0)</button>' : '') +
+             (pendingItems.length > 0 ? '<button class="rev-btn-bulk" id="btnBulkToPimpinanReview" style="background:#006a55;color:#fff;font-weight:700" disabled>⚡ Ajukan Terpilih ke Pimpinan (0)</button>' : '') +
            '</div>' +
          '</div>';
 
@@ -7301,7 +7924,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
           var sizeOrLink = isLink ? ('Tautan ' + (e.format_file === 'gdrive' ? 'Google Drive' : (e.format_file === 'onedrive' ? 'OneDrive' : 'Cloud'))) : (e.ukuran_file_mb + ' MB');
 
           h += '<tr>';
-          h += '<td><input type="checkbox" class="cbRevItem" data-id="' + e.id_eviden + '" data-mod="' + m.id_modul + '" data-can-finalize="' + (isPimApp ? '1' : '0') + '"></td>';
+          h += '<td><input type="checkbox" class="cbRevItem" data-id="' + e.id_eviden + '" data-mod="' + m.id_modul + '" data-can-finalize="' + (isPimApp ? '1' : '0') + '" data-status="' + e.status_eviden + '"></td>';
           h += '<td>' +
                  '<div style="color:var(--tx);font-size:13px;font-weight:600;line-height:1.4">' + escapeHtml(e.deskripsi_indikator) + '</div>' +
                  '<span class="tag t-in" style="font-size:10px;margin-top:4px">' + escapeHtml(e.nama_unit || '-') + '</span>' +
@@ -7459,6 +8082,14 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
         bulkBtn.textContent = "Selesaikan Terpilih (Selesai) (" + count + ")";
         bulkBtn.disabled = (count === 0);
       }
+
+      var canPimChecked = [].filter.call(checked, function(c){ return c.dataset.status === 'u' || c.dataset.status === 'o' || c.dataset.status === 'r'; });
+      var countPim = canPimChecked.length;
+      var bulkPimBtn = document.getElementById("btnBulkToPimpinanReview");
+      if (bulkPimBtn) {
+        bulkPimBtn.textContent = "⚡ Ajukan Terpilih ke Pimpinan (" + countPim + ")";
+        bulkPimBtn.disabled = (countPim === 0);
+      }
     }
 
     document.querySelectorAll(".cbRevItem").forEach(function(cb){
@@ -7490,6 +8121,35 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
         var fd = new FormData();
         fd.append('action', 'submit_review');
         fd.append('reviews', JSON.stringify(payload));
+        fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
+          toast(res.message);
+          if (res.success) fetchInit(function(){ renderReview(); });
+        });
+      };
+    }
+
+    var btnBulkPimRev = document.getElementById("btnBulkToPimpinanReview");
+    if (btnBulkPimRev) {
+      btnBulkPimRev.onclick = function(){
+        var checked = document.querySelectorAll(".cbRevItem:checked");
+        var ids = [];
+        var modIds = {};
+        checked.forEach(function(c){
+          if (c.dataset.status === 'u' || c.dataset.status === 'o' || c.dataset.status === 'r') {
+            ids.push(c.dataset.id);
+            if (c.dataset.mod) modIds[c.dataset.mod] = true;
+          }
+        });
+        if (!ids.length) {
+          toast("Pilih berkas yang ingin diserahkan ke Pimpinan.");
+          return;
+        }
+        var firstModId = Object.keys(modIds)[0] || '';
+        if (!confirm("Setujui " + ids.length + " berkas eviden terpilih di tingkat SKI dan serahkan langsung ke Meja Pimpinan (Kepala BBPK)?")) return;
+        var fd = new FormData();
+        fd.append('action', 'bulk_approve_pic_to_pimpinan');
+        fd.append('ids', JSON.stringify(ids));
+        fd.append('id_modul', firstModId);
         fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
           toast(res.message);
           if (res.success) fetchInit(function(){ renderReview(); });
