@@ -73,7 +73,7 @@ $currentUser = getCurrentUser();
 // 2. READ ALL INITIAL DATA
 if ($action === 'init_data') {
     if ($currentUser['role'] === 'adm') {
-        $allMenus = ['dash', 'mod', 'jdw', 'upl', 'mon', 'rep', 'rev', 'apm', 'exp', 'aud', 'usr', 'hak'];
+        $allMenus = ['dash', 'mod', 'upl', 'mon', 'rep', 'rev', 'apm', 'exp', 'aud', 'usr', 'hak'];
         $perms = [];
         foreach ($allMenus as $m) {
             $perms[$m] = 'ltuhds';
@@ -138,7 +138,14 @@ if ($action === 'init_data') {
             $evidens = $stmtEv->fetchAll();
         } else {
             $stmtMod = $db->query("
-                SELECT m.*, u.nama_unit, j.id_jadwal, j.tenggat_unggah, j.mulai_penilaian, j.is_locked,
+                SELECT m.*, u.nama_unit,
+                       CASE WHEN m.status_template = 'terbit' THEN j.id_jadwal ELSE NULL END AS id_jadwal,
+                       CASE WHEN m.status_template = 'terbit' THEN j.tenggat_unggah ELSE NULL END AS tenggat_unggah,
+                       CASE WHEN m.status_template = 'terbit' THEN j.mulai_penilaian ELSE NULL END AS mulai_penilaian,
+                       CASE WHEN m.status_template = 'terbit' THEN j.is_locked ELSE NULL END AS is_locked,
+                       j.id_jadwal AS schedule_id_jadwal, j.id_periode AS schedule_id_periode,
+                       p.nama_periode AS schedule_nama_periode, p.siklus AS schedule_siklus,
+                       j.tenggat_unggah AS schedule_tenggat_unggah, j.mulai_penilaian AS schedule_mulai_penilaian,
                        (SELECT COUNT(*) FROM indikators WHERE id_modul = m.id_modul) as total_indikator
                 FROM moduls m
                 JOIN units u ON m.id_unit_pic = u.id_unit
@@ -188,7 +195,8 @@ if ($action === 'init_data') {
                     FROM jadwal_moduls
                     GROUP BY id_modul
                 ) j2 ON j1.id_modul = j2.id_modul AND j1.tenggat_unggah = j2.max_tenggat
-            ) j ON m.id_modul = j.id_modul AND m.status_template = 'terbit'
+            ) j ON m.id_modul = j.id_modul
+            LEFT JOIN periodes p ON p.id_periode = j.id_periode
             ORDER BY m.nama_modul ASC
         ");
         $moduls = $stmtMod->fetchAll();
@@ -516,7 +524,48 @@ if ($action === 'update_modul') {
     $stmtOld = $db->prepare("SELECT * FROM moduls WHERE id_modul = ? LIMIT 1");
     $stmtOld->execute([$idModul]);
     $oldMod = $stmtOld->fetch();
-    $savedFile = $oldMod ? $oldMod['file_referensi'] : null;
+    if (!$oldMod) {
+        echo json_encode(['success' => false, 'message' => 'Modul pengawasan tidak ditemukan.']);
+        exit;
+    }
+    if ($nama === '' || $idUnit === '') {
+        echo json_encode(['success' => false, 'message' => 'Nama modul dan unit PIC wajib diisi.']);
+        exit;
+    }
+
+    $scheduleSubmitted = array_key_exists('jadwal_periode', $_POST)
+        || array_key_exists('jadwal_tenggat_unggah', $_POST)
+        || array_key_exists('jadwal_mulai_penilaian', $_POST);
+    $schedulePeriod = trim($_POST['jadwal_periode'] ?? '');
+    $scheduleCycle = trim($_POST['jadwal_siklus'] ?? '');
+    $scheduleDeadline = trim($_POST['jadwal_tenggat_unggah'] ?? '');
+    $scheduleAssessment = trim($_POST['jadwal_mulai_penilaian'] ?? '');
+    $scheduleId = trim($_POST['jadwal_id_jadwal'] ?? '');
+
+    if ($status === 'terbit' && $oldMod['status_template'] !== 'terbit' && !$scheduleSubmitted) {
+        echo json_encode(['success' => false, 'message' => 'Atur periode dan tanggal jadwal sebelum menerbitkan modul.']);
+        exit;
+    }
+
+    if ($scheduleSubmitted) {
+        $allowedCycles = ['Bulanan', 'Triwulan', 'Semester', 'Tahunan'];
+        $deadlineDate = DateTime::createFromFormat('!Y-m-d', $scheduleDeadline);
+        $assessmentDate = DateTime::createFromFormat('!Y-m-d', $scheduleAssessment);
+        if (
+            $schedulePeriod === ''
+            || mb_strlen($schedulePeriod, 'UTF-8') > 100
+            || !in_array($scheduleCycle, $allowedCycles, true)
+            || !$deadlineDate
+            || $deadlineDate->format('Y-m-d') !== $scheduleDeadline
+            || !$assessmentDate
+            || $assessmentDate->format('Y-m-d') !== $scheduleAssessment
+        ) {
+            echo json_encode(['success' => false, 'message' => 'Lengkapi nama periode, siklus, tenggat unggah, dan tanggal mulai penilaian dengan benar.']);
+            exit;
+        }
+    }
+
+    $savedFile = $oldMod['file_referensi'];
 
     $moduleType = trim($_POST['module_type'] ?? ($oldMod['module_type'] ?? 'checklist'));
     if (!in_array($moduleType, ['checklist', 'metrics_data', 'document_verification'], true)) {
@@ -543,14 +592,81 @@ if ($action === 'update_modul') {
         }
     }
 
-    $stmt = $db->prepare("UPDATE moduls SET nama_modul = ?, jenis_template = ?, file_referensi = ?, id_unit_pic = ?, status_template = ?, status = ?, module_type = ?, scoring_threshold = ? WHERE id_modul = ?");
-    $stmt->execute([$nama, $jenis, $savedFile, $idUnit, $status, $status, $moduleType, $scoringThreshold, $idModul]);
+    $db->beginTransaction();
     try {
-        $stmtSyncMod = $db->prepare("UPDATE modules SET status = ? WHERE id = ?");
-        $stmtSyncMod->execute([$status, $idModul]);
-    } catch (Exception $e) {}
+        $stmt = $db->prepare("UPDATE moduls SET nama_modul = ?, jenis_template = ?, file_referensi = ?, id_unit_pic = ?, status_template = ?, status = ?, module_type = ?, scoring_threshold = ? WHERE id_modul = ?");
+        $stmt->execute([$nama, $jenis, $savedFile, $idUnit, $status, $status, $moduleType, $scoringThreshold, $idModul]);
+        try {
+            $stmtSyncMod = $db->prepare("UPDATE modules SET status = ? WHERE id = ?");
+            $stmtSyncMod->execute([$status, $idModul]);
+        } catch (Exception $e) {}
+
+        if ($scheduleSubmitted) {
+            $idPeriode = 'per-' . substr(md5($idModul . '|' . strtolower($schedulePeriod)), 0, 10);
+            $year = (int)date('Y');
+            if (preg_match('/\b((?:19|20)\d{2})\b/', $schedulePeriod, $yearMatch)) {
+                $year = (int)$yearMatch[1];
+            }
+            $stmtPeriod = $db->prepare("
+                INSERT INTO periodes (id_periode, nama_periode, siklus, tahun)
+                VALUES (?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE nama_periode = VALUES(nama_periode), siklus = VALUES(siklus), tahun = VALUES(tahun)
+            ");
+            $stmtPeriod->execute([$idPeriode, $schedulePeriod, $scheduleCycle, $year]);
+
+            $currentScheduleId = '';
+            if ($scheduleId !== '') {
+                $stmtCurrent = $db->prepare("SELECT id_jadwal FROM jadwal_moduls WHERE id_jadwal = ? AND id_modul = ? LIMIT 1");
+                $stmtCurrent->execute([$scheduleId, $idModul]);
+                $currentScheduleId = (string)($stmtCurrent->fetchColumn() ?: '');
+            }
+            if ($currentScheduleId === '') {
+                $stmtLatest = $db->prepare("SELECT id_jadwal FROM jadwal_moduls WHERE id_modul = ? ORDER BY tenggat_unggah DESC LIMIT 1");
+                $stmtLatest->execute([$idModul]);
+                $currentScheduleId = (string)($stmtLatest->fetchColumn() ?: '');
+            }
+
+            if ($currentScheduleId !== '') {
+                $stmtSchedule = $db->prepare("
+                    UPDATE jadwal_moduls
+                    SET id_periode = ?, tenggat_unggah = ?, mulai_penilaian = ?, is_locked = 0
+                    WHERE id_jadwal = ? AND id_modul = ?
+                ");
+                $stmtSchedule->execute([
+                    $idPeriode,
+                    $scheduleDeadline . ' 23:59:59',
+                    $scheduleAssessment . ' 08:00:00',
+                    $currentScheduleId,
+                    $idModul
+                ]);
+            } else {
+                $currentScheduleId = 'jdw-' . substr(md5($idPeriode . '|' . $idModul), 0, 12);
+                $stmtSchedule = $db->prepare("
+                    INSERT INTO jadwal_moduls (id_jadwal, id_periode, id_modul, tenggat_unggah, mulai_penilaian, is_locked)
+                    VALUES (?, ?, ?, ?, ?, 0)
+                    ON DUPLICATE KEY UPDATE id_periode = VALUES(id_periode), tenggat_unggah = VALUES(tenggat_unggah), mulai_penilaian = VALUES(mulai_penilaian), is_locked = 0
+                ");
+                $stmtSchedule->execute([
+                    $currentScheduleId,
+                    $idPeriode,
+                    $idModul,
+                    $scheduleDeadline . ' 23:59:59',
+                    $scheduleAssessment . ' 08:00:00'
+                ]);
+            }
+        }
+        $db->commit();
+    } catch (Exception $e) {
+        if ($db->inTransaction()) $db->rollBack();
+        echo json_encode(['success' => false, 'message' => 'Gagal memperbarui modul dan jadwal: ' . $e->getMessage()]);
+        exit;
+    }
+
     writeAuditLog('Ubah Modul Pengawasan', "$nama (Status: $status)");
-    echo json_encode(['success' => true, 'message' => 'Data modul berhasil diperbarui.']);
+    echo json_encode([
+        'success' => true,
+        'message' => $scheduleSubmitted ? 'Data modul dan jadwal berhasil diperbarui.' : 'Data modul berhasil diperbarui.'
+    ]);
     exit;
 }
 
@@ -848,91 +964,7 @@ if ($action === 'delete_indikator') {
     exit;
 }
 
-// 5. CRUD: JADWAL & PERIODE PENGAWASAN
-if ($action === 'publish_jadwal') {
-    if (!hasPermission('jdw', 't')) {
-        echo json_encode(['success' => false, 'message' => 'Akses ditolak untuk menerbitkan jadwal.']);
-        exit;
-    }
-    $siklus = trim($_POST['siklus'] ?? 'Bulanan');
-    $periode = trim($_POST['periode'] ?? 'Oktober 2026');
-    $tenggat = trim($_POST['tenggat_unggah'] ?? '');
-    $mulaiPenilaian = trim($_POST['mulai_penilaian'] ?? '');
-    $modulIds = json_decode($_POST['modul_ids'] ?? '[]', true);
-
-    if (!is_array($modulIds) || empty($modulIds) || $tenggat === '' || $mulaiPenilaian === '') {
-        echo json_encode(['success' => false, 'message' => 'Lengkapi form penjadwalan dan pilih minimal satu modul.']);
-        exit;
-    }
-
-    // Filter array ID modul yang valid
-    $modulIds = array_values(array_filter(array_map('trim', $modulIds)));
-    if (empty($modulIds)) {
-        echo json_encode(['success' => false, 'message' => 'Pilih minimal satu modul untuk diterbitkan.']);
-        exit;
-    }
-
-    $idPeriode = 'per-' . substr(md5($periode), 0, 10);
-    $stmtP = $db->prepare("INSERT INTO periodes (id_periode, nama_periode, siklus, tahun) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE nama_periode = VALUES(nama_periode), siklus = VALUES(siklus), tahun = VALUES(tahun)");
-    $stmtP->execute([$idPeriode, $periode, $siklus, (int)date('Y')]);
-
-    $db->beginTransaction();
-    try {
-        // 1. Modul yang DIPILIH: Jadwal dibuat/diperbarui dan status diset TERBIT
-        foreach ($modulIds as $mId) {
-            $idJadwal = 'jdw-' . substr(md5($idPeriode . $mId), 0, 12);
-            $stmtJ = $db->prepare("
-                INSERT INTO jadwal_moduls (id_jadwal, id_periode, id_modul, tenggat_unggah, mulai_penilaian, is_locked)
-                VALUES (?, ?, ?, ?, ?, 0)
-                ON DUPLICATE KEY UPDATE tenggat_unggah = VALUES(tenggat_unggah), mulai_penilaian = VALUES(mulai_penilaian), is_locked = 0
-            ");
-            $stmtJ->execute([$idJadwal, $idPeriode, $mId, $tenggat . ' 23:59:59', $mulaiPenilaian . ' 08:00:00']);
-
-            // Modul yang dijadwalkan secara aktif otomatis dipromosikan ke status terbit
-            $stmtUpSt = $db->prepare("UPDATE moduls SET status_template = 'terbit', status = 'terbit' WHERE id_modul = ?");
-            $stmtUpSt->execute([$mId]);
-
-            try {
-                $stmtSyncMod = $db->prepare("UPDATE modules SET status = 'terbit' WHERE id = ?");
-                $stmtSyncMod->execute([$mId]);
-            } catch (Exception $e) {}
-        }
-
-        // 2. Modul yang TIDAK DIPILIH: Otomatis diset menjadi DRAF (Nonaktif) sesuai kemauan user
-        $placeholders = implode(',', array_fill(0, count($modulIds), '?'));
-        $stmtDraf = $db->prepare("UPDATE moduls SET status_template = 'draf', status = 'draf' WHERE id_modul NOT IN ($placeholders)");
-        $stmtDraf->execute($modulIds);
-
-        try {
-            $stmtSyncDraf = $db->prepare("UPDATE modules SET status = 'draf' WHERE id NOT IN ($placeholders)");
-            $stmtSyncDraf->execute($modulIds);
-        } catch (Exception $e) {}
-
-        // Bersihkan jadwal lama untuk modul yang dinonaktifkan (hanya jika belum memiliki relasi di evidens/rekomendasi_approvals)
-        try {
-            $stmtDelOldJdw = $db->prepare("
-                DELETE FROM jadwal_moduls 
-                WHERE id_modul NOT IN ($placeholders)
-                  AND id_jadwal NOT IN (SELECT DISTINCT id_jadwal FROM evidens WHERE id_jadwal IS NOT NULL)
-                  AND id_jadwal NOT IN (SELECT DISTINCT id_jadwal FROM rekomendasi_approvals WHERE id_jadwal IS NOT NULL)
-            ");
-            $stmtDelOldJdw->execute($modulIds);
-        } catch (Exception $e) {}
-
-        $db->commit();
-        writeAuditLog('Terbitkan Jadwal Pengawasan', "$periode (" . count($modulIds) . " modul aktif diterbitkan)");
-        echo json_encode([
-            'success' => true, 
-            'message' => 'Jadwal pengawasan aktif berhasil diterbitkan (' . count($modulIds) . ' modul aktif). Modul lainnya otomatis dijadikan draf.'
-        ]);
-    } catch (Exception $e) {
-        $db->rollBack();
-        echo json_encode(['success' => false, 'message' => 'Gagal menerbitkan jadwal: ' . $e->getMessage()]);
-    }
-    exit;
-}
-
-// 6. CRUD: MANAJEMEN PENGGUNA (Admin Only)
+// 5. CRUD: MANAJEMEN PENGGUNA (Admin Only)
 if ($action === 'create_user') {
     if (!hasPermission('usr', 't')) {
         echo json_encode(['success' => false, 'message' => 'Akses ditolak: Hanya Admin yang dapat menambah pengguna.']);
@@ -1152,7 +1184,7 @@ if ($action === 'delete_user') {
     exit;
 }
 
-// 6.b PROFIL AKUN PENGGUNA MANDIRI
+// 5.b PROFIL AKUN PENGGUNA MANDIRI
 if ($action === 'update_profile') {
     if (!$currentUser) {
         echo json_encode(['success' => false, 'message' => 'Sesi login telah berakhir. Silakan muat ulang halaman dan masuk kembali.']);
@@ -1687,7 +1719,7 @@ if ($action === 'approve_ketua') {
 }
 
 if ($action === 'bulk_approve_pic_to_pimpinan') {
-    if (!hasPermission('rev', 'u') && !hasPermission('rev', 's') && !hasPermission('apr', 's') && !hasPermission('upl', 'u') && !hasPermission('upl', 't')) {
+    if (!in_array($currentUser['role'] ?? '', ['ang', 'ket'], true)) {
         echo json_encode(['success' => false, 'message' => 'Akses approval massal ke Pimpinan ditolak.']);
         exit;
     }

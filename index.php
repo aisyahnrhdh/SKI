@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/auth.php';
 $isAuth = isLoggedIn();
 $user = getCurrentUser();
 ?>
-<!doctype html>
+<!doctype html>`
 <html lang="id">
 <head>
 <meta charset="utf-8">
@@ -14,6 +14,7 @@ $user = getCurrentUser();
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="icon" href="assets/images/logo-kemenkes.webp">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#f2f7f6;--card:#ffffff;--tx:#1b2333;--mut:#64748b;--bd:#e2e8f0;
@@ -34,16 +35,18 @@ body{
 .app{display:flex;min-height:100vh;align-items:flex-start}
 .side{position:sticky;top:0;height:100vh;height:100dvh;align-self:flex-start;display:flex;width:284px;flex-shrink:0;z-index:10;transition:width .25s cubic-bezier(.4,0,.2,1);background:none}
 .side.col{width:72px}
-.rail{width:72px;height:100%;background:#d5f3ed;border-right:1px solid rgba(13,148,136,.14);display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:8px;z-index:2;flex-shrink:0}
+.rail{width:72px;height:100%;background:#e8f8f6;border-right:1px solid rgba(13,148,136,.14);display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:8px;z-index:2;flex-shrink:0}
 .rl{width:48px;height:48px;border-radius:14px;background:#fff;border:1px solid rgba(13,148,136,.16);box-shadow:0 4px 12px rgba(10,95,87,.08);display:grid;place-items:center;margin-bottom:10px;overflow:hidden;padding:4px}
 .rl img{width:32px;height:32px;object-fit:contain}
 .rb{width:46px;height:46px;border-radius:12px;border:2px solid transparent;background:transparent;color:#475569;display:grid;place-items:center;cursor:pointer;transition:all .18s ease;position:relative}
 .rb:hover{color:var(--pri);background:rgba(255,255,255,.55)}
 .rb.on{border-color:var(--pri);color:var(--pri);background:rgba(255,255,255,.85);box-shadow:0 2px 8px rgba(13,148,136,.12)}
-.panel{width:212px;height:100%;background:#e2f7f4;border-right:1px solid rgba(13,148,136,.14);padding:18px 12px;display:flex;flex-direction:column;overflow-y:auto;position:relative;flex-shrink:0}
+.panel{width:212px;height:100%;background:#e8f8f6;border-right:1px solid rgba(13,148,136,.14);padding:18px 12px;display:flex;flex-direction:column;overflow-y:auto;position:relative;flex-shrink:0}
 .side.col .panel{display:none}
 .plogo{display:flex;align-items:center;gap:8px;margin-bottom:16px;padding:2px 4px 12px;border-bottom:1px solid rgba(13,148,136,.12);min-height:46px}
-.plogo img{max-width:140px;height:auto;max-height:38px;object-fit:contain}
+.plogo-brand{display:flex;flex:1;flex-direction:column;min-width:0;line-height:1.15}
+.plogo-brand strong{color:#0d9488;font-size:16px;font-weight:800;letter-spacing:-.02em}
+.plogo-brand span{color:#64748b;font-size:13px;font-weight:700}
 .tg{position:absolute;right:-13px;top:88px;width:26px;height:26px;border-radius:50%;border:1px solid rgba(13,148,136,.22);background:#fff;color:#475569;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.1);z-index:12;transition:transform .2s ease,color .15s}
 .tg:hover{color:var(--pri);transform:scale(1.08)}
 .side.col .tg{left:59px;right:auto}
@@ -55,21 +58,21 @@ body{
 .nav:hover:not(.on){background:rgba(255,255,255,.55);color:var(--pri)}
 .nav.on{background:rgba(255,255,255,.9);color:#0d9488;font-weight:700;box-shadow:0 2px 8px rgba(10,95,87,.06)}
 .mw{flex:1;min-width:0;display:flex;flex-direction:column;min-height:100vh}
-.hd{background:#087066;color:#fff;min-height:68px;padding:0 24px;display:flex;align-items:center;gap:14px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;box-shadow:0 2px 10px rgba(7,94,87,.2)}
+.hd{background:#e8f8f6;color:#1b2333;min-height:68px;padding:0 24px;display:flex;align-items:center;gap:14px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;border-bottom:1px solid rgba(13,148,136,.14);box-shadow:0 2px 10px rgba(7,94,87,.08)}
 .hd-brand{font-size:16px;font-weight:800;line-height:1.2;letter-spacing:-.01em;white-space:nowrap}
-.hd-brand small{display:block;margin-top:2px;font-size:11.5px;font-weight:400;color:rgba(255,255,255,.78)}
+.hd-brand small{display:block;margin-top:2px;font-size:11.5px;font-weight:400;color:#64748b}
 .ua{margin-left:auto;display:flex;gap:16px;align-items:center}
-.hl{color:rgba(255,255,255,.88);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;gap:4px;font-size:12.5px}
-.hl:hover{color:#fff}
-.usr{display:flex;align-items:center;gap:10px;padding:4px 10px 4px 14px;border-left:1px solid rgba(255,255,255,.22);cursor:pointer;border-radius:12px;transition:all .18s ease;user-select:none}
-.usr:hover{background:rgba(255,255,255,.16);box-shadow:0 2px 10px rgba(0,0,0,.08);transform:translateY(-1px)}
-.usr i{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:grid;place-items:center;font-weight:700;font-style:normal;font-size:12px;box-shadow:0 0 0 2px rgba(255,255,255,.25);transition:transform .18s ease}
+.hl{color:#334155;text-decoration:none;font-weight:500;display:inline-flex;align-items:center;gap:4px;font-size:12.5px}
+.hl:hover{color:#075e57}
+.usr{display:flex;align-items:center;gap:10px;padding:4px 10px 4px 14px;border-left:1px solid rgba(13,148,136,.2);cursor:pointer;border-radius:12px;transition:all .18s ease;user-select:none}
+.usr:hover{background:rgba(255,255,255,.62);box-shadow:0 2px 10px rgba(0,0,0,.06);transform:translateY(-1px)}
+.usr i{width:36px;height:36px;border-radius:50%;background:#d5f3ed;color:#075e57;display:grid;place-items:center;font-weight:700;font-style:normal;font-size:12px;box-shadow:0 0 0 2px rgba(13,148,136,.16);transition:transform .18s ease}
 .usr:hover i{transform:scale(1.06)}
-.un{display:flex;flex-direction:column;line-height:1.25}.un b{font-size:13px;font-weight:600}.un small{font-size:11.5px;color:rgba(255,255,255,.75)}
+.un{display:flex;flex-direction:column;line-height:1.25}.un b{font-size:13px;font-weight:600}.un small{font-size:11.5px;color:#64748b}
 .btn{background:var(--pri);color:#fff;border:0;border-radius:10px;padding:8px 14px;cursor:pointer;font:inherit;font-weight:600;transition:.15s;box-shadow:0 2px 6px rgba(10,143,131,.25);display:inline-flex;align-items:center;justify-content:center;gap:6px}
 .btn:hover{filter:brightness(1.08);transform:translateY(-1px)}.btn.o{background:none;color:var(--pri);border:1px solid var(--pri);box-shadow:none}
-.btn.o:hover{background:var(--pri2)}.btn.lo{background:none;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:8px;box-shadow:none;display:inline-flex;align-items:center;gap:7px;padding:6px 12px;font-size:12.5px}
-.btn.lo:hover{background:rgba(255,255,255,.14);border-color:#fff;transform:none}
+.btn.o:hover{background:var(--pri2)}.btn.lo{background:#fff;color:#075e57;border:1px solid rgba(13,148,136,.28);border-radius:8px;box-shadow:none;display:inline-flex;align-items:center;gap:7px;padding:6px 12px;font-size:12.5px}
+.btn.lo:hover{background:#f4fbf9;border-color:#0d9488;transform:none}
 .btn.sm{padding:6px 11px;font-size:12px;border-radius:8px}
 .main{flex:1;padding:20px}
 .hero{background:none;color:var(--tx);padding:2px 0 6px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
@@ -99,6 +102,26 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 .badge{margin-left:auto;background:#e5484d;color:#fff;border-radius:99px;font-size:11px;padding:1px 7px;font-weight:700}
 .toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--dk);color:#fff;padding:10px 18px;border-radius:10px;display:none;z-index:9999;max-width:90vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .scr{display:none}.scr.on{display:block}
+.apm-shell{background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden}
+.apm-toolbar{display:flex;align-items:stretch;justify-content:space-between;gap:14px;min-height:54px;padding:0 24px 0 30px;border-bottom:1px solid #e8edf4}
+.apm-tabs{display:flex;align-items:stretch;gap:20px;min-width:0}
+.apm-tab{position:relative;display:inline-flex;align-items:center;gap:8px;padding:0 8px 1px;border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;color:#49627e;font:500 12px/1.2 "Plus Jakarta Sans",sans-serif;cursor:pointer;white-space:nowrap;box-shadow:none}
+.apm-tab:hover{color:#087066;background:transparent;transform:none;filter:none}
+.apm-tab.active{border-bottom-color:#087066;color:#087066;font-weight:600}
+.apm-count{min-width:22px;height:20px;display:inline-grid;place-items:center;padding:0 6px;border-radius:999px;background:#e9f8f3;color:#087066;font-size:10px;font-weight:700}
+.apm-count.revision{background:#f1f4f8;color:#52657d}
+.apm-search-wrap{position:relative;align-self:center;flex:0 0 192px;height:28px}
+.apm-search-icon{position:absolute;left:9px;top:50%;width:13px;height:13px;transform:translateY(-50%);pointer-events:none}
+.apm-search{width:100%;height:100%;padding:0 9px 0 29px;border:1px solid #dfe6ef;border-radius:7px;background:#fff;color:#334155;font:11px "Plus Jakarta Sans",sans-serif;outline:none}
+.apm-search::placeholder{color:#94a3b8;opacity:1}
+.apm-search:focus{border-color:#b9d8d1;box-shadow:0 0 0 2px rgba(8,112,102,.08)}
+.apm-content{padding:24px}
+.apm-empty{min-height:174px;border:1px dashed #dbe4ef;border-radius:12px;background:#fcfdff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;color:#334155}
+.apm-empty-icon{width:40px;height:40px;border-radius:50%;background:#f0f3f8;color:#72839a;display:grid;place-items:center;margin-bottom:12px}
+.apm-empty-icon svg{width:18px;height:18px}
+.apm-empty-title{font-size:13px;font-weight:700;line-height:1.4;color:#172033}
+.apm-empty-message{font-size:11.5px;line-height:1.5;color:#94a3b8;margin-top:3px}
+.apm-list{border-top:1px solid #eef2f7}
 .mbt,.ov{display:none}
 
 
@@ -156,8 +179,8 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   .usr i{width:32px;height:32px;font-size:11px}
   .btn.lo{padding:6px 9px;font-size:11.5px}
   .btn.lo span{display:none}
-  .mbt{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;flex-shrink:0}
-  .side{position:fixed!important;left:0;top:0;bottom:0;width:284px!important;max-width:86vw!important;height:100dvh!important;z-index:60;transform:translateX(-104%);transition:transform .25s ease;display:flex!important;background:#e2f7f4!important}
+  .mbt{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;border:1px solid rgba(13,148,136,.24);background:#fff;color:#075e57;cursor:pointer;flex-shrink:0}
+  .side{position:fixed!important;left:0;top:0;bottom:0;width:284px!important;max-width:86vw!important;height:100dvh!important;z-index:60;transform:translateX(-104%);transition:transform .25s ease;display:flex!important;background:#e8f8f6!important}
   body.nav-open .side{transform:none;box-shadow:0 0 50px rgba(0,0,0,.45)}
   .ov{display:none;position:fixed;inset:0;background:rgba(8,20,24,.55);z-index:58}
   body.nav-open .ov{display:block}body.nav-open{overflow:hidden}
@@ -177,6 +200,13 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   .grid.kp{grid-template-columns:1fr;gap:10px}
   .grid.dg{grid-template-columns:1fr;gap:12px}
   .grid.g2{grid-template-columns:1fr;gap:12px}
+  .apm-toolbar{padding:0 12px;gap:0 10px;flex-wrap:wrap}
+  .apm-tabs{flex:1 1 100%;gap:8px;overflow-x:auto}
+  .apm-tab{min-height:48px;padding-right:5px;padding-left:5px;font-size:10.5px}
+  .apm-search-wrap{flex:0 1 100%;max-width:none;margin:0 0 10px auto}
+  .apm-content{padding:12px}
+  .apm-empty{min-height:165px;padding:18px 12px}
+  .apm-empty-message{max-width:290px}
   .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px;margin:8px 0}
   table{min-width:560px}
   th,td{padding:8px 6px;font-size:12px}
@@ -362,9 +392,12 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   letter-spacing: -0.5px;
 }
 .dash-donut-sub {
-  font-size: 12px;
+  max-width: 100px;
+  font-size: 11px;
+  line-height: 1.25;
   color: #64748b;
-  margin-top: 5px;
+  margin-top: 0;
+  white-space: normal;
 }
 .dash-donut-legend {
   display: flex;
@@ -386,6 +419,572 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   width: 8px;
   height: 8px;
   border-radius: 50%;
+}
+.main.dashboard-active .hero {
+  margin-bottom: 16px;
+  padding: 0;
+  align-items: center;
+}
+.main.dashboard-active .hero p {
+  color: #0f766e;
+  font-size: 11px;
+  font-weight: 600;
+}
+.main.dashboard-active .hero h1 {
+  font-size: 20px;
+  letter-spacing: -.3px;
+}
+.dash-member-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+.dash-member-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+.dash-member-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.dash-member-kpi {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, .025);
+}
+.dash-member-kpi-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+}
+.dash-member-kpi-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.dash-member-kpi-label {
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.3;
+}
+.dash-member-kpi-value {
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-top: 2px;
+}
+.dash-member-kpi-sub {
+  color: #94a3b8;
+  font-size: 10px;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+.dash-member-unit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.dash-member-unit-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  padding: 13px 14px;
+  background: #f8fafc;
+  border: 1px solid #eef2f6;
+  border-radius: 14px;
+}
+.dash-member-unit-name {
+  color: #1e293b;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.dash-member-unit-meta {
+  color: #94a3b8;
+  font-size: 10.5px;
+  line-height: 1.35;
+  margin-top: 3px;
+}
+.dash-member-unit-badge {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  border-radius: 9px;
+  background: #dcfce7;
+  color: #047857;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.dash-member-unit-badge.pending {
+  background: #e2e8f0;
+  color: #475569;
+}
+.dash-member-bottom {
+  display: grid;
+  grid-template-columns: minmax(250px, 5fr) minmax(0, 7fr);
+  gap: 20px;
+}
+.dash-member-review-card,
+.dash-member-progress-card {
+  min-width: 0;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.dash-member-review-top,
+.dash-member-progress-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.dash-member-review-card {
+  min-height: 360px;
+  padding: 20px;
+}
+.dash-member-review-top .dash-card-title {
+  font-size: 16px;
+}
+.dash-member-quality {
+  padding: 3px 9px;
+  border-radius: 7px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.dash-member-review-ring {
+  position: relative;
+  width: 174px;
+  height: 174px;
+  margin: 20px auto;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #f0fdfa;
+}
+.dash-member-review-ring svg {
+  display: block;
+  width: 148px;
+  height: 148px;
+  transform: rotate(-90deg);
+}
+.dash-member-review-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.dash-member-review-percent {
+  color: #0f172a;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+}
+.dash-member-review-caption {
+  color: #94a3b8;
+  font-size: 12px;
+  margin-top: 6px;
+}
+.dash-member-review-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  text-align: center;
+}
+.dash-member-review-stat {
+  padding: 10px 6px;
+  border: 1px solid #f1f5f9;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+.dash-member-review-stat:first-child {
+  border-color: #d1fae5;
+  background: #ecfdf5;
+}
+.dash-member-review-stat span {
+  display: block;
+  color: #64748b;
+  font-size: 11px;
+}
+.dash-member-review-stat b {
+  display: block;
+  color: #0f172a;
+  font-size: 16px;
+  margin-top: 3px;
+}
+.dash-member-review-stat b.ok {
+  color: #047857;
+}
+.dash-member-progress-head {
+  margin-bottom: 16px;
+}
+.dash-member-queue-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f0fdfa;
+  color: #0f766e;
+  font-size: 10.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.dash-member-queue-badge i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #14b8a6;
+}
+.dash-member-progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.dash-member-progress-row {
+  min-width: 0;
+}
+.dash-member-progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.dash-member-progress-name {
+  min-width: 0;
+  color: #1e293b;
+  font-size: 11.5px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dash-member-progress-unit {
+  color: #94a3b8;
+  font-size: 10.5px;
+  font-weight: 400;
+  margin-left: 4px;
+}
+.dash-member-progress-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  color: #64748b;
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+.dash-member-progress-result b {
+  color: #0f172a;
+}
+.dash-member-progress-status {
+  color: #059669;
+  font-weight: 700;
+}
+.dash-member-progress-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+.dash-member-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: #10b981;
+  transition: width .4s ease;
+}
+.dash-member-progress-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+  color: #94a3b8;
+  font-size: 10.5px;
+}
+.dash-member-progress-footer button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #0f766e;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.dash-member-activity {
+  min-width: 0;
+  min-height: 650px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+.dash-member-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.dash-member-tabs-list {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.dash-member-tab {
+  padding: 14px 0 12px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: #64748b;
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.dash-member-tab.active {
+  color: #0f766e;
+  border-bottom-color: #0d9488;
+  font-weight: 700;
+}
+.dash-member-data-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding-bottom: 12px;
+  color: #059669;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.dash-member-data-status i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #34d399;
+}
+.dash-member-viewers {
+  padding: 18px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #f1f5f9;
+}
+.dash-member-overline {
+  color: #94a3b8;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.dash-member-viewers-title {
+  color: #1e293b;
+  font-size: 11.5px;
+  font-weight: 700;
+  margin: 3px 0 10px;
+}
+.dash-member-viewers-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.dash-member-avatars {
+  display: flex;
+  align-items: center;
+  padding-left: 2px;
+}
+.dash-member-avatar {
+  width: 34px;
+  height: 34px;
+  margin-left: -5px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  flex: 0 0 34px;
+}
+.dash-member-avatar:first-child {
+  margin-left: 0;
+}
+.dash-member-avatar.more {
+  background: #475569;
+  font-size: 10px;
+}
+.dash-member-viewers-count {
+  color: #475569;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: right;
+}
+.dash-member-timeline-section {
+  min-height: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 18px 20px 20px;
+}
+.dash-member-timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.dash-member-timeline-count {
+  color: #94a3b8;
+  font-size: 10px;
+}
+.dash-member-timeline {
+  position: relative;
+  max-height: 350px;
+  overflow-y: auto;
+  padding-left: 18px;
+}
+.dash-member-timeline::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: 1px;
+  background: #e2e8f0;
+}
+.dash-member-activity-item {
+  position: relative;
+  padding: 0 0 17px;
+}
+.dash-member-activity-item:last-child {
+  padding-bottom: 0;
+}
+.dash-member-activity-dot {
+  position: absolute;
+  top: 2px;
+  left: -18px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #bae6fd;
+  border-radius: 50%;
+  background: #0ea5e9;
+}
+.dash-member-activity-dot.upload {
+  border-color: #c7d2fe;
+  background: #6366f1;
+}
+.dash-member-activity-dot.review {
+  border-color: #a7f3d0;
+  background: #10b981;
+}
+.dash-member-activity-userline {
+  color: #0f172a;
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+.dash-member-activity-userline b {
+  font-weight: 700;
+}
+.dash-member-activity-userline span {
+  color: #94a3b8;
+  font-weight: 400;
+}
+.dash-member-activity-action {
+  margin-top: 2px;
+  color: #475569;
+  font-size: 10.5px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.dash-member-activity-target {
+  display: inline-block;
+  max-width: 100%;
+  margin-top: 5px;
+  padding: 3px 7px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 9.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 1100px) {
+  .dash-member-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dash-member-activity {
+    min-height: 0;
+  }
+  .dash-member-timeline {
+    max-height: 320px;
+  }
+}
+@media (max-width: 760px) {
+  .dash-member-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .dash-member-unit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .dash-member-bottom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dash-member-review-card,
+  .dash-member-progress-card {
+    min-height: 300px;
+  }
+}
+@media (max-width: 480px) {
+  .dash-member-kpis,
+  .dash-member-unit-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .dash-member-kpi {
+    padding: 12px 14px;
+  }
+  .dash-member-tabs {
+    padding: 0 14px;
+  }
+  .dash-member-tabs-list {
+    gap: 13px;
+  }
+  .dash-member-viewers,
+  .dash-member-timeline-section {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
 }
 .dash-period-select {
   appearance: none;
@@ -1268,12 +1867,15 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   transform: none;
 }
 
-/* Sub-action Buttons ("Pengaturan" & "Tarik Draf / Terbitkan") */
-.mod-card-sub-actions {
+/* Modul Card Actions */
+.mod-card-main-actions {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 10px;
-  margin-top: -4px;
+}
+.mod-card-main-actions .mod-card-btn-primary {
+  flex: 1 1 0;
+  width: auto;
 }
 .mod-card-btn-outline {
   flex: 1;
@@ -1281,8 +1883,8 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   color: #334155;
   border: 1px solid #cbd5e1;
   border-radius: 9px;
-  padding: 8px 12px;
-  font-size: 12.5px;
+  padding: 11px 12px;
+  font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
   text-align: center;
@@ -1296,11 +1898,19 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 
 /* Workspace Halaman Penuh */
 .mod-workspace {
+  width: 100%;
+  max-width: none;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
-
+.app.mod-workspace-open .side {
+  display: flex !important;
+}
+.app.mod-workspace-open .hero {
+  display: none;
+}
 /* Navigasi Bilah Atas */
 .mod-workspace-nav {
   display: flex;
@@ -1308,19 +1918,43 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
-  padding: 2px 0;
+  padding: 0;
+}
+.mod-workspace-crumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #475569;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+.mod-workspace-crumb-link:hover {
+  color: var(--pri);
+}
+.mod-workspace-period {
+  display: flex;
+  align-items: center;
+}
+.mod-workspace-period .dash-period-select {
+  min-width: 205px;
+  padding: 8px 34px 8px 12px;
+  font-size: 12px;
 }
 .btn-back-catalog {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
-  font-size: 13.5px;
+  padding: 7px 12px;
+  font-size: 12.5px;
   font-weight: 600;
   color: var(--dk);
   background: var(--card);
   border: 1px solid var(--bd);
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all .15s ease;
 }
@@ -1333,7 +1967,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--mut);
   flex-wrap: wrap;
 }
@@ -1346,36 +1980,53 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 .mod-workspace-hero {
   background: var(--card);
   border: 1px solid var(--bd);
-  border-top: 4px solid var(--pri);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 20px 22px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(15,23,42,.04);
 }
 .mod-hero-top-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
 }
 .mod-hero-title {
-  margin: 0 0 6px;
-  font-size: 21px;
+  margin: 0;
+  font-size: 23px;
   font-weight: 700;
   color: var(--dk);
   line-height: 1.35;
+}
+.mod-hero-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.mod-hero-code {
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  font-weight: 500;
 }
 .mod-hero-meta-grid {
   display: flex;
   align-items: center;
   gap: 18px;
   flex-wrap: wrap;
-  background: var(--bg);
-  border: 1px solid var(--bd);
-  border-radius: 8px;
-  padding: 10px 14px;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--bd);
+  border-radius: 0;
+  padding: 12px 0 0;
   font-size: 13px;
 }
 .mod-hero-meta-item {
@@ -1402,35 +2053,64 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 .mod-template-card-full {
   background: var(--card);
   border: 1px solid var(--bd);
-  border-radius: 12px;
-  padding: 14px 18px;
+  border-radius: 16px;
+  padding: 18px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(15,23,42,.04);
+}
+.mod-template-icon {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  border-radius: 12px;
+  background: #fffbeb;
+  color: #d97706;
 }
 
 /* Distribusi Tipe Tagihan */
+.mod-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, .9fr);
+  gap: 14px;
+  align-items: stretch;
+}
 .mod-stats-distribution {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 10px;
+  grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, .7fr));
+  align-items: center;
+  gap: 0;
+  padding: 14px 18px;
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: 0 2px 8px rgba(15,23,42,.04);
 }
 .mod-dist-card {
   background: var(--card);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  padding: 10px 14px;
+  border: 0;
+  border-radius: 0;
+  padding: 4px 12px;
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+.mod-dist-card + .mod-dist-card {
+  border-left: 1px solid #f1f5f9;
 }
 .mod-dist-label {
   font-size: 11.5px;
   color: var(--mut);
   font-weight: 600;
-  text-transform: uppercase;
+}
+.mod-dist-card:not(:first-child) .mod-dist-label,
+.mod-dist-card:not(:first-child) .mod-dist-val {
+  text-align: center;
 }
 .mod-dist-val {
   font-size: 14px;
@@ -1445,33 +2125,58 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 4px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--bd);
+}
+.mod-items-card {
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(15,23,42,.04);
 }
 .mod-section-title {
   margin: 0;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--dk);
+}
+.mod-clear-ind-btn {
+  padding: 6px 8px;
+  border: 0;
+  background: transparent;
+  color: var(--mut);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.mod-clear-ind-btn:hover {
+  color: #e11d48;
 }
 
 /* Daftar Butir Tagihan */
 .mod-ind-full-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0;
 }
 .mod-ind-full-item {
   background: var(--card);
-  border: 1px solid var(--bd);
-  border-radius: 12px;
+  border: 0;
+  border-bottom: 1px solid var(--bd);
+  border-radius: 0;
   padding: 14px 18px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 14px;
-  transition: border-color .15s ease;
+  transition: background .15s ease;
 }
 .mod-ind-full-item:hover {
-  border-color: color-mix(in srgb, var(--pri) 50%, var(--bd));
+  background: #f8fafc;
+}
+.mod-ind-full-item:last-child {
+  border-bottom: 0;
 }
 .mod-ind-full-num {
   width: 28px;
@@ -1522,6 +2227,20 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   gap: 6px;
   flex-shrink: 0;
   flex-wrap: wrap;
+}
+.mod-ind-mandatory-badge {
+  padding: 4px 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mod-ind-mandatory-badge.is-mandatory {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
 }
 
 /* Form Studio Tambah Tagihan */
@@ -1574,6 +2293,684 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 .mod-type-choice-sub {
   font-size: 11px;
   color: var(--mut);
+}
+@media (max-width: 800px) {
+  .mod-overview-grid {
+    grid-template-columns: 1fr;
+  }
+  .mod-ind-full-item {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .mod-ind-full-actions {
+    width: 100%;
+    margin-left: 42px;
+  }
+}
+@media (max-width: 680px) {
+  .mod-workspace {
+    gap: 12px;
+  }
+  .mod-workspace-hero,
+  .mod-template-card-full,
+  .mod-studio-add-card {
+    padding: 16px;
+  }
+  .mod-hero-top-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .mod-hero-actions {
+    width: 100%;
+  }
+  .mod-hero-actions .btn {
+    flex: 1 1 auto;
+  }
+  .mod-hero-meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .mod-hero-meta-item,
+  .mod-hero-meta-label,
+  .mod-hero-meta-value {
+    display: block;
+  }
+  .mod-section-header {
+    align-items: flex-start;
+    padding: 14px;
+  }
+  .mod-section-header > div:last-child {
+    width: 100%;
+  }
+  .mod-stats-distribution {
+    padding: 12px 10px;
+    grid-template-columns: minmax(0, 1fr) repeat(2, minmax(0, .7fr));
+  }
+  .mod-dist-card {
+    padding: 4px 8px;
+  }
+  .mod-ind-full-item {
+    padding: 13px 14px;
+  }
+  .mod-ind-full-actions {
+    margin-left: 0;
+  }
+}
+
+/* Detail Modul - keep the shared application shell */
+.app.mod-workspace-open .side {
+  display: flex !important;
+}
+.mod-workspace {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  gap: 24px;
+  font-family: Inter, "Plus Jakarta Sans", system-ui, sans-serif;
+}
+.mod-workspace-nav {
+  gap: 16px;
+}
+.mod-workspace-crumb {
+  gap: 8px;
+  color: #64748b;
+  font-size: 12px;
+}
+.mod-workspace-crumb-link {
+  gap: 5px;
+  color: #475569;
+  font-size: 12px;
+}
+.mod-workspace-period .dash-period-select {
+  min-width: 0;
+  padding: 6px 30px 6px 12px;
+  border: 1px solid rgba(226,232,240,.9);
+  border-radius: 9px;
+  background-color: #fff;
+  color: #334155;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+}
+.mod-workspace-hero {
+  gap: 0;
+  padding: 20px;
+  border: 1px solid rgba(226,232,240,.9);
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(15,23,42,.025);
+}
+.mod-hero-top-row {
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.mod-hero-title-row {
+  gap: 10px;
+  margin: 0 0 7px;
+}
+.mod-hero-title {
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: -.025em;
+  color: #0f172a;
+}
+.mod-ref-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mod-ref-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.mod-ref-status.is-published {
+  background: #ecfdf5;
+  color: #047857;
+}
+.mod-ref-status.is-draft {
+  background: #fffbeb;
+  color: #b45309;
+}
+.mod-hero-meta-grid {
+  gap: 10px;
+  border: 0;
+  padding: 0;
+  font-size: 12px;
+  color: #64748b;
+}
+.mod-hero-meta-item {
+  align-items: center;
+  gap: 5px;
+  color: #64748b;
+}
+.mod-hero-meta-item > svg {
+  flex: 0 0 auto;
+  color: #94a3b8;
+}
+.mod-hero-meta-item > span {
+  white-space: nowrap;
+}
+.mod-hero-meta-label {
+  color: #64748b;
+  font-size: 12px;
+}
+.mod-hero-meta-value {
+  color: #334155;
+  font-weight: 500;
+}
+.mod-hero-code {
+  padding: 2px 6px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+}
+.mod-hero-actions {
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.mod-ref-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 6px 11px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  background: #fff;
+  color: #475569;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.mod-ref-btn:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  color: #0f172a;
+}
+.mod-ref-btn-primary {
+  border-color: #0d9488;
+  background: #0d9488;
+  color: #fff;
+  font-weight: 600;
+}
+.mod-ref-btn-primary:hover {
+  border-color: #0f766e;
+  background: #0f766e;
+  color: #fff;
+}
+.mod-ref-more-wrap {
+  position: relative;
+  display: block;
+}
+.mod-ref-more-wrap > summary {
+  width: 32px;
+  min-width: 32px;
+  padding: 6px;
+  color: #64748b;
+  list-style: none;
+}
+.mod-ref-more-wrap > summary::-webkit-details-marker {
+  display: none;
+}
+.mod-ref-more-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 20;
+  width: 160px;
+  padding: 4px;
+  border: 1px solid #e2e8f0;
+  border-radius: 11px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(15,23,42,.12);
+}
+.mod-ref-more-menu .btnQuickDeleteMod,
+.mod-ref-more-menu .btnDeleteTemplate {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #e11d48;
+  font: inherit;
+  font-size: 11px;
+  text-align: left;
+  cursor: pointer;
+}
+.mod-ref-more-menu .btnQuickDeleteMod:hover,
+.mod-ref-more-menu .btnDeleteTemplate:hover {
+  background: #fff1f2;
+}
+.mod-overview-grid {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+}
+.mod-hero-main {
+  flex: 1;
+  min-width: 0;
+}
+.mod-ref-separator {
+  color: #cbd5e1;
+  font-size: 11px;
+}
+.mod-template-card-full {
+  grid-column: span 7;
+  flex-wrap: nowrap;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(226,232,240,.9);
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(15,23,42,.025);
+}
+.mod-template-icon {
+  width: 36px;
+  height: 36px;
+  flex-basis: 36px;
+  border-radius: 11px;
+  background: #fffbeb;
+  color: #d97706;
+}
+.mod-template-info {
+  flex: 1;
+  min-width: 0;
+}
+.mod-template-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 600;
+}
+.mod-template-status {
+  flex: 0 0 auto;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: #fffbeb;
+  color: #b45309;
+  font-size: 10px;
+  font-weight: 500;
+}
+.mod-template-status.is-available {
+  background: #ecfdf5;
+  color: #047857;
+}
+.mod-template-desc {
+  overflow: hidden;
+  margin: 2px 0 0;
+  color: #94a3b8;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mod-template-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+.mod-template-actions .mod-ref-btn-primary {
+  border-color: #0f172a;
+  background: #0f172a;
+}
+.mod-template-actions .mod-ref-btn-primary:hover {
+  border-color: #1e293b;
+  background: #1e293b;
+}
+.mod-template-heading + .mod-template-desc a {
+  color: #64748b;
+  text-decoration: none;
+}
+.mod-template-heading + .mod-template-desc a:hover {
+  color: #0d9488;
+  text-decoration: underline;
+}
+.mod-template-card-full > div:nth-child(2) {
+  min-width: 0;
+}
+.mod-template-card-full > div:nth-child(2) > div:first-child {
+  gap: 8px;
+}
+.mod-template-card-full > div:nth-child(2) b {
+  font-size: 12px !important;
+  color: #0f172a !important;
+}
+.mod-template-card-full > div:nth-child(2) > div:last-child {
+  overflow: hidden;
+  color: #94a3b8 !important;
+  font-size: 11px !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mod-template-card-full > div:nth-child(2) > div:last-child a {
+  color: #64748b;
+  text-decoration: none;
+}
+.mod-template-card-full > div:nth-child(2) > div:last-child a:hover {
+  color: #0d9488;
+  text-decoration: underline;
+}
+.mod-template-card-full .tag {
+  padding: 2px 7px;
+  font-size: 10px !important;
+}
+.mod-template-card-full .tag::before {
+  display: none;
+}
+.mod-template-card-full > div:last-child {
+  gap: 6px !important;
+}
+.mod-template-card-full > div:last-child .btn {
+  padding: 6px 10px !important;
+  border-color: #0f172a;
+  background: #0f172a;
+  color: #fff;
+  font-family: inherit;
+  font-size: 11px !important;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.mod-template-card-full > div:last-child .btn:hover {
+  border-color: #1e293b;
+  background: #1e293b;
+}
+.mod-stats-distribution {
+  grid-column: span 5;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(226,232,240,.9);
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(15,23,42,.025);
+}
+.mod-dist-card {
+  gap: 2px;
+  padding: 0;
+  background: transparent;
+}
+.mod-dist-card + .mod-dist-card {
+  border: 0;
+}
+.mod-dist-summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.mod-ref-stat-divider {
+  width: 1px;
+  height: 24px;
+  background: #f1f5f9;
+}
+.mod-dist-card:not(:first-child) .mod-dist-label,
+.mod-dist-card:not(:first-child) .mod-dist-val {
+  text-align: left;
+}
+.mod-dist-card:first-child .mod-dist-val {
+  font-size: 18px;
+}
+.mod-dist-summary .mod-dist-card,
+.mod-dist-summary .mod-dist-label,
+.mod-dist-summary .mod-dist-val {
+  text-align: right !important;
+}
+.mod-dist-summary .mod-dist-val {
+  font-size: 14px;
+}
+.mod-dist-label {
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 500;
+}
+.mod-dist-val {
+  color: #0f172a;
+  font-size: 14px;
+}
+.mod-dist-val.mod-dist-required {
+  color: #0d9488;
+}
+.mod-items-card {
+  border: 1px solid rgba(226,232,240,.9);
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(15,23,42,.025);
+}
+.mod-section-header {
+  gap: 16px;
+  padding: 16px 20px;
+  border-color: #f1f5f9;
+}
+.mod-section-title {
+  color: #0f172a;
+  font-size: 14px;
+}
+.mod-ref-count {
+  margin-left: 4px;
+  color: #94a3b8;
+  font-weight: 400;
+}
+.mod-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mod-clear-ind-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 0;
+  color: #94a3b8;
+  font-family: inherit;
+  font-size: 11px;
+}
+.mod-ind-full-item {
+  gap: 14px;
+  padding: 14px 20px;
+  border-color: #f1f5f9;
+}
+.mod-ind-full-item:hover {
+  background: rgba(248,250,252,.7);
+}
+.mod-ind-full-num {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 500;
+}
+.mod-ind-full-body {
+  gap: 2px;
+}
+.mod-ind-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.mod-ind-full-text {
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.mod-ind-guide-box {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.mod-ind-full-actions .btnDelInd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+}
+.mod-ref-empty {
+  padding: 48px 20px;
+  color: #94a3b8;
+  text-align: center;
+}
+.mod-ref-empty p {
+  margin: 0;
+  font-size: 12px;
+}
+.mod-ref-empty button {
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #0d9488;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mod-ind-guide-box span {
+  display: none;
+}
+.mod-ind-full-actions {
+  gap: 6px;
+}
+.mod-ind-mandatory-badge {
+  padding: 2px 7px;
+  border: 0;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 500;
+}
+.mod-ind-mandatory-badge.is-mandatory {
+  border: 0;
+  background: #fff1f2;
+  color: #e11d48;
+}
+.mod-ind-full-actions .mod-ref-item-edit {
+  padding: 5px 9px;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.mod-ind-full-actions .mod-ref-item-edit:hover {
+  background: #f0fdfa;
+  color: #0f766e;
+}
+.mod-ind-full-actions .btnDelInd {
+  padding: 5px;
+  border: 0 !important;
+  color: #94a3b8 !important;
+}
+.mod-ind-full-actions .btnDelInd:hover {
+  background: #fff1f2;
+  color: #e11d48 !important;
+}
+@media (max-width: 768px) {
+  .mod-overview-grid {
+    grid-template-columns: 1fr;
+  }
+  .mod-template-card-full,
+  .mod-stats-distribution {
+    grid-column: auto;
+  }
+  .mod-hero-top-row {
+    flex-wrap: wrap;
+  }
+  .mod-hero-actions {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 620px) {
+  .mod-workspace {
+    gap: 18px;
+  }
+  .mod-workspace-nav {
+    align-items: flex-start;
+  }
+  .mod-workspace-crumb {
+    gap: 5px;
+  }
+  .mod-workspace-period .dash-period-select {
+    max-width: 138px;
+  }
+  .mod-hero-top-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .mod-hero-title {
+    font-size: 20px;
+  }
+  .mod-hero-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .mod-template-card-full {
+    flex-wrap: wrap;
+  }
+  .mod-template-card-full > div:last-child {
+    width: 100%;
+    margin-left: 48px;
+  }
+  .mod-template-actions {
+    margin-left: 48px;
+  }
+  .mod-stats-distribution {
+    gap: 8px;
+    padding: 14px 12px;
+  }
+  .mod-section-header {
+    align-items: flex-start;
+    padding: 14px;
+  }
+  .mod-section-header > div:last-child {
+    width: auto;
+  }
+  .mod-section-actions {
+    gap: 8px;
+  }
+  .mod-ind-full-item {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 12px 14px;
+  }
+  .mod-ind-full-actions {
+    width: calc(100% - 38px);
+    margin-left: 38px;
+  }
+  .mod-ind-title-row {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .mod-dist-summary {
+    gap: 8px;
+  }
 }
 
 /* ========================================================
@@ -3536,7 +4933,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       </div>
       <div class="panel">
         <div class="plogo">
-          <img src="assets/images/logo-kemenkes-bbpk.png" alt="Kemenkes BBPK Jakarta" onerror="this.onerror=null;this.src='assets/images/logo-kemenkes-bbpk.svg';">
+          <div class="plogo-brand"><strong>Kemenkes</strong><span>BBPK Jakarta</span></div>
           <button class="modal-close mobile-drawer-close" id="mdc" aria-label="Tutup Menu" style="margin-left:auto;display:none;font-size:22px">&times;</button>
         </div>
         <div class="pg on" data-g="dash">
@@ -3544,7 +4941,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
         </div>
         <div class="pg" data-g="awas">
           <button class="nav" data-s="mod" style="display:none">Master Modul &amp; Template</button>
-          <button class="nav" data-s="jdw" style="display:none">Jadwal &amp; Periode</button>
           <button class="nav" data-s="upl" style="display:none">Upload Eviden</button>
           <button class="nav" data-s="mon" style="display:none">Monitoring Upload</button>
           <button class="nav" data-s="rep" style="display:none">Repositori Eviden</button>
@@ -3604,7 +5000,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
         <!-- SCREEN SECTIONS -->
         <section class="scr on" id="dash"><div id="dashC"></div></section>
         <section class="scr" id="mod"><div id="modRoot"></div><input type="file" id="finModTemplate" hidden accept=".xlsx,.xls,.docx,.doc,.pdf,.csv,.zip,.pptx"></section>
-        <section class="scr" id="jdw"><div class="card" id="jdwC"></div></section>
         <section class="scr" id="upl"><div id="uplC"></div><input type="file" id="fin" hidden accept=".pdf,.xlsx,.xls,.docx,.doc"></section>
         <section class="scr" id="mon"><div class="card" id="monC"></div></section>
         <section class="scr" id="rep"><div class="card" id="repC"></div></section>
@@ -3633,6 +5028,8 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 
   var ACTIVE_SCREEN = 'dash';
   var currentModulId = null;
+  var moduleSettingsHandler = null;
+  var moduleStatusHandler = null;
   var currentUploadInd = null;
   var currentUploadJadwal = null;
   var modSearchQuery = '';
@@ -3647,6 +5044,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   var uplCatSearchQuery = '';
   var uplCatPeriod = '2026-10';
   var uplActivityTab = 'all'; // 'all' | 'upload' | 'activity'
+  var dashActivityTab = 'all';
   var uplRealtimeTimer = null;
   var uplLoggedViews = {};
 
@@ -3971,13 +5369,17 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       uplRealtimeTimer = null;
     }
     if (s === 'apr') s = 'rev';
+    if (s === 'jdw') s = 'mod';
     if (s !== 'dash' && s !== 'prof' && !can(s, 'l')) {
       s = 'dash';
     }
+    if (s !== 'mod') setModWorkspaceOpen(false);
     ACTIVE_SCREEN = s;
     document.body.classList.remove("nav-open");
     document.querySelectorAll(".scr").forEach(function(x){ x.classList.toggle("on", x.id === s); });
     document.querySelectorAll(".nav").forEach(function(b){ b.classList.toggle("on", b.dataset.s === s); });
+    var mainEl = document.querySelector('.main');
+    if (mainEl) mainEl.classList.toggle('dashboard-active', s === 'dash');
     
     // Toggle page guide button visibility (hidden on dash to match mockup cleanly, visible on other screens)
     var btnGuide = document.getElementById("btnPageGuide");
@@ -3988,7 +5390,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     var nb = document.querySelector('.nav[data-s="' + s + '"]');
     if (nb) {
       var navTitle = nb.querySelector('.nav-txt') ? nb.querySelector('.nav-txt').textContent : nb.textContent;
-      document.getElementById("ttl").innerHTML = '<span>' + navTitle.replace(/[0-9]/g, '').trim() + '</span>';
+      document.getElementById("ttl").innerHTML = '<span>' + (s === 'dash' ? 'Dashboard Pengawasan' : navTitle.replace(/[0-9]/g, '').trim()) + '</span>';
       var activePg = nb.closest('.pg');
       if (activePg) {
         var g = activePg.dataset.g;
@@ -4039,16 +5441,16 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       ],
       next: "Lanjutkan ke menu sesuai tugas Anda (Upload Eviden bagi PIC, Review bagi SKI, Disposisi bagi Pimpinan)."
     },
-    jdw: {
-      step: "Tahap 2: Jadwal",
-      role: "Ketua SKI & Admin",
-      desc: "Menentukan siklus pengawasan (Bulanan/Triwulan), tanggal jatuh tempo pengumpulan berkas, serta tanggal mulai penilaian SKI.",
+    mod: {
+      step: "Master Modul & Template",
+      role: "Ketua SKI, Anggota SKI, dan Admin sesuai hak akses",
+      desc: "Kelola modul, butir tagihan, template acuan, serta jadwal pengawasan per modul.",
       actions: [
-        "Tentukan <b>Tenggat Unggah</b>. Ingat: Setelah tanggal ini terlewati, sistem mengunci berkas secara otomatis!",
-        "Pilih modul-modul yang sudah siap diterbitkan pada periode berjalan.",
-        "Klik tombol <b>Terbitkan Jadwal Aktif</b> untuk mengumumkan tagihan ke PIC."
+        "Klik ikon edit pada kartu modul untuk mengubah nama modul, periode, siklus, tenggat unggah PIC, atau tanggal mulai penilaian SKI.",
+        "Klik <b>Terbitkan</b> pada modul draf, lengkapi jadwalnya, lalu pilih <b>Terbitkan Jadwal</b> agar modul aktif untuk PIC.",
+        "Jadwal hanya berlaku untuk modul yang sedang diatur; modul lain tidak berubah."
       ],
-      next: "PIC unit kerja sekarang dapat mulai mengunggah dokumen di menu <b>Upload Eviden</b>."
+      next: "Periksa kembali tenggat dan tanggal penilaian pada kartu modul sebelum modul diterbitkan."
     },
     upl: {
       step: "Tahap 3: Unggah bukti",
@@ -4182,7 +5584,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   function renderActiveScreen() {
     if (ACTIVE_SCREEN === 'dash') renderDash();
     else if (ACTIVE_SCREEN === 'mod') renderModul();
-    else if (ACTIVE_SCREEN === 'jdw') renderJadwal();
     else if (ACTIVE_SCREEN === 'upl') renderUpload();
     else if (ACTIVE_SCREEN === 'mon') renderMonitoring();
     else if (ACTIVE_SCREEN === 'rep') renderRepositori();
@@ -4612,45 +6013,321 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 
   // Tampilan Dashboard: Anggota SKI
   function dashAnggota() {
-    var valAntrean = STATE.evidens.filter(function(e){ return e.status_eviden === 'u'; }).length;
-    var valRevisi = STATE.evidens.filter(function(e){ return e.status_eviden === 'r'; }).length;
-    var valLolos = STATE.evidens.filter(function(e){ return ['o', 'a', 'f'].indexOf(e.status_eviden) > -1; }).length;
-    var modAntreanCount = STATE.moduls.filter(function(m){
-      return STATE.evidens.some(function(e){ return e.id_modul === m.id_modul && e.status_eviden === 'u'; });
+    var reviewStatuses = ['o', 'a', 'f'];
+    var activeModules = (STATE.moduls || []).filter(function(m){
+      return m.status_template === 'terbit' && !!m.id_jadwal;
+    });
+    var valAntrean = (STATE.evidens || []).filter(function(e){ return e.status_eviden === 'u'; }).length;
+    var valRevisi = (STATE.evidens || []).filter(function(e){ return e.status_eviden === 'r'; }).length;
+    var valLolos = (STATE.evidens || []).filter(function(e){ return reviewStatuses.indexOf(e.status_eviden) > -1; }).length;
+    var modAntreanCount = activeModules.filter(function(m){
+      return (STATE.evidens || []).some(function(e){
+        return String(e.id_modul) === String(m.id_modul) && e.status_eviden === 'u';
+      });
     }).length;
+    var reviewTotal = valLolos + valAntrean + valRevisi;
+    var reviewPct = reviewTotal > 0 ? Math.round((valLolos / reviewTotal) * 100) : 0;
+    var circumference = 2 * Math.PI * 40;
+    var periodSelect = document.getElementById('dashPeriodSelect');
+    var periodText = periodSelect && periodSelect.options[periodSelect.selectedIndex]
+      ? periodSelect.options[periodSelect.selectedIndex].textContent.split('·')[0].trim()
+      : 'Periode Aktif';
 
-    var h = '<div class="dash-kpi-grid">' +
-              dashKpi("Antrean Review", valAntrean, "berkas menunggu review", dashIconFile, "#2563eb") +
-              dashKpi("Dikembalikan ke PIC", valRevisi, "perlu tindak lanjut", dashIconAlert, "#dc2626") +
-              dashKpi("Lolos Review", valLolos, "berkas sesuai indikator", dashIconCheck, "#10b981") +
-              dashKpi("Modul Ada Antrean", modAntreanCount, "dari " + STATE.moduls.length + " modul", dashIconFolder, "#7c3aed") +
-            '</div>';
+    function memberKpi(label, value, sub, icon, bg, color, valueColor) {
+      return '<div class="dash-member-kpi">' +
+               '<div class="dash-member-kpi-icon" style="background:' + bg + ';color:' + color + '">' + icon + '</div>' +
+               '<div class="dash-member-kpi-copy">' +
+                 '<span class="dash-member-kpi-label">' + escapeHtml(label) + '</span>' +
+                 '<b class="dash-member-kpi-value" style="' + (valueColor ? 'color:' + valueColor : '') + '">' + escapeHtml(String(value)) + '</b>' +
+                 '<span class="dash-member-kpi-sub">' + escapeHtml(sub) + '</span>' +
+               '</div>' +
+             '</div>';
+    }
 
-    h += '<div class="dash-main-grid">';
+    function activityDateValue(value) {
+      var d = new Date(String(value || '').replace(' ', 'T'));
+      return isNaN(d.getTime()) ? null : d;
+    }
 
-    // Left Column: Progres review per modul (hanya modul yang punya berkas)
-    var modsWithEv = STATE.moduls.filter(function(m){
-      return STATE.evidens.some(function(e){ return e.id_modul === m.id_modul; });
+    function activityTimeLabel(value) {
+      var d = activityDateValue(value);
+      if (!d) return escapeHtml(value || '-');
+      var months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      var hour = String(d.getHours());
+      var minute = String(d.getMinutes());
+      return d.getDate() + ' ' + months[d.getMonth()] + ', ' +
+        (hour.length < 2 ? '0' + hour : hour) + ':' +
+        (minute.length < 2 ? '0' + minute : minute);
+    }
+
+    var unitCards = '';
+    var units = STATE.units || [];
+    if (units.length === 0) {
+      unitCards = '<div style="grid-column:1/-1;padding:20px;text-align:center;color:#94a3b8;font-size:11px">Data unit kerja belum tersedia.</div>';
+    } else {
+      units.forEach(function(unit){
+        var unitModules = activeModules.filter(function(m){
+          return String(m.id_unit_pic) === String(unit.id_unit);
+        });
+        var unitModuleIds = unitModules.map(function(m){ return String(m.id_modul); });
+        var unitIndicators = (STATE.indikators || []).filter(function(i){
+          return unitModuleIds.indexOf(String(i.id_modul)) > -1;
+        });
+        var unitEvidens = (STATE.evidens || []).filter(function(e){
+          return unitModuleIds.indexOf(String(e.id_modul)) > -1;
+        });
+        var unitDone = unitIndicators.filter(function(ind){
+          var ev = (STATE.evidens || []).find(function(e){
+            return String(e.id_indikator) === String(ind.id_indikator);
+          });
+          return ev && reviewStatuses.indexOf(ev.status_eviden) > -1;
+        }).length;
+        var unitPct = unitIndicators.length > 0 ? Math.round((unitDone / unitIndicators.length) * 100) : 0;
+        var isPending = unitModules.length === 0 || unitEvidens.length === 0;
+        var badgeText = unitModules.length === 0 ? '—' : (unitEvidens.length === 0 ? 'Menunggu' : unitPct + '%');
+        var detailText = unitModules.length + ' Modul · ' +
+          (unitEvidens.length > 0 ? unitEvidens.length + ' Berkas' : (unitModules.length > 0 ? 'Terjadwal' : 'Belum aktif'));
+
+        unitCards += '<div class="dash-member-unit-card">' +
+                       '<div style="min-width:0">' +
+                         '<div class="dash-member-unit-name">' + escapeHtml(unit.nama_unit || 'Unit Kerja') + '</div>' +
+                         '<div class="dash-member-unit-meta">' + escapeHtml(detailText) + '</div>' +
+                       '</div>' +
+                       '<span class="dash-member-unit-badge' + (isPending ? ' pending' : '') + '">' + escapeHtml(badgeText) + '</span>' +
+                     '</div>';
+      });
+    }
+
+    var progressModules = activeModules.map(function(m){
+      var modIndicators = (STATE.indikators || []).filter(function(i){
+        return String(i.id_modul) === String(m.id_modul);
+      });
+      var modEvidens = (STATE.evidens || []).filter(function(e){
+        return String(e.id_modul) === String(m.id_modul);
+      });
+      if (modEvidens.length === 0) return null;
+      var done = modIndicators.filter(function(ind){
+        var ev = modEvidens.find(function(e){
+          return String(e.id_indikator) === String(ind.id_indikator);
+        });
+        return ev && reviewStatuses.indexOf(ev.status_eviden) > -1;
+      }).length;
+      var total = modIndicators.length;
+      return {
+        module: m,
+        done: done,
+        total: total,
+        pct: total > 0 ? Math.round((done / total) * 100) : 0
+      };
+    }).filter(Boolean);
+    progressModules.sort(function(a, b){
+      return b.pct - a.pct || String(a.module.nama_modul).localeCompare(String(b.module.nama_modul));
     });
-    var leftBody = dashModRows(modsWithEv, function(m){
-      var evs = STATE.evidens.filter(function(e){ return e.id_modul === m.id_modul; });
-      var lolos = evs.filter(function(e){ return ['o', 'a', 'f'].indexOf(e.status_eviden) > -1; }).length;
-      return { done: lolos, total: evs.length, unitLabel: 'berkas lolos' };
+
+    var auditEntries = (STATE.audit || []).filter(function(entry){
+      var action = String(entry.jenis_aksi || '').trim().toLowerCase();
+      var target = String(entry.objek_target || '').toLowerCase();
+      return action &&
+        action.indexOf('login') === -1 &&
+        action.indexOf('logout') === -1 &&
+        action.indexOf('rbac') === -1 &&
+        action.indexOf('pengguna') === -1 &&
+        action.indexOf('akun') === -1 &&
+        target.indexOf('sistem monev ski') === -1 &&
+        target.indexOf('portal bbpk') === -1 &&
+        target.indexOf('role:') === -1;
     });
-    h += dashCard("Progres Review per Modul", '<span class="dash-badge-period"><i></i> Antrean Aktif</span>', leftBody);
+    auditEntries.sort(function(a, b){
+      var da = activityDateValue(a.timestamp_aktivitas);
+      var db = activityDateValue(b.timestamp_aktivitas);
+      return (db ? db.getTime() : 0) - (da ? da.getTime() : 0);
+    });
 
-    // Right Column: Ring review selesai
-    var totalSample = valLolos + valAntrean + valRevisi;
-    var pct = totalSample > 0 ? Math.round((valLolos / totalSample) * 100) : 0;
-    var legendHtml = dashLegend([
-      { label: 'Lolos', count: valLolos, color: '#10b981' },
-      { label: 'Antre', count: valAntrean, color: '#2563eb' },
-      { label: 'Dikembalikan', count: valRevisi, color: '#dc2626' }
-    ]);
-    var ringHtml = dashRing(pct, 'berkas lolos review', legendHtml);
-    h += dashCard("Review Selesai", '', ringHtml);
+    var activityUsers = [];
+    var seenActivityUsers = {};
+    if (STATE.user && STATE.user.nama) {
+      var currentNameKey = STATE.user.nama.trim().toLowerCase();
+      activityUsers.push({ name: STATE.user.nama, role: STATE.user.nama_role || 'Pengguna' });
+      seenActivityUsers[currentNameKey] = true;
+    }
+    auditEntries.slice(0, 6).forEach(function(entry){
+      var name = String(entry.nama_lengkap || '').trim();
+      var key = name.toLowerCase();
+      if (name && !seenActivityUsers[key]) {
+        seenActivityUsers[key] = true;
+        activityUsers.push({ name: name, role: entry.role_saat_aksi || 'Pengguna' });
+      }
+    });
 
-    h += '</div>';
+    var selectedTab = ['all', 'upload', 'activity'].indexOf(dashActivityTab) > -1 ? dashActivityTab : 'all';
+    var filteredActivity = auditEntries.filter(function(entry){
+      var action = String(entry.jenis_aksi || '').toLowerCase();
+      var isUpload = /unggah|upload|eviden|berkas/.test(action);
+      if (selectedTab === 'upload') return isUpload;
+      if (selectedTab === 'activity') return !isUpload;
+      return true;
+    }).slice(0, 6);
+
+    var avatarsHtml = '';
+    var roleColors = ['#6366f1', '#8b5cf6', '#0d9488', '#f59e0b', '#475569'];
+    activityUsers.slice(0, 4).forEach(function(person, index){
+      var initials = person.name.split(/\s+/).slice(0, 2).map(function(word){ return word.charAt(0); }).join('').toUpperCase();
+      var role = String(person.role || '').toLowerCase();
+      var color = role.indexOf('pic') > -1 ? '#8b5cf6' :
+        (role.indexOf('anggota') > -1 ? '#6366f1' :
+        (role.indexOf('ketua') > -1 ? '#0d9488' :
+        (role.indexOf('pimpinan') > -1 ? '#475569' :
+        (role.indexOf('admin') > -1 ? '#f59e0b' : roleColors[index % roleColors.length]))));
+      avatarsHtml += '<span class="dash-member-avatar" style="background:' + color + '" title="' +
+        escapeAttr(person.name + ' (' + person.role + ')') + '">' + escapeHtml(initials) + '</span>';
+    });
+    if (activityUsers.length > 4) {
+      avatarsHtml += '<span class="dash-member-avatar more">+' + (activityUsers.length - 4) + '</span>';
+    }
+    if (activityUsers.length === 0) {
+      avatarsHtml = '<span class="dash-member-viewers-count">Belum ada aktivitas pengguna</span>';
+    }
+
+    var activityHtml = '';
+    if (filteredActivity.length === 0) {
+      activityHtml = '<div style="padding:24px 8px;color:#94a3b8;font-size:11px;text-align:center">Belum ada aktivitas untuk kategori ini.</div>';
+    } else {
+      filteredActivity.forEach(function(entry){
+        var action = String(entry.jenis_aksi || 'Aktivitas').trim();
+        var userName = String(entry.nama_lengkap || 'Pengguna');
+        var roleName = String(entry.role_saat_aksi || '').trim();
+        var target = String(entry.objek_target || '').trim();
+        var lowerTarget = target.toLowerCase();
+        var matchedModule = (STATE.moduls || []).find(function(m){
+          var moduleName = String(m.nama_modul || '').trim().toLowerCase();
+          return moduleName && lowerTarget.indexOf(moduleName) > -1;
+        });
+        var moduleLabel = matchedModule ? matchedModule.nama_modul : target;
+        var actionLower = action.toLowerCase();
+        var dotType = /unggah|upload|eviden|berkas/.test(actionLower) ? 'upload' :
+          (/review|setujui|approval|verifikasi/.test(actionLower) ? 'review' : '');
+
+        activityHtml += '<div class="dash-member-activity-item">' +
+                          '<span class="dash-member-activity-dot ' + dotType + '"></span>' +
+                          '<div class="dash-member-activity-userline">' +
+                            '<b>' + escapeHtml(userName) + (roleName ? ' (' + escapeHtml(roleName) + ')' : '') + '</b>' +
+                            '<span> &nbsp;•&nbsp; ' + activityTimeLabel(entry.timestamp_aktivitas) + '</span>' +
+                          '</div>' +
+                          '<div class="dash-member-activity-action">' + escapeHtml(action) + '</div>' +
+                          (moduleLabel ? '<span class="dash-member-activity-target" title="' + escapeAttr(moduleLabel) + '">' + escapeHtml(moduleLabel) + '</span>' : '') +
+                        '</div>';
+      });
+    }
+
+    var h = '<div class="dash-member-layout">' +
+              '<div class="dash-member-left">' +
+                '<div class="dash-member-kpis">' +
+                  memberKpi('Antrean Review', valAntrean, 'berkas menunggu', dashIconFile, '#eff6ff', '#2563eb') +
+                  memberKpi('Dikembalikan PIC', valRevisi, 'perlu tindak lanjut', dashIconAlert, '#fff1f2', '#e11d48') +
+                  memberKpi('Lolos Review', valLolos, 'sesuai indikator', dashIconCheck, '#ecfdf5', '#059669', '#059669') +
+                  memberKpi('Modul Antrean', modAntreanCount, 'dari ' + activeModules.length + ' modul', dashIconFolder, '#faf5ff', '#9333ea') +
+                '</div>';
+
+    h += dashCard(
+      'Status Kepatuhan Unit Kerja',
+      '<span style="font-size:10.5px;color:#94a3b8;font-weight:500">Periode ' + escapeHtml(periodText) + '</span>',
+      '<div class="dash-member-unit-grid">' + unitCards + '</div>'
+    );
+
+    h += '<div class="dash-member-bottom">' +
+           '<section class="dash-card dash-member-review-card">' +
+             '<div class="dash-member-review-top">' +
+               '<h2 class="dash-card-title">Review Selesai</h2>' +
+               '<span class="dash-member-quality">' + (reviewPct === 100 && reviewTotal > 0 ? 'Optimal' : 'Dalam Proses') + '</span>' +
+             '</div>' +
+             '<div class="dash-member-review-ring">' +
+               '<svg viewBox="0 0 100 100" aria-label="Review selesai ' + reviewPct + '%">' +
+                 '<circle cx="50" cy="50" r="40" fill="none" stroke="#f1f5f9" stroke-width="11"></circle>' +
+                 '<circle cx="50" cy="50" r="40" fill="none" stroke="#0d9488" stroke-width="11" stroke-linecap="round" stroke-dasharray="' + circumference.toFixed(1) + '" stroke-dashoffset="' + (circumference - (reviewPct / 100) * circumference).toFixed(1) + '"></circle>' +
+               '</svg>' +
+               '<div class="dash-member-review-center">' +
+                 '<b class="dash-member-review-percent">' + reviewPct + '%</b>' +
+                 '<span class="dash-member-review-caption">berkas lolos</span>' +
+               '</div>' +
+             '</div>' +
+             '<div class="dash-member-review-stats">' +
+               '<div class="dash-member-review-stat"><span>Lolos</span><b class="ok">' + valLolos + '</b></div>' +
+               '<div class="dash-member-review-stat"><span>Antre</span><b>' + valAntrean + '</b></div>' +
+               '<div class="dash-member-review-stat"><span>Revisi</span><b>' + valRevisi + '</b></div>' +
+             '</div>' +
+           '</section>' +
+           '<section class="dash-card dash-member-progress-card">' +
+             '<div>' +
+               '<div class="dash-member-progress-head">' +
+                 '<h2 class="dash-card-title">Progres Review per Modul</h2>' +
+                 '<span class="dash-member-queue-badge"><i></i> Antrean Aktif</span>' +
+               '</div>' +
+               '<div class="dash-member-progress-list">';
+
+    if (progressModules.length === 0) {
+      h += '<div style="padding:30px 8px;text-align:center;color:#94a3b8;font-size:11px">Belum ada berkas untuk ditinjau.</div>';
+    } else {
+      progressModules.slice(0, 4).forEach(function(item){
+        var status = item.pct >= 80 ? 'Baik' : (item.pct >= 60 ? 'Cukup' : (item.done > 0 ? 'Proses' : 'Menunggu'));
+        var fillColor = item.pct >= 80 ? '#10b981' : (item.pct >= 40 ? '#f59e0b' : '#0ea5e9');
+        h += '<div class="dash-member-progress-row" data-mod-id="' + escapeAttr(item.module.id_modul) + '" title="Buka review modul ' + escapeAttr(item.module.nama_modul) + '">' +
+               '<div class="dash-member-progress-meta">' +
+                 '<span class="dash-member-progress-name">' + escapeHtml(item.module.nama_modul) +
+                   (item.module.nama_unit ? '<small class="dash-member-progress-unit">(' + escapeHtml(item.module.nama_unit) + ')</small>' : '') +
+                 '</span>' +
+                 '<span class="dash-member-progress-result"><span><b>' + item.done + '</b>/' + item.total + ' lolos</span><b class="dash-member-progress-status" style="color:' + fillColor + '">' + status + '</b></span>' +
+               '</div>' +
+               '<div class="dash-member-progress-bar"><div class="dash-member-progress-fill" style="width:' + item.pct + '%;background:' + fillColor + '"></div></div>' +
+             '</div>';
+      });
+    }
+
+    h += '</div>' +
+           '</div>' +
+           '<div class="dash-member-progress-footer">' +
+             '<span>' + progressModules.length + ' dari ' + activeModules.length + ' modul aktif memiliki berkas</span>' +
+             '<button type="button" id="btnDashReviewAllModules">Semua Modul <span aria-hidden="true">→</span></button>' +
+           '</div>' +
+         '</section>' +
+       '</div>' +
+     '</div>';
+
+    var tabCounts = {
+      all: auditEntries.length,
+      upload: auditEntries.filter(function(entry){ return /unggah|upload|eviden|berkas/i.test(String(entry.jenis_aksi || '')); }).length,
+      activity: auditEntries.filter(function(entry){ return !/unggah|upload|eviden|berkas/i.test(String(entry.jenis_aksi || '')); }).length
+    };
+    var viewerCountText = activityUsers.length > 4
+      ? '+' + (activityUsers.length - 4) + ' Orang Lainnya'
+      : activityUsers.length + ' Pengguna Terlibat';
+
+    h += '<aside class="dash-card dash-member-activity">' +
+           '<div class="dash-member-tabs">' +
+             '<div class="dash-member-tabs-list">' +
+               '<button type="button" class="dash-member-tab' + (selectedTab === 'all' ? ' active' : '') + '" data-tab="all">Semua</button>' +
+               '<button type="button" class="dash-member-tab' + (selectedTab === 'upload' ? ' active' : '') + '" data-tab="upload">Upload</button>' +
+               '<button type="button" class="dash-member-tab' + (selectedTab === 'activity' ? ' active' : '') + '" data-tab="activity">Aktivitas</button>' +
+             '</div>' +
+             '<span class="dash-member-data-status"><i></i> Terbaru</span>' +
+           '</div>' +
+           '<div class="dash-member-viewers">' +
+             '<div class="dash-member-overline">Pengguna Terlibat</div>' +
+             '<div class="dash-member-viewers-title">Terlihat pada aktivitas terbaru</div>' +
+             '<div class="dash-member-viewers-row">' +
+               '<div class="dash-member-avatars">' + avatarsHtml + '</div>' +
+               '<span class="dash-member-viewers-count">' + escapeHtml(viewerCountText) + '</span>' +
+             '</div>' +
+           '</div>' +
+           '<div class="dash-member-timeline-section">' +
+             '<div class="dash-member-timeline-header">' +
+               '<span class="dash-member-overline">Riwayat Aktivitas</span>' +
+               '<span class="dash-member-timeline-count">' + Math.min(tabCounts[selectedTab], 6) + ' aktivitas</span>' +
+             '</div>' +
+             '<div class="dash-member-timeline">' + activityHtml + '</div>' +
+           '</div>' +
+         '</aside>' +
+       '</div>';
+
     return h;
   }
 
@@ -4849,6 +6526,16 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   function renderDash() {
     var role = (STATE.user && STATE.user.role) ? STATE.user.role : 'ket';
     var h = '';
+    var mainEl = document.querySelector('.main');
+    var guide = document.getElementById('btnPageGuide');
+    if (mainEl) mainEl.classList.add('dashboard-active');
+    if (guide) guide.style.display = 'none';
+    if (STATE.user) {
+      var greetingEl = document.getElementById('gr');
+      var titleEl = document.getElementById('ttl');
+      if (greetingEl) greetingEl.textContent = getGreetingText(STATE.user.nama);
+      if (titleEl) titleEl.innerHTML = '<span>Dashboard Pengawasan</span>';
+    }
 
     if (role === 'pic') {
       h = dashPIC();
@@ -4867,6 +6554,29 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     }
 
     document.getElementById("dashC").innerHTML = h;
+    if (role === 'ang') {
+      document.querySelectorAll('.dash-member-tab').forEach(function(button){
+        button.onclick = function(){
+          dashActivityTab = this.dataset.tab || 'all';
+          renderDash();
+        };
+      });
+      document.querySelectorAll('.dash-member-progress-row').forEach(function(row){
+        row.onclick = function(){
+          revModFilter = this.dataset.modId || 'all';
+          revFilterTab = 'all';
+          showScreen('rev');
+        };
+      });
+      var allModulesButton = document.getElementById('btnDashReviewAllModules');
+      if (allModulesButton) {
+        allModulesButton.onclick = function(){
+          revModFilter = 'all';
+          revFilterTab = 'pending';
+          showScreen('rev');
+        };
+      }
+    }
   }
 
   // --- 2. MASTER MODUL & TEMPLATE (STUDIO & WORKSPACE ARCHITECTURE) ---
@@ -4884,6 +6594,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       var curMod = STATE.moduls.find(function(m){ return String(m.id_modul) === String(currentModulId); });
       if (curMod) {
         renderModulWorkspace(curMod, canCreate, canEdit, canDelete);
+        setModWorkspaceOpen(ACTIVE_SCREEN === 'mod');
         return;
       } else {
         currentModulId = null;
@@ -4891,7 +6602,22 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     }
 
     // 2. DEFAULT: TAMPILKAN KATALOG SEMUA MODUL (OVERVIEW LEGA & BERSIH)
+    setModWorkspaceOpen(false);
     renderModulCatalog(canCreate, canEdit, canDelete);
+  }
+
+  function setModWorkspaceOpen(isOpen) {
+    var app = document.querySelector('.app');
+    var period = document.getElementById('dashPeriodSelect');
+    var guide = document.getElementById('btnPageGuide');
+    if (app) app.classList.toggle('mod-workspace-open', isOpen);
+
+    if (isOpen) {
+      var periodSlot = document.getElementById('modWorkspacePeriodSlot');
+      if (period && periodSlot) periodSlot.appendChild(period);
+    } else if (period && guide && guide.parentNode) {
+      guide.parentNode.appendChild(period);
+    }
   }
 
   // --- 2A. KATALOG DAFTAR MODUL PENGAWASAN ---
@@ -4954,7 +6680,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
              '</div>' +
              '<div class="mod-top-actions" onclick="event.stopPropagation()">';
       if (canEdit) {
-        h += '<button class="mod-icon-btn btnEditModModal" data-id="' + m.id_modul + '" title="Edit Nama &amp; Unit Modul">' +
+        h += '<button class="mod-icon-btn btnEditModModal" data-id="' + m.id_modul + '" title="Edit Modul, Periode &amp; Jadwal">' +
                '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' +
              '</button>' +
              '<button class="mod-icon-btn btnUploadTemplate" data-id="' + m.id_modul + '" title="Unggah / Tautkan Template Acuan">' +
@@ -4973,6 +6699,15 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
              '<h3 class="mod-card-title-text">' + escapeHtml(m.nama_modul) + '</h3>' +
              '<div class="mod-card-code-text">#mod-' + escapeHtml(m.id_modul) + '</div>' +
              '<div class="mod-card-unit-badge">Unit PIC: ' + escapeHtml(m.nama_unit) + '</div>' +
+           '</div>';
+
+      h += '<div style="font-size:11px;line-height:1.55;color:#64748b;margin-top:-3px;margin-bottom:9px">' +
+             (m.schedule_id_jadwal
+               ? '<span style="font-weight:700;color:#0f766e">' + escapeHtml(m.schedule_nama_periode || 'Periode belum diatur') + '</span>' +
+                 ' · ' + escapeHtml(m.schedule_siklus || '-') +
+                 ' · Tenggat PIC: ' + escapeHtml(formatDateIndo(m.schedule_tenggat_unggah)) +
+                 ' · Mulai SKI: ' + escapeHtml(formatDateIndo(m.schedule_mulai_penilaian))
+               : '<span>Jadwal belum diatur</span>') +
            '</div>';
 
       // 3. Document Requirements Stats Row (Wajib & Opsional)
@@ -5019,20 +6754,13 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
              ) +
            '</div>';
 
-      // 5. Main Hero Button: "Kelola Modul"
-      h += '<div>' +
+      // 5. Main module actions
+      h += '<div class="mod-card-main-actions" onclick="event.stopPropagation()">' +
              '<button class="mod-card-btn-primary btnOpenModWorkspace" data-id="' + m.id_modul + '">' +
                'Kelola Modul' +
-             '</button>' +
-           '</div>';
-
-      // 6. Sub Actions: "Pengaturan" & "Tarik Draf / Terbitkan"
-      h += '<div class="mod-card-sub-actions" onclick="event.stopPropagation()">';
+             '</button>';
       if (canEdit) {
-        h += '<button class="mod-card-btn-outline btnEditModModal" data-id="' + m.id_modul + '">' +
-               'Pengaturan' +
-             '</button>' +
-             '<button class="mod-card-btn-outline btnQuickToggleStatus" data-id="' + m.id_modul + '">' +
+        h += '<button class="mod-card-btn-outline btnQuickToggleStatus" data-id="' + m.id_modul + '">' +
                (m.status_template === 'terbit' ? 'Tarik Draf' : 'Terbitkan') +
              '</button>';
       } else {
@@ -5040,7 +6768,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                'Status: ' + (m.status_template === 'terbit' ? 'Terbit' : 'Draf') +
              '</button>';
       }
-      h += '</div>'; // end mod-card-sub-actions
+      h += '</div>'; // end mod-card-main-actions
 
       h += '</div>'; // end mod-card
     });
@@ -5141,7 +6869,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 
     document.querySelectorAll(".mod-card.catalog-view").forEach(function(card){
       card.onclick = function(e){
-        if (e.target.closest('button') || e.target.closest('.mod-top-actions') || e.target.closest('.mod-card-sub-actions') || e.target.closest('.mod-format-box')) return;
+        if (e.target.closest('button') || e.target.closest('.mod-top-actions') || e.target.closest('.mod-card-main-actions') || e.target.closest('.mod-format-box')) return;
         currentModulId = this.dataset.id;
         renderModul();
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -5158,265 +6886,188 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     var mandCount = modInds.filter(function(i){ return parseInt(i.is_mandatory) === 1; }).length;
     var optCount = modInds.length - mandCount;
 
-    var mTypeLabel = 'Instrumen Dokumen Eviden';
     var isTerbit = curMod.status_template === 'terbit';
 
     var h = '<div class="mod-workspace">';
 
-    // 1. Navigation & Breadcrumb Bar (Tombol Kembali Besar & Jelas untuk Staf 30-50 Tahun)
     h += '<div class="mod-workspace-nav">' +
-           '<button class="btn-back-catalog" id="btnBackToModCatalog">' +
-             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>' +
-             '<span>Kembali ke Daftar Modul</span>' +
-           '</button>' +
            '<div class="mod-workspace-crumb">' +
-             '<span style="cursor:pointer" id="crumbCatalogRoot">Katalog Modul SKI</span>' +
-             '<span>&rsaquo;</span>' +
+             '<button type="button" class="mod-workspace-crumb-link" id="crumbCatalogRoot">' +
+               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>' +
+               '<span>Katalog Modul</span>' +
+             '</button>' +
+             '<span class="mod-ref-separator">/</span>' +
              '<span>' + escapeHtml(curMod.nama_unit) + '</span>' +
-             '<span>&rsaquo;</span>' +
+             '<span class="mod-ref-separator">/</span>' +
              '<b>' + escapeHtml(curMod.nama_modul) + '</b>' +
            '</div>' +
+           '<div class="mod-workspace-period" id="modWorkspacePeriodSlot"></div>' +
          '</div>';
 
-    // 2. Hero Header Card (Spacious, Clear & Comprehensive)
-    h += '<div class="mod-workspace-hero">' +
+    h += '<section class="mod-workspace-hero">' +
            '<div class="mod-hero-top-row">' +
-             '<div style="flex:1;min-width:280px">' +
-               '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">' +
-                 '<span class="tag ' + (isTerbit ? 't-ok' : 't-wn') + '" style="font-weight:700;font-size:12px;padding:4px 10px">' +
-                   (isTerbit ? 'STATUS: TERBIT (Aktif diisi PIC)' : 'STATUS: DRAF (Internal SKI)') +
+             '<div class="mod-hero-main">' +
+               '<div class="mod-hero-title-row">' +
+                 '<h1 class="mod-hero-title">' + escapeHtml(curMod.nama_modul) + '</h1>' +
+                 '<span class="mod-ref-status ' + (isTerbit ? 'is-published' : 'is-draft') + '">' +
+                   (isTerbit ? 'Terbit' : 'Draf') +
                  '</span>' +
-                 '<span class="tag t-in" style="font-weight:600;font-size:12px;padding:4px 10px">' + mTypeLabel + '</span>' +
                '</div>' +
-               '<h2 class="mod-hero-title">' + escapeHtml(curMod.nama_modul) + '</h2>' +
-               '<p style="color:var(--tx);font-size:13.5px;margin:0 0 6px;line-height:1.5">' +
-                 'Modul pengawasan ini ditugaskan kepada unit kerja <b>' + escapeHtml(curMod.nama_unit) + '</b>. ' +
-                 (isTerbit ?
-                   '<span style="color:var(--ok)">Saat jadwal pengawasan dibuka, seluruh butir indikator di bawah akan langsung muncul pada lembar kerja PIC.</span>' :
-                   '<span style="color:var(--wn)">Modul berstatus DRAF dan belum terlihat oleh PIC sampai Anda menekan tombol <b>Terbitkan Modul</b>.</span>') +
-               '</p>' +
+               '<div class="mod-hero-meta-grid">' +
+                 '<span class="mod-hero-meta-item">' +
+                   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></svg>' +
+                   '<span>Unit: <strong class="mod-hero-meta-value">' + escapeHtml(curMod.nama_unit) + '</strong></span>' +
+                 '</span>' +
+                 '<span class="mod-ref-separator">•</span>' +
+                 '<span class="mod-hero-meta-item">' +
+                   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>' +
+                   '<span>Dokumen Eviden</span>' +
+                 '</span>' +
+                 '<span class="mod-ref-separator">•</span>' +
+                 '<code class="mod-hero-code">#mod-' + escapeHtml(curMod.id_modul) + '</code>' +
+               '</div>' +
              '</div>' +
              '<div class="mod-hero-actions">';
     if (canEdit) {
-      h += '<button class="btn o btnEditModModal" data-id="' + curMod.id_modul + '" style="padding:9px 14px;font-size:13px;font-weight:600">' +
-             'Pengaturan Profil' +
-           '</button>' +
-           '<button class="btn ' + (isTerbit ? 'o' : '') + ' btnQuickToggleStatus" data-id="' + curMod.id_modul + '" style="padding:9px 16px;font-size:13px;font-weight:700">' +
-             (isTerbit ? 'Tarik ke Draf' : 'Terbitkan Modul') +
+      h += '<button type="button" class="mod-ref-btn btnQuickToggleStatus" data-id="' + escapeAttr(curMod.id_modul) + '">' +
+             (isTerbit ? 'Tarik ke Draf' : 'Terbitkan') +
            '</button>';
     }
-    if (canDelete) {
-      h += '<button class="btn danger o btnQuickDeleteMod" data-id="' + curMod.id_modul + '" style="padding:9px 12px;font-size:13px" title="Hapus Modul">' +
-             'Hapus Modul' +
-           '</button>';
+    if (canDelete || (curMod.file_referensi && canEdit)) {
+      h += '<details class="mod-ref-more-wrap">' +
+             '<summary class="mod-ref-btn" aria-label="Aksi lainnya" title="Aksi lainnya">' +
+               '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="19" cy="12" r="1.7"/></svg>' +
+             '</summary>' +
+             '<div class="mod-ref-more-menu">';
+      if (curMod.file_referensi && (canEdit || canDelete)) {
+        h += '<button type="button" class="btnDeleteTemplate" data-id="' + escapeAttr(curMod.id_modul) + '" data-name="' + escapeAttr(curMod.nama_modul) + '">' +
+               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6"/></svg>' +
+               'Hapus template' +
+             '</button>';
+      }
+      if (canDelete) {
+        h += '<button type="button" class="btnQuickDeleteMod" data-id="' + escapeAttr(curMod.id_modul) + '">' +
+               '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6"/></svg>' +
+               'Hapus modul' +
+             '</button>';
+      }
+      h += '</div></details>';
     }
-    h += '</div></div>';
+    h += '</div>' +
+           '</div>' +
+         '</section>';
 
-    // Metadata Grid (Clean and text-focused, no redundant icon containers)
-    h += '<div class="mod-hero-meta-grid">' +
-           '<div class="mod-hero-meta-item">' +
-             '<span class="mod-hero-meta-label">Unit Penanggung Jawab:</span>' +
-             '<span class="mod-hero-meta-value">' + escapeHtml(curMod.nama_unit) + '</span>' +
-           '</div>' +
-           '<div class="mod-hero-meta-item">' +
-             '<span class="mod-hero-meta-label">Total Butir Tagihan:</span>' +
-             '<span class="mod-hero-meta-value" style="color:var(--pri)">' + modInds.length + ' Butir Dokumen</span>' +
-           '</div>' +
-           '<div class="mod-hero-meta-item">' +
-             '<span class="mod-hero-meta-label">Format Tagihan:</span>' +
-             '<span class="mod-hero-meta-value">Dokumen Eviden (Berkas / Tautan Cloud)</span>' +
-           '</div>' +
-           '<div class="mod-hero-meta-item">' +
-             '<span class="mod-hero-meta-label">Kode Modul:</span>' +
-             '<span class="mod-hero-meta-value">#' + curMod.id_modul + '</span>' +
-           '</div>' +
-         '</div>';
-
-    h += '</div>'; // end mod-workspace-hero
-
-    // 3. Slot Berkas Format Template Baku SKI (Full Width Card)
     var hasTpl = !!curMod.file_referensi;
-    h += '<div class="mod-template-card-full">' +
-           '<div style="flex:1;min-width:280px">' +
-             '<div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">' +
-               '<b style="font-size:14px;color:var(--dk)">Berkas Template / Format Baku Acuan SKI</b>' +
-               (hasTpl ? '<span class="tag t-ok" style="font-size:10.5px">Tersedia</span>' : '<span class="tag t-wn" style="font-size:10.5px">Belum Ada</span>') +
+    h += '<div class="mod-overview-grid">' +
+           '<section class="mod-template-card-full">' +
+             '<div class="mod-template-icon">' +
+               '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>' +
              '</div>' +
-             '<div style="font-size:12.5px;color:var(--mut)">' +
-               (hasTpl ? 'Nama berkas: <b style="color:var(--pri)">' + escapeHtml(curMod.file_referensi) + '</b> (dapat diunduh oleh PIC untuk panduan pengisian).' : 'Unggah berkas acuan (Excel/Word/PDF) agar PIC dapat mengunduh dan menyusun dokumen sesuai standar SKI.') +
+             '<div class="mod-template-info">' +
+               '<div class="mod-template-heading">' +
+                 '<span>Format Baku Acuan SKI</span>' +
+                 '<span class="mod-template-status ' + (hasTpl ? 'is-available' : '') + '">' + (hasTpl ? 'Tersedia' : 'Belum Ada') + '</span>' +
+               '</div>' +
+               '<p class="mod-template-desc">' +
+                 (hasTpl ?
+                   'Nama berkas: <a href="uploads/templates/' + encodeURIComponent(curMod.file_referensi) + '" download="' + escapeAttr(curMod.file_referensi) + '">' + escapeHtml(curMod.file_referensi) + '</a>' :
+                   'Opsional · Berkas acuan untuk PIC') +
+               '</p>' +
              '</div>' +
-           '</div>' +
-           '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
-    if (hasTpl) {
-      h += '<a href="uploads/templates/' + encodeURIComponent(curMod.file_referensi) + '" download="' + escapeAttr(curMod.file_referensi) + '" target="_blank" class="btn sm o" style="font-size:12.5px;padding:7px 12px;text-decoration:none;display:inline-flex;align-items:center;gap:6px">' +
-             '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
-             'Unduh Berkas' +
-           '</a>';
-      if (canEdit || canDelete) {
-        h += '<button class="btn sm o btnUploadTemplate" data-id="' + curMod.id_modul + '" data-name="' + escapeAttr(curMod.nama_modul) + '" style="font-size:12.5px;padding:7px 12px">' +
-               'Ganti Berkas' +
-             '</button>' +
-             '<button class="btn sm o btnDeleteTemplate" data-id="' + curMod.id_modul + '" data-name="' + escapeAttr(curMod.nama_modul) + '" style="border-color:#ef4444;color:#ef4444;font-size:12.5px;padding:7px 12px" title="Hapus berkas template acuan">' +
-               'Hapus Berkas Template' +
-             '</button>';
-      }
-    } else {
-      if (canEdit) {
-        h += '<button class="btn sm btnUploadTemplate" data-id="' + curMod.id_modul + '" data-name="' + escapeAttr(curMod.nama_modul) + '" style="font-size:12.5px;padding:7px 14px">' +
-               '+ Unggah Format Acuan SKI' +
-             '</button>';
-      }
+             '<div class="mod-template-actions">';
+    if (canEdit) {
+      h += '<button type="button" class="mod-ref-btn mod-ref-btn-primary btnUploadTemplate" data-id="' + escapeAttr(curMod.id_modul) + '" data-name="' + escapeAttr(curMod.nama_modul) + '">' +
+             (hasTpl ? 'Ganti' : 'Unggah') +
+           '</button>';
     }
-    h += '</div></div>';
-
-    // 4. Mini Stats Bar (Ringkasan Butir Tagihan Dokumen Eviden)
-    h += '<div class="mod-stats-distribution">' +
-           '<div class="mod-dist-card">' +
-             '<div class="mod-dist-label">Total Tagihan Dokumen</div>' +
-             '<div class="mod-dist-val">' + modInds.length + ' <small style="font-size:12px;font-weight:500;color:var(--mut)">Butir Tagihan</small></div>' +
-           '</div>' +
-           '<div class="mod-dist-card">' +
-             '<div class="mod-dist-label">Wajib Dipenuhi PIC</div>' +
-             '<div class="mod-dist-val" style="color:#b91c1c">' + mandCount + ' <small style="font-size:12px;font-weight:500;color:var(--mut)">Butir (100% Kelengkapan)</small></div>' +
-           '</div>' +
-           '<div class="mod-dist-card">' +
-             '<div class="mod-dist-label">Butir Opsional</div>' +
-             '<div class="mod-dist-val">' + optCount + ' <small style="font-size:12px;font-weight:500;color:var(--mut)">Butir Tambahan</small></div>' +
-           '</div>' +
-           '<div class="mod-dist-card">' +
-             '<div class="mod-dist-label">Format Acuan SKI</div>' +
-             '<div class="mod-dist-val">' + (hasTpl ? '<span style="color:var(--ok)">Tersedia</span>' : '<span style="color:var(--mut);font-weight:500">Belum Ada</span>') + '</div>' +
-           '</div>' +
+    h += '</div>' +
+           '</section>' +
+           '<section class="mod-stats-distribution">' +
+             '<div class="mod-dist-card">' +
+               '<span class="mod-dist-label">Total Indikator</span>' +
+               '<strong class="mod-dist-val" id="modStatTotal">' + modInds.length + ' Butir</strong>' +
+             '</div>' +
+             '<div class="mod-dist-summary">' +
+               '<div class="mod-dist-card">' +
+                 '<span class="mod-dist-label">Wajib</span>' +
+                 '<strong class="mod-dist-val mod-dist-required" id="modStatMandatory">' + mandCount + '</strong>' +
+               '</div>' +
+               '<span class="mod-ref-stat-divider"></span>' +
+               '<div class="mod-dist-card">' +
+                 '<span class="mod-dist-label">Opsional</span>' +
+                 '<strong class="mod-dist-val" id="modStatOptional">' + optCount + '</strong>' +
+               '</div>' +
+             '</div>' +
+           '</section>' +
          '</div>';
 
-    // 5. Section Header (Daftar Butir Tagihan)
-    h += '<div class="mod-section-header">' +
-           '<div>' +
-             '<h3 class="mod-section-title">' +
-               'Daftar Butir Tagihan &amp; Indikator Penilaian (' + modInds.length + ' Butir)' +
-             '</h3>' +
-             '<p style="margin:2px 0 0;font-size:13px;color:var(--mut)">Instrumen bukti kepatuhan yang wajib dan/atau disarankan untuk dipenuhi oleh PIC ' + escapeHtml(curMod.nama_unit) + '.</p>' +
-           '</div>' +
-           '<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
-             (canDelete && modInds.length > 0 ?
-               '<button class="btn sm o" id="btnClearAllInds" data-id="' + curMod.id_modul + '" style="border-color:#ef4444;color:#ef4444;padding:8px 14px;font-size:13px;display:inline-flex;align-items:center;gap:5px" title="Kosongkan seluruh butir tagihan/isi modul">' +
-                 '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> Kosongkan / Hapus Semua Butir' +
-               '</button>' : '') +
-             (canEdit ? '<button class="btn sm" id="btnScrollToAddInd" style="padding:8px 16px;font-size:13px;font-weight:700">+ Tambah Butir Tagihan</button>' : '') +
-           '</div>' +
-         '</div>';
-
-    // 6. Indicators Full List
+    h += '<section class="mod-items-card">' +
+           '<div class="mod-section-header">' +
+             '<h2 class="mod-section-title">Daftar Butir Tagihan <span class="mod-ref-count">(' + modInds.length + ')</span></h2>' +
+             '<div class="mod-section-actions">';
+    if (canDelete && modInds.length > 0) {
+      h += '<button type="button" class="mod-clear-ind-btn" id="btnClearAllInds" data-id="' + escapeAttr(curMod.id_modul) + '" title="Kosongkan seluruh butir">' +
+             'Kosongkan' +
+           '</button>';
+    }
+    if (canEdit) {
+      h += '<button type="button" class="mod-ref-btn mod-ref-btn-primary btnOpenAddIndModal">' +
+             '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>' +
+             '<span>Tambah Butir</span>' +
+           '</button>';
+    }
+    h += '</div></div>' +
+           '<div class="mod-ind-full-list">';
     if (modInds.length === 0) {
-      h += '<div style="background:var(--card);border:2px dashed var(--bd);border-radius:14px;padding:36px 20px;text-align:center">' +
-             '<h4 style="margin:0 0 6px;color:var(--dk);font-size:16px">Belum Ada Butir Tagihan pada Modul Ini</h4>' +
-             '<p style="color:var(--mut);font-size:13px;max-width:540px;margin:0 auto 16px;line-height:1.5">Gunakan formulir di bawah ini untuk menambahkan butir tagihan dokumen eviden pengawasan (berkas fisik / tautan cloud).</p>' +
-             (canEdit ? '<button class="btn sm" onclick="document.getElementById(\'studioIndDesc\').focus()">+ Buat Butir Tagihan Sekarang</button>' : '') +
+      h += '<div class="mod-ref-empty">' +
+             '<p>Belum ada butir tagihan.</p>' +
+             (canEdit ? '<button type="button" class="btnOpenAddIndModal">+ Tambah Butir Pertama</button>' : '') +
            '</div>';
     } else {
-      h += '<div class="mod-ind-full-list">';
       modInds.forEach(function(ind, idx){
-        var meta = getInputTypeMeta(ind.input_type || 'file');
         var isMand = parseInt(ind.is_mandatory) === 1;
-
         h += '<div class="mod-ind-full-item">' +
-               '<div class="mod-ind-full-num">' + (idx + 1) + '</div>' +
+               '<span class="mod-ind-full-num">' + (idx + 1) + '</span>' +
                '<div class="mod-ind-full-body">' +
-                 '<div class="mod-ind-full-meta">' +
-                   '<span class="ind-type-badge ' + (meta.badgeClass || meta.type) + '">' + meta.shortLabel + '</span>' +
-                   (isMand ?
-                     '<span style="color:#b91c1c;font-size:11px;font-weight:700;background:#fef2f2;padding:2px 8px;border-radius:6px;border:1px solid #fecaca" title="Wajib dipenuhi PIC">* Wajib Dipenuhi PIC</span>' :
-                     '<span style="color:var(--mut);font-size:11px;background:var(--bg);padding:2px 8px;border-radius:6px;border:1px solid var(--bd)">Opsional</span>') +
+                 '<div class="mod-ind-title-row">' +
+                   '<span class="mod-ind-full-text">' + escapeHtml(ind.deskripsi_indikator) + '</span>' +
+                   '<span class="mod-ind-mandatory-badge ' + (isMand ? 'is-mandatory' : '') + '">' + (isMand ? 'Wajib' : 'Opsional') + '</span>' +
                  '</div>' +
-                 '<div class="mod-ind-full-text">' + escapeHtml(ind.deskripsi_indikator) + '</div>' +
-                 (ind.guide_notes ?
-                   '<div class="mod-ind-guide-box">' +
-                     '<b>Petunjuk Teknis PIC:</b> ' + escapeHtml(ind.guide_notes) +
-                   '</div>' : '') +
+                 (ind.guide_notes ? '<p class="mod-ind-guide-box">' + escapeHtml(ind.guide_notes) + '</p>' : '') +
                '</div>' +
                '<div class="mod-ind-full-actions">';
         if (canEdit) {
-          h += '<button class="btn sm o btnConfigIndModal" data-id="' + ind.id_indikator + '" style="font-size:12px;padding:5px 12px;font-weight:600" title="Atur Tagihan, Panduan PIC &amp; Sifat Wajib">' +
-                 'Atur Tagihan' +
-               '</button>' +
-               '<button class="btn sm o btnQuickEditInd" data-id="' + ind.id_indikator + '" style="font-size:12px;padding:5px 12px" title="Ubah Uraian Teks">' +
-                 'Edit Uraian' +
-               '</button>';
+          h += '<button type="button" class="mod-ref-item-edit btnConfigIndModal" data-id="' + escapeAttr(ind.id_indikator) + '" title="Edit butir">Edit</button>';
         }
         if (canDelete) {
-          h += '<button class="btn sm o btnDelInd" data-id="' + ind.id_indikator + '" style="border-color:#ef4444;color:#ef4444;font-size:12px;padding:5px 10px;display:inline-flex;align-items:center;gap:4px" title="Hapus butir indikator ini">' +
-                 '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> Hapus' +
+          h += '<button type="button" class="btnDelInd" data-id="' + escapeAttr(ind.id_indikator) + '" title="Hapus butir" aria-label="Hapus butir">' +
+                 '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6"/></svg>' +
                '</button>';
         }
         h += '</div></div>';
       });
-      h += '</div>'; // end mod-ind-full-list
     }
-
-    // 7. Studio Form Tambah Butir Tagihan Baru (Designed for 30-50 Staff - Fokus Tipe Dokumen)
-    if (canEdit) {
-      h += '<div class="mod-studio-add-card" id="modAddStudioBox">' +
-             '<div>' +
-               '<h3 class="mod-studio-add-title">Tambah Butir Tagihan Dokumen Baru</h3>' +
-               '<p style="color:var(--mut);font-size:13px;margin:4px 0 0;line-height:1.4">Tentukan butir tagihan dokumen eviden yang wajib/disarankan untuk diunggah PIC ' + escapeHtml(curMod.nama_unit) + '.</p>' +
-             '</div>' +
-
-             // Format Type Indicator (Fokus Tipe Dokumen)
-             '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--pri2);padding:10px 14px;border-radius:10px;border-left:3.5px solid var(--pri)">' +
-               '<div>' +
-                 '<div style="font-size:11px;font-weight:700;color:var(--pri);text-transform:uppercase">Format Input Tagihan:</div>' +
-                 '<b style="font-size:13.5px;color:var(--dk)">Tipe Dokumen (Upload Berkas Fisik / Tautan Cloud)</b>' +
-               '</div>' +
-               '<span style="font-size:12px;color:var(--tx)">PIC akan mengunggah berkas eviden (PDF, Word, Excel) atau tautan Google Drive / Cloud Link.</span>' +
-             '</div>' +
-
-             // Step 1: Description Textarea
-             '<div>' +
-               '<label style="display:block;font-size:13px;font-weight:700;color:var(--dk);margin-bottom:6px">Langkah 1: Uraian Butir Tagihan Dokumen <span style="color:#ef4444">*</span></label>' +
-               '<textarea id="studioIndDesc" style="width:100%;min-height:70px;padding:10px 14px;border:1.5px solid var(--bd);border-radius:10px;font:inherit;font-size:14px;color:var(--dk);box-sizing:border-box" placeholder="Contoh: Laporan Realisasi Anggaran Belanja Modal Triwulan II Tahun Anggaran 2026..."></textarea>' +
-             '</div>' +
-
-             // Step 2: Guide Notes
-             '<div>' +
-               '<label style="display:block;font-size:13px;font-weight:700;color:var(--dk);margin-bottom:6px">Langkah 2: Petunjuk Teknis / Catatan Panduan Pengisian untuk PIC (Opsional)</label>' +
-               '<textarea id="studioIndGuide" style="width:100%;min-height:55px;padding:8px 12px;border:1px solid var(--bd);border-radius:10px;font:inherit;font-size:13px;box-sizing:border-box" placeholder="Contoh: Pastikan melampirkan berkas BAST asli yang telah ditandatangani PPK dan Penyedia serta rincian kwitansi pembayaran..."></textarea>' +
-               '<div style="font-size:11.5px;color:var(--mut);margin-top:4px">Petunjuk teknis ini akan memandu staf PIC agar mengunggah eviden yang sesuai standar pengawasan.</div>' +
-             '</div>' +
-
-             // Step 3: Mandatory Toggle & Submit
-             '<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:4px">' +
-               '<label style="display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-weight:700;font-size:13.5px;color:var(--dk)">' +
-                 '<input type="checkbox" id="studioIndMandatory" checked style="width:18px;height:18px"> ' +
-                 '<span>Wajib Dipenuhi PIC (Mandatory untuk kelengkapan 100%)</span>' +
-               '</label>' +
-               '<button class="btn" id="btnStudioSaveInd" style="padding:12px 24px;font-size:14px;font-weight:700;border-radius:10px">' +
-                 'Simpan Butir Tagihan Dokumen' +
-               '</button>' +
-             '</div>' +
-
-             // Quick Add Bar for Power Users
-             '<div style="border-top:1px dashed var(--bd);padding-top:12px;margin-top:4px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mut);flex-wrap:wrap">' +
-               '<span style="font-weight:600;color:var(--tx)">Tambah Cepat Butir Dokumen:</span>' +
-               '<input type="text" id="inpQuickStudioText" class="mod-quick-add-inp" placeholder="Ketik uraian butir tagihan dokumen lalu tekan Enter..." style="flex:1;min-width:220px">' +
-               '<button class="btn sm" id="btnQuickStudioAdd" style="padding:6px 14px;font-size:12px;font-weight:600">+ Tambah</button>' +
-             '</div>' +
-
-           '</div>'; // end mod-studio-add-card
-    }
-
-    h += '</div>'; // end mod-workspace
+    h += '</div></section></div>';
 
     document.getElementById("modRoot").innerHTML = h;
 
-    // Back Button Handler
-    var btnBack = document.getElementById("btnBackToModCatalog");
-    if (btnBack) {
-      btnBack.onclick = function(){
-        currentModulId = null;
-        renderModul();
-        window.scrollTo({top: 0, behavior: 'smooth'});
-      };
+    if (moduleSettingsHandler) {
+      document.querySelectorAll(".btnEditModModal").forEach(function(button){
+        button.onclick = function(e){
+          e.stopPropagation();
+          moduleSettingsHandler(this.dataset.id, false);
+        };
+      });
     }
+    if (moduleStatusHandler) {
+      document.querySelectorAll(".btnQuickToggleStatus").forEach(function(button){
+        button.onclick = function(e){
+          e.stopPropagation();
+          moduleStatusHandler(this.dataset.id);
+        };
+      });
+    }
+
     var crumbRoot = document.getElementById("crumbCatalogRoot");
     if (crumbRoot) {
       crumbRoot.onclick = function(){
@@ -5426,117 +7077,75 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       };
     }
 
-    // Scroll To Studio Add Box Button
-    var btnScroll = document.getElementById("btnScrollToAddInd");
-    if (btnScroll) {
-      btnScroll.onclick = function(){
-        var box = document.getElementById("modAddStudioBox");
-        if (box) {
-          box.scrollIntoView({behavior: 'smooth'});
-          var desc = document.getElementById("studioIndDesc");
-          if (desc) desc.focus();
-        }
-      };
-    }
+    document.querySelectorAll(".btnOpenAddIndModal").forEach(function(btn){
+      btn.onclick = function(){
+        var bodyHtml = '<div style="display:flex;flex-direction:column;gap:12px">' +
+          '<div>' +
+            '<label for="newIndDesc" style="display:block;margin-bottom:5px;font-size:12px;font-weight:600;color:#334155">Nama Butir</label>' +
+            '<textarea id="newIndDesc" required style="width:100%;min-height:72px;padding:9px 11px;border:1px solid #e2e8f0;border-radius:9px;font:inherit;font-size:12px;resize:vertical" placeholder="Masukkan nama atau uraian butir tagihan"></textarea>' +
+          '</div>' +
+          '<div>' +
+            '<label for="newIndGuide" style="display:block;margin-bottom:5px;font-size:12px;font-weight:600;color:#334155">Keterangan Singkat</label>' +
+            '<textarea id="newIndGuide" style="width:100%;min-height:56px;padding:9px 11px;border:1px solid #e2e8f0;border-radius:9px;font:inherit;font-size:12px;resize:vertical" placeholder="Opsional"></textarea>' +
+          '</div>' +
+          '<label style="display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#475569">' +
+            '<input type="checkbox" id="newIndMandatory" checked> Wajib dipenuhi PIC' +
+          '</label>' +
+        '</div>';
+        openModal({
+          title: "Tambah Butir Tagihan",
+          body: bodyHtml,
+          okText: "Simpan",
+          cancelText: "Batal",
+          width: "520px",
+          onOk: function(){
+            var desc = document.getElementById("newIndDesc").value.trim();
+            var guide = document.getElementById("newIndGuide").value.trim();
+            var isMandatory = document.getElementById("newIndMandatory").checked ? 1 : 0;
+            if (!desc) {
+              alert("Nama butir wajib diisi.");
+              document.getElementById("newIndDesc").focus();
+              return;
+            }
 
-    // Studio Save Handler (Always File / Dokumen)
-    var selectedStudioType = 'file';
+            var fd = new FormData();
+            fd.append('action', 'create_indikator');
+            fd.append('id_modul', curMod.id_modul);
+            fd.append('deskripsi_indikator', desc);
+            fd.append('input_type', 'file');
+            fd.append('guide_notes', guide);
+            fd.append('is_mandatory', isMandatory);
 
-    // Studio Save Button
-    var btnStudioSave = document.getElementById("btnStudioSaveInd");
-    if (btnStudioSave) {
-      btnStudioSave.onclick = function(){
-        var desc = (document.getElementById("studioIndDesc").value || '').trim();
-        var guide = (document.getElementById("studioIndGuide").value || '').trim();
-        var isMand = document.getElementById("studioIndMandatory").checked ? 1 : 0;
-        if (!desc) {
-          alert("Silakan tuliskan uraian butir tagihan dokumen terlebih dahulu!");
-          document.getElementById("studioIndDesc").focus();
-          return;
-        }
-
-        var fd = new FormData();
-        fd.append('action', 'create_indikator');
-        fd.append('id_modul', curMod.id_modul);
-        fd.append('deskripsi_indikator', desc);
-        fd.append('input_type', 'file');
-        fd.append('guide_notes', guide);
-        fd.append('is_mandatory', isMand);
-
-        btnStudioSave.disabled = true;
-        btnStudioSave.textContent = "Menyimpan Butir Dokumen...";
-
-        fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
-          toast(res.message);
-          if (res.success) {
-            fetchInit(function(){ renderModul(); });
-          } else {
-            btnStudioSave.disabled = false;
-            btnStudioSave.textContent = "Simpan Butir Tagihan Dokumen";
-          }
-        }).catch(function(e){
-          alert("Gagal menyimpan: " + e);
-          btnStudioSave.disabled = false;
-          btnStudioSave.textContent = "Simpan Butir Tagihan Dokumen";
-        });
-      };
-    }
-
-    // Quick Studio Add Input
-    function submitQuickStudio() {
-      var inp = document.getElementById("inpQuickStudioText");
-      var txt = (inp ? inp.value : '').trim();
-      var typ = 'file';
-      if (!txt) { alert("Tulis uraian butir tagihan dokumen terlebih dahulu!"); return; }
-
-      var fd = new FormData();
-      fd.append('action', 'create_indikator');
-      fd.append('id_modul', curMod.id_modul);
-      fd.append('deskripsi_indikator', txt);
-      fd.append('input_type', typ);
-      fd.append('is_mandatory', 1);
-
-      fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
-        toast(res.message);
-        if (res.success) fetchInit(function(){ renderModul(); });
-      });
-    }
-
-    var btnQuickStudio = document.getElementById("btnQuickStudioAdd");
-    if (btnQuickStudio) btnQuickStudio.onclick = submitQuickStudio;
-
-    var inpQuickStudio = document.getElementById("inpQuickStudioText");
-    if (inpQuickStudio) {
-      inpQuickStudio.onkeydown = function(e){
-        if (e.key === "Enter") {
-          e.preventDefault();
-          submitQuickStudio();
-        }
-      };
-    }
-
-    // Quick Edit Text Handler for Staff
-    document.querySelectorAll(".btnQuickEditInd").forEach(function(b){
-      b.onclick = function(){
-        var id = this.dataset.id;
-        var ind = STATE.indikators.find(function(i){ return String(i.id_indikator) === String(id); });
-        if (!ind) return;
-        var newText = prompt("Ubah teks uraian butir tagihan/indikator:", ind.deskripsi_indikator);
-        if (newText === null) return;
-        newText = newText.trim();
-        if (!newText) { alert("Uraian tagihan tidak boleh kosong!"); return; }
-
-        var fd = new FormData();
-        fd.append('action', 'update_indikator');
-        fd.append('id_indikator', id);
-        fd.append('deskripsi_indikator', newText);
-        fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
-          toast(res.message);
-          if (res.success) {
-            ind.deskripsi_indikator = newText;
-            renderModul();
+            var saveButton = document.getElementById("mOk");
+            if (saveButton) {
+              saveButton.disabled = true;
+              saveButton.textContent = "Menyimpan...";
+            }
+            fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
+              toast(res.message);
+              if (res.success) {
+                closeModal();
+                fetchInit(function(){ renderModul(); });
+              } else if (saveButton) {
+                saveButton.disabled = false;
+                saveButton.textContent = "Simpan";
+              }
+            }).catch(function(err){
+              toast("Gagal menyimpan butir: " + err);
+              if (saveButton) {
+                saveButton.disabled = false;
+                saveButton.textContent = "Simpan";
+              }
+            });
           }
         });
+      };
+    });
+
+    document.querySelectorAll(".mod-ref-more-menu").forEach(function(menu){
+      menu.onclick = function(){
+        var actions = this.closest("details");
+        if (actions) actions.open = false;
       };
     });
 
@@ -5715,91 +7324,148 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       };
     });
 
-    // Edit Modul Modal Popup (Including module_type & scoring_threshold KKR)
+    function openModuleSettings(idMod, publishOnSave) {
+      var curMod = STATE.moduls.find(function(m){ return String(m.id_modul) === String(idMod); });
+      if (!curMod) return;
+
+      var mThresh = curMod.scoring_threshold !== undefined && curMod.scoring_threshold !== null ? curMod.scoring_threshold : 80;
+      var scheduleDeadline = curMod.schedule_tenggat_unggah ? String(curMod.schedule_tenggat_unggah).split(' ')[0] : '';
+      var scheduleAssessment = curMod.schedule_mulai_penilaian ? String(curMod.schedule_mulai_penilaian).split(' ')[0] : '';
+      var cycleOptions = ['Bulanan', 'Triwulan', 'Semester', 'Tahunan'].map(function(cycle){
+        return '<option value="' + cycle + '" ' + ((curMod.schedule_siklus || 'Bulanan') === cycle ? 'selected' : '') + '>' + cycle + '</option>';
+      }).join('');
+
+      var formHtml = '<div style="font-size:13.5px">' +
+        '<label style="display:block;margin-bottom:6px;font-weight:700">Nama Modul Pengawasan</label>' +
+        '<input id="mEditModName" class="srch" style="width:100%;margin-bottom:14px;font-size:14px;padding:9px" value="' + escapeAttr(curMod.nama_modul) + '">' +
+        '<label style="display:block;margin-bottom:6px;font-weight:700">Unit Kerja PIC Penanggung Jawab</label>' +
+        '<select id="mEditModUnit" class="fl" style="width:100%;margin-bottom:14px;font-size:14px;padding:9px">' +
+          STATE.units.map(function(u){
+            return '<option value="' + u.id_unit + '" ' + (u.id_unit === curMod.id_unit_pic ? 'selected' : '') + '>' + escapeHtml(u.nama_unit) + '</option>';
+          }).join('') +
+        '</select>' +
+        '<input type="hidden" id="mEditModType" value="document_verification">' +
+        '<input type="hidden" id="mEditModThreshold" value="' + mThresh + '">' +
+        '<label style="display:block;margin-bottom:6px;font-weight:700">Status Modul Pengawasan</label>' +
+        '<select id="mEditModStatus" class="fl" style="width:100%;margin-bottom:14px;font-size:14px;padding:9px"' + (publishOnSave ? ' disabled' : '') + '>' +
+          '<option value="terbit" ' + ((publishOnSave || curMod.status_template === 'terbit') ? 'selected' : '') + '>TERBIT (Aktif &amp; Siap Diisi PIC)</option>' +
+          '<option value="draf" ' + ((!publishOnSave && curMod.status_template === 'draf') ? 'selected' : '') + '>DRAF (Penyusunan Internal SKI)</option>' +
+        '</select>' +
+        '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;margin-bottom:14px">' +
+          '<div style="font-size:13px;font-weight:700;color:#075e57;margin-bottom:3px">Periode &amp; Jadwal Modul</div>' +
+          '<p style="font-size:11.5px;color:var(--mut);margin:0 0 10px">Tanggal ini berlaku khusus untuk modul ' + escapeHtml(curMod.nama_modul) + '.</p>' +
+          '<input type="hidden" id="mEditModScheduleId" value="' + escapeAttr(curMod.schedule_id_jadwal || '') + '">' +
+          '<label style="display:block;margin-bottom:5px;font-size:12px;font-weight:600">Nama Periode</label>' +
+          '<input id="mEditModPeriod" class="srch" maxlength="100" style="width:100%;margin-bottom:10px;font-size:13px;padding:8px 10px" value="' + escapeAttr(curMod.schedule_nama_periode || '') + '" placeholder="Contoh: November 2026">' +
+          '<div class="grid g2" style="gap:10px">' +
+            '<div><label style="display:block;margin-bottom:5px;font-size:12px;font-weight:600">Siklus</label><select id="mEditModCycle" class="fl" style="width:100%;font-size:13px;padding:8px 10px">' + cycleOptions + '</select></div>' +
+            '<div><label style="display:block;margin-bottom:5px;font-size:12px;font-weight:600">Tenggat Unggah PIC (Auto-Lock)</label><input id="mEditModDeadline" type="date" class="srch" style="width:100%;font-size:13px;padding:8px 10px" value="' + escapeAttr(scheduleDeadline) + '"></div>' +
+            '<div><label style="display:block;margin-bottom:5px;font-size:12px;font-weight:600">Mulai Penilaian SKI</label><input id="mEditModAssessment" type="date" class="srch" style="width:100%;font-size:13px;padding:8px 10px" value="' + escapeAttr(scheduleAssessment) + '"></div>' +
+          '</div>' +
+        '</div>' +
+        '<label style="display:block;margin-bottom:6px;font-weight:700">Unggah / Ganti Berkas Template Acuan (Opsional)</label>' +
+        (curMod.file_referensi ? '<div style="margin-bottom:6px;font-size:12.5px;color:var(--pri)">Berkas template saat ini: <b>' + escapeHtml(curMod.file_referensi) + '</b></div>' : '<div style="margin-bottom:6px;font-size:12.5px;color:var(--mut)">Belum ada berkas template acuan.</div>') +
+        '<input type="file" id="mEditModFile" class="fl" style="width:100%;margin-bottom:12px" accept=".xlsx,.xls,.docx,.doc,.pdf,.csv,.zip,.pptx">' +
+        '<p style="color:var(--mut);font-size:12px;margin:0">Pastikan format template baku sesuai dengan instrumen kepatuhan yang ditugaskan ke PIC.</p>' +
+      '</div>';
+
+      openModal({
+        title: (publishOnSave ? "Terbitkan Modul: " : "Edit Modul: ") + curMod.nama_modul,
+        body: formHtml,
+        okText: publishOnSave ? "Terbitkan Jadwal" : "Simpan Perubahan",
+        cancelText: "Batal",
+        width: "700px",
+        onOk: function(){
+          var nm = document.getElementById("mEditModName").value.trim();
+          var un = document.getElementById("mEditModUnit").value;
+          var st = document.getElementById("mEditModStatus").value;
+          var mt = document.getElementById("mEditModType").value;
+          var th = document.getElementById("mEditModThreshold").value;
+          var period = document.getElementById("mEditModPeriod").value.trim();
+          var cycle = document.getElementById("mEditModCycle").value;
+          var deadline = document.getElementById("mEditModDeadline").value;
+          var assessment = document.getElementById("mEditModAssessment").value;
+          var scheduleIdInput = document.getElementById("mEditModScheduleId");
+          var fInp = document.getElementById("mEditModFile");
+          var hasScheduleInput = !!(period || deadline || assessment);
+          var hasSchedule = !!(period && deadline && assessment);
+          if (!nm) { alert("Nama modul wajib diisi!"); return; }
+          if (hasScheduleInput && !hasSchedule) {
+            alert("Lengkapi nama periode, tenggat unggah, dan tanggal mulai penilaian.");
+            return;
+          }
+          if (st === 'terbit' && curMod.status_template !== 'terbit' && !hasSchedule) {
+            alert("Atur periode dan tanggal jadwal sebelum menerbitkan modul.");
+            return;
+          }
+
+          var fd = new FormData();
+          fd.append('action', 'update_modul');
+          fd.append('id_modul', idMod);
+          fd.append('nama_modul', nm);
+          fd.append('id_unit_pic', un);
+          fd.append('status_template', st);
+          fd.append('module_type', mt);
+          fd.append('scoring_threshold', th);
+          if (hasSchedule) {
+            fd.append('jadwal_id_jadwal', scheduleIdInput.value);
+            fd.append('jadwal_periode', period);
+            fd.append('jadwal_siklus', cycle);
+            fd.append('jadwal_tenggat_unggah', deadline);
+            fd.append('jadwal_mulai_penilaian', assessment);
+          }
+          if (fInp && fInp.files && fInp.files[0]) {
+            fd.append('template_file', fInp.files[0]);
+          }
+          fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
+            toast(res.message);
+            if (res.success) {
+              closeModal();
+              fetchInit(function(){ renderModul(); });
+            }
+          }).catch(function(err){
+            alert("Terjadi kesalahan jaringan: " + err);
+          });
+        }
+      });
+    }
+
+    moduleSettingsHandler = openModuleSettings;
+
     document.querySelectorAll(".btnEditModModal").forEach(function(b){
       b.onclick = function(e){
         e.stopPropagation();
-        var idMod = this.dataset.id;
-        var curMod = STATE.moduls.find(function(m){ return String(m.id_modul) === String(idMod); });
-        if (!curMod) return;
-
-        var mType = curMod.module_type || 'document_verification';
-        var mThresh = curMod.scoring_threshold !== undefined && curMod.scoring_threshold !== null ? curMod.scoring_threshold : 80;
-
-        var formHtml = '<div style="font-size:13.5px">' +
-          '<label style="display:block;margin-bottom:6px;font-weight:700">Nama Modul Pengawasan</label>' +
-          '<input id="mEditModName" class="srch" style="width:100%;margin-bottom:14px;font-size:14px;padding:9px" value="' + escapeAttr(curMod.nama_modul) + '">' +
-          '<label style="display:block;margin-bottom:6px;font-weight:700">Unit Kerja PIC Penanggung Jawab</label>' +
-          '<select id="mEditModUnit" class="fl" style="width:100%;margin-bottom:14px;font-size:14px;padding:9px">' +
-            STATE.units.map(function(u){
-              return '<option value="' + u.id_unit + '" ' + (u.id_unit === curMod.id_unit_pic ? 'selected' : '') + '>' + u.nama_unit + '</option>';
-            }).join('') +
-          '</select>' +
-          '<input type="hidden" id="mEditModType" value="document_verification">' +
-          '<input type="hidden" id="mEditModThreshold" value="' + mThresh + '">' +
-          '<label style="display:block;margin-bottom:6px;font-weight:700">Status Modul Pengawasan</label>' +
-          '<select id="mEditModStatus" class="fl" style="width:100%;margin-bottom:14px;font-size:14px;padding:9px">' +
-            '<option value="terbit" ' + (curMod.status_template === 'terbit' ? 'selected' : '') + '>TERBIT (Aktif &amp; Siap Diisi PIC)</option>' +
-            '<option value="draf" ' + (curMod.status_template === 'draf' ? 'selected' : '') + '>DRAF (Penyusunan Internal SKI)</option>' +
-          '</select>' +
-          '<label style="display:block;margin-bottom:6px;font-weight:700">Unggah / Ganti Berkas Template Acuan (Opsional)</label>' +
-          (curMod.file_referensi ? '<div style="margin-bottom:6px;font-size:12.5px;color:var(--pri)">Berkas template saat ini: <b>' + escapeAttr(curMod.file_referensi) + '</b></div>' : '<div style="margin-bottom:6px;font-size:12.5px;color:var(--mut)">Belum ada berkas template acuan.</div>') +
-          '<input type="file" id="mEditModFile" class="fl" style="width:100%;margin-bottom:12px" accept=".xlsx,.xls,.docx,.doc,.pdf,.csv,.zip,.pptx">' +
-          '<p style="color:var(--mut);font-size:12px;margin:0">Pastikan format template baku sesuai dengan instrumen kepatuhan yang ditugaskan ke PIC.</p>' +
-        '</div>';
-
-        openModal({
-          title: "Pengaturan Modul: " + curMod.nama_modul,
-          body: formHtml,
-          okText: "Simpan Perubahan",
-          cancelText: "Batal",
-          onOk: function(){
-            var nm = document.getElementById("mEditModName").value.trim();
-            var un = document.getElementById("mEditModUnit").value;
-            var st = document.getElementById("mEditModStatus").value;
-            var mt = document.getElementById("mEditModType").value;
-            var th = document.getElementById("mEditModThreshold").value;
-            var fInp = document.getElementById("mEditModFile");
-            if (!nm) { alert("Nama modul wajib diisi!"); return; }
-            var fd = new FormData();
-            fd.append('action', 'update_modul');
-            fd.append('id_modul', idMod);
-            fd.append('nama_modul', nm);
-            fd.append('id_unit_pic', un);
-            fd.append('status_template', st);
-            fd.append('module_type', mt);
-            fd.append('scoring_threshold', th);
-            if (fInp && fInp.files && fInp.files[0]) {
-              fd.append('template_file', fInp.files[0]);
-            }
-            fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
-              toast(res.message);
-              closeModal();
-              if (res.success) fetchInit(function(){ renderModul(); });
-            });
-          }
-        });
+        moduleSettingsHandler(this.dataset.id, false);
       };
     });
+
+    function toggleModuleStatus(idMod) {
+      var curMod = STATE.moduls.find(function(m){ return String(m.id_modul) === String(idMod); });
+      if (!curMod) return;
+      var nextSt = curMod.status_template === 'terbit' ? 'draf' : 'terbit';
+      if (nextSt === 'terbit') {
+        moduleSettingsHandler(idMod, true);
+        return;
+      }
+      var fd = new FormData();
+      fd.append('action', 'update_modul');
+      fd.append('id_modul', idMod);
+      fd.append('nama_modul', curMod.nama_modul);
+      fd.append('id_unit_pic', curMod.id_unit_pic);
+      fd.append('status_template', nextSt);
+      fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
+        toast(res.message);
+        if (res.success) fetchInit(function(){ renderModul(); });
+      });
+    }
+
+    moduleStatusHandler = toggleModuleStatus;
 
     // Quick Toggle Status (Terbitkan / Drafkan)
     document.querySelectorAll(".btnQuickToggleStatus").forEach(function(b){
       b.onclick = function(e){
         e.stopPropagation();
-        var idMod = this.dataset.id;
-        var curMod = STATE.moduls.find(function(m){ return String(m.id_modul) === String(idMod); });
-        if (!curMod) return;
-        var nextSt = curMod.status_template === 'terbit' ? 'draf' : 'terbit';
-        var fd = new FormData();
-        fd.append('action', 'update_modul');
-        fd.append('id_modul', idMod);
-        fd.append('nama_modul', curMod.nama_modul);
-        fd.append('id_unit_pic', curMod.id_unit_pic);
-        fd.append('status_template', nextSt);
-        fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
-          toast(nextSt === 'terbit' ? 'Modul berhasil DITERBITKAN!' : 'Modul dikembalikan ke status DRAF.');
-          if (res.success) fetchInit(function(){ renderModul(); });
-        });
+        moduleStatusHandler(this.dataset.id);
       };
     });
 
@@ -5877,116 +7543,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
           }
         });
       };
-    }
-  }
-
-  // --- 3. JADWAL & PERIODE ---
-  function renderJadwal() {
-    var canCreate = can('jdw', 't');
-    var h = '';
-
-    if (canCreate) {
-      h += '<div style="background:var(--bg);padding:14px;border-radius:14px;border:1px solid var(--bd);margin:14px 0">';
-      h += '<h3 style="margin:0 0 10px;font-size:14px;color:var(--dk)">Buka Periode Pengawasan Baru</h3>';
-      h += '<div class="grid g2">';
-      h += '<div><label style="font-size:12px;color:var(--mut);font-weight:600">Nama Periode</label><input id="jdwPer" class="srch" value="Oktober 2026" style="width:100%"></div>';
-      h += '<div><label style="font-size:12px;color:var(--mut);font-weight:600">Siklus</label><select id="jdwSiklus" class="fl" style="width:100%"><option>Bulanan</option><option>Triwulan</option><option>Semester</option><option>Tahunan</option></select></div>';
-      h += '<div><label style="font-size:12px;color:var(--mut);font-weight:600">Tenggat Unggah PIC (Auto-Lock)</label><input id="jdwTenggat" type="date" class="srch" value="2026-11-10" style="width:100%"></div>';
-      h += '<div><label style="font-size:12px;color:var(--mut);font-weight:600">Mulai Penilaian SKI</label><input id="jdwMulai" type="date" class="srch" value="2026-11-02" style="width:100%"></div>';
-      h += '</div>';
-
-      h += '<div style="margin-top:14px"><button class="btn" id="btnPubJdw">Terbitkan Jadwal Aktif</button></div>';
-      h += '</div>';
-    }
-
-    // Filter modul aktif vs modul draf
-    var activeModuls = STATE.moduls.filter(function(m){ return m.status_template === 'terbit' && !!m.id_jadwal; });
-    var drafModuls = STATE.moduls.filter(function(m){ return m.status_template !== 'terbit'; });
-
-    h += '<h3 style="margin-top:22px;display:flex;align-items:center;gap:8px">Jadwal Pengawasan yang Sedang Berjalan <span class="tag t-ok" style="font-size:11px;font-weight:700">' + activeModuls.length + ' Modul Aktif</span></h3>';
-    h += '<div class="tw"><table><tr><th>Nama Modul</th><th>Unit PIC</th><th>Status Jadwal</th><th>Tenggat Unggah PIC</th><th>Mulai Penilaian SKI</th><th>Status Kunci</th></tr>';
-    if (activeModuls.length === 0) {
-      h += '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--mut)"><div style="margin-bottom:6px"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>Belum ada jadwal aktif.</td></tr>';
-    } else {
-      activeModuls.forEach(function(m){
-        var isLock = parseInt(m.is_locked) === 1;
-        h += '<tr><td><b>' + escapeHtml(m.nama_modul) + '</b></td><td>' + escapeHtml(m.nama_unit || '-') + '</td>' +
-             '<td><span class="tag t-ok" style="font-weight:600">Aktif Diterbitkan</span></td>' +
-             '<td>' + (m.tenggat_unggah || '-') + '</td><td>' + (m.mulai_penilaian || '-') + '</td>' +
-             '<td><span class="tag ' + (isLock ? 't-gy' : 't-ok') + '">' + (isLock ? 'Terkunci (Jatuh Tempo)' : 'Bebas Diubah PIC') + '</span></td></tr>';
-      });
-    }
-    h += '</table></div>';
-
-    // Panel modul draf / nonaktif jika ada
-    if (drafModuls.length > 0) {
-      h += '<div style="margin-top:16px;background:var(--bg);border:1px dashed var(--bd);border-radius:12px;padding:12px 16px">' +
-           '<div style="font-size:12.5px;font-weight:700;color:var(--dk);margin-bottom:8px;display:flex;align-items:center;gap:8px">' +
-           '<span class="tag t-wn" style="font-size:10.5px;font-weight:700">DRAF / NONAKTIF</span>' +
-           'Modul Tidak Aktif / Belum Diterbitkan (' + drafModuls.length + ' Modul)' +
-           '</div>' +
-           '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
-           drafModuls.map(function(m){
-             return '<span class="tag t-gy" style="font-size:12px;padding:4px 10px"><b>' + escapeHtml(m.nama_modul) + '</b> <span class="mut">(' + escapeHtml(m.nama_unit || '-') + ')</span></span>';
-           }).join('') +
-           '</div>' +
-           '</div>';
-    }
-
-    document.getElementById("jdwC").innerHTML = h;
-
-    if (canCreate) {
-      var btnPub = document.getElementById("btnPubJdw");
-      if (btnPub) {
-        btnPub.onclick = function(){
-          var modulOptions = STATE.moduls.map(function(m){
-            var checked = m.status_template === 'terbit' ? ' checked' : '';
-            return '<label style="display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--bd);border-radius:8px;cursor:pointer">' +
-              '<input type="checkbox" class="cbJdwMod" value="' + escapeAttr(m.id_modul) + '"' + checked + '>' +
-              '<span><b>' + escapeHtml(m.nama_modul) + '</b> <small class="mut">' + escapeHtml(m.nama_unit || '') + '</small></span>' +
-              '</label>';
-          }).join('');
-          openModal({
-            title: "Pilih Modul",
-            body: '<div class="grid" style="gap:8px;max-height:55vh;overflow-y:auto">' + modulOptions + '</div>',
-            footerHtml: '<button class="btn o sm" id="mJdwCancel">Batal</button><button class="btn sm" id="mJdwPublish">Terbitkan</button>',
-            width: "520px"
-          });
-          document.getElementById("mJdwCancel").onclick = closeModal;
-          document.getElementById("mJdwPublish").onclick = function(){
-            var modIds = [].map.call(document.querySelectorAll("#modalBody .cbJdwMod:checked"), function(x){ return x.value; });
-            if (modIds.length === 0) {
-              alert("Pilih minimal satu modul.");
-              return;
-            }
-
-            var submitBtn = this;
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Menerbitkan...";
-            var fd = new FormData();
-            fd.append('action', 'publish_jadwal');
-            fd.append('periode', document.getElementById("jdwPer").value);
-            fd.append('siklus', document.getElementById("jdwSiklus").value);
-            fd.append('tenggat_unggah', document.getElementById("jdwTenggat").value);
-            fd.append('mulai_penilaian', document.getElementById("jdwMulai").value);
-            fd.append('modul_ids', JSON.stringify(modIds));
-            fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
-              toast(res.message);
-              if (res.success) {
-                closeModal();
-                fetchInit(function(){ renderJadwal(); });
-              } else {
-                submitBtn.disabled = false;
-                submitBtn.textContent = "Terbitkan";
-              }
-            }).catch(function(err){
-              submitBtn.disabled = false;
-              submitBtn.textContent = "Terbitkan";
-              alert("Terjadi kesalahan jaringan: " + err);
-            });
-          };
-        };
-      }
     }
   }
 
@@ -6472,7 +8028,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       h += '<div style="font-size:11.5px;color:#475569;margin-top:2px">Seluruh eviden PIC telah diserahkan dan saat ini sedang ditelaah oleh Kepala BBPK Jakarta.</div>';
       h += '</div>';
       h += '</div>';
-    } else if (fulfilledCount > 0) {
+    } else if (fulfilledCount > 0 && STATE.user && (STATE.user.role === 'ang' || STATE.user.role === 'ket')) {
       h += '<div class="upl-bulk-approval-card" style="background:#f0fdfa;border:1px solid #99f6e4;border-radius:14px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:6px">';
       h += '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;flex:1">';
       h += '<div style="width:36px;height:36px;border-radius:10px;background:#ccfbf1;display:grid;place-items:center;color:#0f766e">';
@@ -6483,7 +8039,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       h += '<span style="font-size:13.5px;font-weight:800;color:#0f766e">Bulk Approval Eviden PIC</span>';
       h += '<span style="background:#ccfbf1;color:#115e59;font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;border:1px solid #99f6e4">' + fulfilledCount + ' Berkas Siap</span>';
       h += '</div>';
-      h += '<div style="font-size:11.5px;color:#475569;margin-top:2px">Setujui seluruh berkas eviden PIC secara massal di tingkat SKI dan langsung serahkan ke Meja Pimpinan (Kepala BBPK).</div>';
       h += '</div>';
       h += '</div>';
       h += '<button type="button" class="btn sm" id="btnBulkApproveToPimpinan" style="background:#006a55;color:#ffffff;border:none;border-radius:10px;padding:9px 18px;font-weight:700;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;box-shadow:0 2px 8px rgba(0,106,85,0.25)">';
@@ -7720,8 +9275,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 
   // --- 6. REPOSITORI EVIDEN (Itjen Mode) ---
   function renderRepositori() {
-    var h = '<div class="row" style="margin-top:0;justify-content:flex-end;margin-bottom:12px">' +
-            '<button class="btn o sm" onclick="document.getElementById(\'btnPageGuide\').click()">Petunjuk</button></div>';
+    var h = '';
 
     h += '<div class="tw"><table><tr><th>Nama Berkas</th><th>Modul Pengawasan</th><th>Unit PIC</th><th>Format Berkas</th><th>Ukuran</th><th>Aksi</th></tr>';
     STATE.evidens.forEach(function(e){
@@ -9611,175 +11165,211 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   }
 
   // --- 9. APPROVAL PIMPINAN (Persetujuan Berkas oleh Kepala BBPK) ---
+  var apmActiveTab = 'revision';
+  var apmSearchQuery = '';
+
   function renderApprovalPimpinan() {
     var pendingEvidens = STATE.evidens.filter(function(e){ return e.status_eviden === 'a'; });
     var approvedEvidens = STATE.evidens.filter(function(e){ return e.status_eviden === 'p' || e.status_eviden === 'f'; });
     var revisiEvidens = STATE.evidens.filter(function(e){ return e.status_eviden === 'r'; });
+    var tabs = [
+      { id: 'pending', label: 'Menunggu Approval', count: pendingEvidens.length },
+      { id: 'approved', label: 'Telah Disetujui', count: approvedEvidens.length },
+      { id: 'revision', label: 'Perlu Revisi PIC', count: revisiEvidens.length }
+    ];
+    var tabExists = tabs.some(function(tab){ return tab.id === apmActiveTab; });
+    if (!tabExists) apmActiveTab = 'pending';
 
-    var h = '';
-
-    // Ringkasan Cepat
-    h += '<div class="grid g3" style="margin-bottom:16px">' +
-         '<div class="card" style="background:linear-gradient(135deg,rgba(10,143,131,0.08),transparent);border-color:var(--pri)">' +
-         '<div class="row" style="margin-top:0"><span style="font-size:12px;color:var(--mut);font-weight:700;text-transform:uppercase">Menunggu Approval</span>' +
-         '<span class="tag ' + (pendingEvidens.length > 0 ? 't-pk' : 't-ok') + '">' + pendingEvidens.length + '</span></div>' +
-         '</div>' +
-         '<div class="card" style="background:linear-gradient(135deg,rgba(16,185,129,0.08),transparent);border-color:#10b981">' +
-         '<div class="row" style="margin-top:0"><span style="font-size:12px;color:var(--mut);font-weight:700;text-transform:uppercase">Telah Disetujui</span>' +
-         '<span class="tag t-ok">' + approvedEvidens.length + '</span></div>' +
-         '</div>' +
-         '<div class="card" style="background:linear-gradient(135deg,rgba(239,68,68,0.08),transparent);border-color:#ef4444">' +
-         '<div class="row" style="margin-top:0"><span style="font-size:12px;color:var(--mut);font-weight:700;text-transform:uppercase">Perlu Revisi PIC</span>' +
-         '<span class="tag t-er">' + revisiEvidens.length + '</span></div>' +
-         '</div>' +
-         '</div>';
-
-    // Daftar Berkas Menunggu Approval Pimpinan
-    h += '<div class="card" style="border-radius:18px;border:1px solid #ccfbf1;padding:20px;box-shadow:0 4px 16px rgba(0,106,85,0.04)">' +
-         '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #f0fdfa">' +
-           '<h3 style="margin:0;color:#006a55;display:flex;align-items:center;gap:8px;font-size:16px;font-weight:800">' +
-             '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg>' +
-             'Berkas Menunggu Persetujuan (' + pendingEvidens.length + ')' +
-           '</h3>' +
-           (pendingEvidens.length > 0 ? '<button type="button" class="btn sm" id="btnPimBulkApproveAll" style="background:#006a55;color:#fff;font-weight:700">Setujui Semua (' + pendingEvidens.length + ')</button>' : '') +
-         '</div>';
-
-    if (pendingEvidens.length === 0) {
-      h += '<div style="background:#f8fafc;border-radius:12px;padding:36px 20px;text-align:center;color:var(--mut);border:1px solid #e2e8f0">' +
-             '<div style="width:44px;height:44px;border-radius:50%;background:#dcfce7;color:#166534;display:grid;place-items:center;margin:0 auto 10px;font-size:20px">✓</div>' +
-             '<b style="color:#0f172a;font-size:14.5px;display:block">Tidak ada berkas yang menunggu approval saat ini.</b>' +
-             '<small>Semua berkas yang diajukan oleh Tim SKI telah selesai dievaluasi.</small>' +
-           '</div>';
-    } else {
-      h += '<div class="tw" style="margin:0;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden"><table class="rev-table" style="margin:0">' +
-           '<thead><tr>' +
-             '<th style="min-width:240px">MODUL &amp; BUTIR INDIKATOR</th>' +
-             '<th style="min-width:220px">DOKUMEN EVIDEN</th>' +
-             '<th style="min-width:160px">PIC &amp; UNIT</th>' +
-             '<th style="min-width:200px">CATATAN EVALUASI SKI</th>' +
-             '<th style="min-width:140px;text-align:right">AKSI PIMPINAN</th>' +
-           '</tr></thead><tbody>';
-      pendingEvidens.forEach(function(e){
-        var isRevisi = parseInt(e.versi) > 1;
-        var isLink = isEvidenUrl(e.path_file) || e.format_file === 'link' || e.format_file === 'gdrive' || e.format_file === 'onedrive' || e.format_file === 'dropbox';
-        var sizeOrLink = isLink ? ('Tautan ' + (e.format_file === 'gdrive' ? 'Google Drive' : (e.format_file === 'onedrive' ? 'OneDrive' : 'Cloud'))) : (e.ukuran_file_mb + ' MB');
-
-        h += '<tr>';
-        h += '<td>' +
-               '<div><b style="color:#006a55;font-size:13.5px">' + escapeHtml(e.nama_modul) + '</b></div>' +
-               '<div style="font-size:12.5px;color:var(--tx);margin-top:2px;line-height:1.4">' + escapeHtml(e.deskripsi_indikator) + '</div>' +
-             '</td>';
-        h += '<td>' +
-               '<div style="display:flex;align-items:center;gap:6px">' +
-                 getFileIconSvg(e.nama_file, e.format_file, e.path_file) +
-                 '<a href="' + e.path_file + '" target="_blank" rel="noopener noreferrer" style="color:var(--pri);font-weight:700;text-decoration:none">' +
-                   escapeHtml(e.nama_file) + ' ↗' +
-                 '</a>' +
-               '</div>' +
-               '<div style="font-size:11px;color:var(--mut);margin-top:3px">' +
-                 sizeOrLink + ' · <span class="tag ' + (isRevisi ? 't-pu' : 't-gy') + '" style="font-size:9.5px;padding:1px 5px">' + (isRevisi ? 'Versi ' + e.versi + ' (Revisi)' : 'Versi 1') + '</span>' +
-               '</div>' +
-             '</td>';
-        h += '<td>' +
-               '<b>' + escapeHtml(e.nama_pic) + '</b>' +
-               '<div style="font-size:11px;color:var(--mut);margin-top:2px">' + escapeHtml(e.nama_unit || '-') + '</div>' +
-             '</td>';
-        h += '<td>' +
-               (e.catatan_temuan ? '<div style="font-size:11.5px;color:#92400e;background:#fef3c7;padding:4px 8px;border-radius:6px;line-height:1.3"><b>Reviewer SKI:</b> ' + escapeHtml(e.catatan_temuan) + '</div>' : '<span class="mut" style="font-size:11.5px">Disetujui tanpa catatan khusus</span>') +
-             '</td>';
-        h += '<td style="text-align:right">' +
-               '<button class="btn sm btnEvalEvidenPim" data-id="' + e.id_eviden + '" data-mod="' + escapeAttr(e.nama_modul) + '" data-desc="' + escapeAttr(e.deskripsi_indikator) + '" data-file="' + escapeAttr(e.nama_file) + '" data-path="' + escapeAttr(e.path_file) + '" data-ver="' + e.versi + '" data-pic="' + escapeAttr(e.nama_pic) + '" data-unit="' + escapeAttr(e.nama_unit || '') + '" data-cat="' + escapeAttr(e.catatan_temuan || '') + '" style="background:#006a55;color:#fff;font-weight:700">Tinjau &amp; Keputusan</button>' +
-             '</td>';
-        h += '</tr>';
-      });
-      h += '</tbody></table></div>';
-    }
-
-    h += '</div>'; // end card container
+    var h = '<div class="apm-shell">' +
+              '<div class="apm-toolbar">' +
+                '<div class="apm-tabs">';
+    tabs.forEach(function(tab){
+      var isActive = apmActiveTab === tab.id;
+      h += '<button type="button" class="apm-tab' + (isActive ? ' active' : '') + ' btnApmTab" data-tab="' + tab.id + '" aria-pressed="' + (isActive ? 'true' : 'false') + '">' +
+            '<span>' + tab.label + '</span>' +
+            '<span class="apm-count' + (tab.id === 'revision' ? ' revision' : '') + '">' + tab.count + '</span>' +
+          '</button>';
+    });
+    h += '</div>' +
+         '<label class="apm-search-wrap">' +
+           '<svg class="apm-search-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>' +
+           '<input id="apmSearchInput" class="apm-search" type="search" value="' + escapeAttr(apmSearchQuery) + '" placeholder="Cari modul / unit..." aria-label="Cari modul atau unit">' +
+         '</label>' +
+       '</div>' +
+       '<div id="apmTabContent" class="apm-content"></div>' +
+     '</div>';
 
     document.getElementById("apmL").innerHTML = h;
 
-    // Bulk approve all pending items by Pimpinan
-    var btnBulkAll = document.getElementById("btnPimBulkApproveAll");
-    if (btnBulkAll) {
-      btnBulkAll.onclick = function(){
-        if (!confirm("Setujui seluruh " + pendingEvidens.length + " berkas yang menunggu dan kembalikan ke SKI untuk penyelesaian akhir?")) return;
-        var ids = pendingEvidens.map(function(e){ return e.id_eviden; });
-        var fd = new FormData();
-        fd.append('action', 'approval_pimpinan');
-        fd.append('sub_action', 'bulk_approve');
-        fd.append('ids', JSON.stringify(ids));
-        fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
-          toast(res.message);
-          if (res.success) fetchInit(function(){ renderApprovalPimpinan(); });
-        });
-      };
-    }
-
-    // Individual item review
-    document.querySelectorAll(".btnEvalEvidenPim").forEach(function(b){
-      b.onclick = function(){
-        var id = this.dataset.id;
-        var mod = this.dataset.mod;
-        var desc = this.dataset.desc;
-        var file = this.dataset.file;
-        var path = this.dataset.path;
-        var ver = parseInt(this.dataset.ver);
-        var pic = this.dataset.pic;
-        var unit = this.dataset.unit;
-        var cat = this.dataset.cat;
-        var isRevisi = ver > 1;
-
-        var popHtml = '<div style="font-size:13px">' +
-                      '<div style="background:var(--pri2);padding:12px 16px;border-radius:12px;margin-bottom:14px;border-left:4px solid var(--pri)">' +
-                        '<div style="font-size:11px;font-weight:700;color:var(--dk);text-transform:uppercase">Modul: ' + escapeAttr(mod) + '</div>' +
-                        '<div style="font-size:13.5px;font-weight:600;color:var(--tx);margin-top:2px">' + escapeAttr(desc) + '</div>' +
-                        '<div style="font-size:12px;color:var(--mut);margin-top:4px">PIC: <b>' + escapeAttr(pic) + ' (' + escapeAttr(unit) + ')</b></div>' +
-                      '</div>' +
-                      '<div style="background:#fff;border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:14px">' +
-                        '<div class="row" style="margin-top:0"><span style="font-weight:700;color:var(--dk)">Dokumen Eviden Bukti:</span>' +
-                        '<span class="tag ' + (isRevisi ? 't-pu' : 't-bl') + '" style="font-weight:700">' + (isRevisi ? 'Versi ' + ver + ' (Revisi)' : 'Versi 1') + '</span></div>' +
-                        '<div style="margin:8px 0">' +
-                          '<a href="' + path + '" target="_blank" rel="noopener noreferrer" class="btn sm o" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">' +
-                            'Buka Dokumen di Tab Baru ↗' +
-                          '</a>' +
-                        '</div>' +
-                        (cat ? '<div style="margin-top:8px;padding:8px 12px;background:#fef3c7;border-radius:8px;font-size:12px;color:#92400e"><b>Catatan Evaluasi Tim SKI:</b><br>' + escapeAttr(cat) + '</div>' : '') +
-                      '</div>' +
-                      '<label style="display:block;font-weight:700;margin-bottom:4px;color:var(--dk)">Catatan / Arahan Disposisi Pimpinan <span class="mut" style="font-weight:400;font-size:12px">(Wajib diisi jika Ditolak atau Revisi)</span></label>' +
-                      '<textarea id="mEvPimDisposisi" style="width:100%;min-height:75px;border:1px solid var(--bd);border-radius:10px;padding:10px;font:inherit;background:#fff" placeholder="Tuliskan arahan persetujuan, alasan penolakan ke SKI, atau instruksi revisi ke PIC..."></textarea>' +
-                      '</div>';
-
-        var footHtml = '<button class="btn o sm" id="mEvPimCancel" style="margin-right:auto">Batal</button>' +
-                       '<button class="btn o sm" id="mEvPimTolak" style="color:#dc2626;border-color:#dc2626;font-weight:700" title="Tolak berkas dan kembalikan ke Tim SKI untuk ditinjau ulang">Ditolak (Ke SKI)</button>' +
-                       '<button class="btn o sm" id="mEvPimRevisi" style="color:#d97706;border-color:#d97706;font-weight:700" title="Minta revisi dokumen dan kembalikan ke PIC">Revisi (Ke PIC)</button>' +
-                       '<button class="btn sm" id="mEvPimOk" style="background:#006a55;color:#fff;font-weight:700">Disetujui</button>';
-
-        openModal({
-          title: "Evaluasi &amp; Keputusan Pimpinan",
-          body: popHtml,
-          footerHtml: footHtml,
-          width: "640px"
-        });
-
-        document.getElementById("mEvPimCancel").onclick = closeModal;
-
-        document.getElementById("mEvPimOk").onclick = function(){
-          var dsp = document.getElementById("mEvPimDisposisi").value.trim();
-          execPimEviden(id, 'Setuju', dsp);
-        };
-        document.getElementById("mEvPimTolak").onclick = function(){
-          var dsp = document.getElementById("mEvPimDisposisi").value.trim();
-          if (!dsp) { alert("Tuliskan catatan alasan penolakan untuk Tim SKI terlebih dahulu!"); return; }
-          execPimEviden(id, 'Ditolak', dsp);
-        };
-        document.getElementById("mEvPimRevisi").onclick = function(){
-          var dsp = document.getElementById("mEvPimDisposisi").value.trim();
-          if (!dsp) { alert("Tuliskan instruksi revisi perbaikan untuk PIC terlebih dahulu!"); return; }
-          execPimEviden(id, 'Revisi', dsp);
-        };
+    document.querySelectorAll(".btnApmTab").forEach(function(button){
+      button.onclick = function(){
+        apmActiveTab = this.dataset.tab;
+        renderApprovalPimpinan();
+        var input = document.getElementById("apmSearchInput");
+        if (input) {
+          input.focus();
+          input.setSelectionRange(input.value.length, input.value.length);
+        }
       };
     });
+
+    document.getElementById("apmSearchInput").oninput = function(){
+      apmSearchQuery = this.value;
+      renderApmTabContent();
+    };
+
+    renderApmTabContent();
+
+    function renderApmTabContent() {
+      var allItems = apmActiveTab === 'pending' ? pendingEvidens : (apmActiveTab === 'approved' ? approvedEvidens : revisiEvidens);
+      var query = apmSearchQuery.trim().toLowerCase();
+      var filteredItems = allItems.filter(function(e){
+        if (!query) return true;
+        var searchable = [e.nama_modul, e.nama_unit].join(' ').toLowerCase();
+        return searchable.indexOf(query) !== -1;
+      });
+      var content = '';
+
+      if (apmActiveTab === 'pending' && filteredItems.length > 0) {
+        content += '<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px">' +
+                     '<span style="font-size:12px;color:#64748b">Berkas yang menunggu keputusan pimpinan</span>' +
+                     '<button type="button" class="btn sm" id="btnPimBulkApproveAll" style="background:#087066;color:#fff;font-weight:700">Setujui Semua (' + pendingEvidens.length + ')</button>' +
+                   '</div>';
+      }
+
+      if (filteredItems.length === 0) {
+        var emptyTitle = query ? 'Tidak ada berkas yang cocok dengan pencarian.' : (apmActiveTab === 'pending' ? 'Tidak ada berkas menunggu approval' : (apmActiveTab === 'approved' ? 'Belum ada berkas disetujui' : 'Tidak ada berkas perlu revisi'));
+        var emptyMessage = query ? 'Coba kata kunci modul atau unit lainnya.' : (apmActiveTab === 'pending' ? 'Seluruh berkas yang diajukan telah selesai dievaluasi.' : (apmActiveTab === 'approved' ? 'Dokumen yang telah disetujui akan tampil di sini.' : 'Seluruh dokumen unit kerja telah memenuhi standar kelengkapan SKI.'));
+        var emptyIcon = query
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg>';
+        content += '<div class="apm-empty">' +
+                     '<div class="apm-empty-icon">' + emptyIcon + '</div>' +
+                     '<b class="apm-empty-title">' + emptyTitle + '</b>' +
+                     '<span class="apm-empty-message">' + emptyMessage + '</span>' +
+                   '</div>';
+      } else {
+        content += '<div class="apm-list">';
+        filteredItems.forEach(function(e){
+          var isRevisi = parseInt(e.versi, 10) > 1;
+          var isLink = isEvidenUrl(e.path_file) || e.format_file === 'link' || e.format_file === 'gdrive' || e.format_file === 'onedrive' || e.format_file === 'dropbox';
+          var fileInfo = isLink ? ('Tautan ' + (e.format_file === 'gdrive' ? 'Google Drive' : (e.format_file === 'onedrive' ? 'OneDrive' : 'Cloud'))) : ((e.ukuran_file_mb || 0) + ' MB');
+          var statusLabel = apmActiveTab === 'pending' ? 'Menunggu Approval' : (apmActiveTab === 'approved' ? 'Disetujui' : 'Perlu Revisi PIC');
+          var statusColor = apmActiveTab === 'pending' ? '#b45309' : (apmActiveTab === 'approved' ? '#15803d' : '#be123c');
+          var statusBackground = apmActiveTab === 'pending' ? '#fffbeb' : (apmActiveTab === 'approved' ? '#f0fdf4' : '#fff1f2');
+          var statusBorder = apmActiveTab === 'pending' ? '#fde68a' : (apmActiveTab === 'approved' ? '#bbf7d0' : '#fecdd3');
+
+          content += '<article style="display:flex;align-items:center;gap:14px;padding:15px 3px;border-bottom:1px solid #eef2f7">' +
+                       '<div style="width:42px;height:42px;flex:0 0 42px;border-radius:11px;display:grid;place-items:center;background:#f1f5f9;color:#64748b">' +
+                         getFileIconSvg(e.nama_file, e.format_file, e.path_file) +
+                       '</div>' +
+                       '<div style="min-width:0;flex:1">' +
+                         '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">' +
+                           '<b style="font-size:13px;color:#1e293b">' + escapeHtml(e.nama_modul || 'Modul') + '</b>' +
+                           '<span style="border:1px solid ' + statusBorder + ';background:' + statusBackground + ';color:' + statusColor + ';border-radius:6px;padding:3px 7px;font-size:10px;font-weight:700">' + statusLabel + '</span>' +
+                         '</div>' +
+                         '<div style="font-size:12px;color:#64748b;margin-top:4px;line-height:1.45">' + escapeHtml(e.deskripsi_indikator || e.nama_file || '-') + '</div>' +
+                         '<div style="display:flex;gap:6px 13px;flex-wrap:wrap;font-size:11px;color:#64748b;margin-top:6px">' +
+                           '<span>Unit: <b style="color:#475569">' + escapeHtml(e.nama_unit || '-') + '</b></span>' +
+                           '<span>PIC: <b style="color:#475569">' + escapeHtml(e.nama_pic || '-') + '</b></span>' +
+                           '<span>' + escapeHtml(fileInfo) + ' · Versi ' + escapeHtml(String(e.versi || 1)) + (isRevisi ? ' (Revisi)' : '') + '</span>' +
+                           '<span>Diunggah: ' + escapeHtml(formatDateIndo(e.waktu_unggah)) + '</span>' +
+                         '</div>' +
+                         (e.catatan_temuan ? '<div style="font-size:11px;color:#92400e;background:#fffbeb;border-radius:6px;padding:6px 8px;margin-top:8px"><b>Catatan evaluasi:</b> ' + escapeHtml(e.catatan_temuan) + '</div>' : '') +
+                       '</div>' +
+                       '<div style="display:flex;align-items:center;gap:7px;flex:0 0 auto;flex-wrap:wrap;justify-content:flex-end">' +
+                         '<a class="btn sm o" href="' + escapeAttr(e.path_file || '#') + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none">Lihat Berkas</a>' +
+                         (apmActiveTab === 'pending' ? '<button type="button" class="btn sm btnEvalEvidenPim" data-id="' + escapeAttr(e.id_eviden) + '" data-mod="' + escapeAttr(e.nama_modul) + '" data-desc="' + escapeAttr(e.deskripsi_indikator) + '" data-file="' + escapeAttr(e.nama_file) + '" data-path="' + escapeAttr(e.path_file) + '" data-ver="' + escapeAttr(e.versi) + '" data-pic="' + escapeAttr(e.nama_pic) + '" data-unit="' + escapeAttr(e.nama_unit || '') + '" data-cat="' + escapeAttr(e.catatan_temuan || '') + '" style="background:#087066;color:#fff;font-weight:700">Tinjau &amp; Keputusan</button>' : '') +
+                       '</div>' +
+                     '</article>';
+        });
+        content += '</div>';
+      }
+
+      var target = document.getElementById('apmTabContent');
+      if (!target) return;
+      target.innerHTML = content;
+
+      var btnBulkAll = document.getElementById("btnPimBulkApproveAll");
+      if (btnBulkAll) {
+        btnBulkAll.onclick = function(){
+          if (!confirm("Setujui seluruh " + pendingEvidens.length + " berkas yang menunggu dan kembalikan ke SKI untuk penyelesaian akhir?")) return;
+          var ids = pendingEvidens.map(function(e){ return e.id_eviden; });
+          var fd = new FormData();
+          fd.append('action', 'approval_pimpinan');
+          fd.append('sub_action', 'bulk_approve');
+          fd.append('ids', JSON.stringify(ids));
+          fetch('ajax.php', { method: 'POST', body: fd }).then(function(r){ return r.json(); }).then(function(res){
+            toast(res.message);
+            if (res.success) fetchInit(function(){ renderApprovalPimpinan(); });
+          });
+        };
+      }
+
+      document.querySelectorAll(".btnEvalEvidenPim").forEach(function(b){
+        b.onclick = function(){
+          var id = this.dataset.id;
+          var mod = this.dataset.mod;
+          var desc = this.dataset.desc;
+          var file = this.dataset.file;
+          var path = this.dataset.path;
+          var ver = parseInt(this.dataset.ver, 10);
+          var pic = this.dataset.pic;
+          var unit = this.dataset.unit;
+          var cat = this.dataset.cat;
+          var isRevisi = ver > 1;
+
+          var popHtml = '<div style="font-size:13px">' +
+                        '<div style="background:var(--pri2);padding:12px 16px;border-radius:12px;margin-bottom:14px;border-left:4px solid var(--pri)">' +
+                          '<div style="font-size:11px;font-weight:700;color:var(--dk);text-transform:uppercase">Modul: ' + escapeAttr(mod) + '</div>' +
+                          '<div style="font-size:13.5px;font-weight:600;color:var(--tx);margin-top:2px">' + escapeAttr(desc) + '</div>' +
+                          '<div style="font-size:12px;color:var(--mut);margin-top:4px">PIC: <b>' + escapeAttr(pic) + ' (' + escapeAttr(unit) + ')</b></div>' +
+                        '</div>' +
+                        '<div style="background:#fff;border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:14px">' +
+                          '<div class="row" style="margin-top:0"><span style="font-weight:700;color:var(--dk)">Dokumen Eviden Bukti:</span>' +
+                          '<span class="tag ' + (isRevisi ? 't-pu' : 't-bl') + '" style="font-weight:700">' + (isRevisi ? 'Versi ' + ver + ' (Revisi)' : 'Versi 1') + '</span></div>' +
+                          '<div style="margin:8px 0">' +
+                            '<a href="' + escapeAttr(path) + '" target="_blank" rel="noopener noreferrer" class="btn sm o" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">' +
+                              'Buka Dokumen di Tab Baru ↗' +
+                            '</a>' +
+                          '</div>' +
+                          (cat ? '<div style="margin-top:8px;padding:8px 12px;background:#fef3c7;border-radius:8px;font-size:12px;color:#92400e"><b>Catatan Evaluasi Tim SKI:</b><br>' + escapeAttr(cat) + '</div>' : '') +
+                        '</div>' +
+                        '<label style="display:block;font-weight:700;margin-bottom:4px;color:var(--dk)">Catatan / Arahan Disposisi Pimpinan <span class="mut" style="font-weight:400;font-size:12px">(Wajib diisi jika Ditolak atau Revisi)</span></label>' +
+                        '<textarea id="mEvPimDisposisi" style="width:100%;min-height:75px;border:1px solid var(--bd);border-radius:10px;padding:10px;font:inherit;background:#fff" placeholder="Tuliskan arahan persetujuan, alasan penolakan ke SKI, atau instruksi revisi ke PIC..."></textarea>' +
+                        '</div>';
+
+          var footHtml = '<button class="btn o sm" id="mEvPimCancel" style="margin-right:auto">Batal</button>' +
+                         '<button class="btn o sm" id="mEvPimTolak" style="color:#dc2626;border-color:#dc2626;font-weight:700" title="Tolak berkas dan kembalikan ke Tim SKI untuk ditinjau ulang">Ditolak (Ke SKI)</button>' +
+                         '<button class="btn o sm" id="mEvPimRevisi" style="color:#d97706;border-color:#d97706;font-weight:700" title="Minta revisi dokumen dan kembalikan ke PIC">Revisi (Ke PIC)</button>' +
+                         '<button class="btn sm" id="mEvPimOk" style="background:#087066;color:#fff;font-weight:700">Disetujui</button>';
+
+          openModal({
+            title: "Evaluasi &amp; Keputusan Pimpinan",
+            body: popHtml,
+            footerHtml: footHtml,
+            width: "640px"
+          });
+
+          document.getElementById("mEvPimCancel").onclick = closeModal;
+
+          document.getElementById("mEvPimOk").onclick = function(){
+            var dsp = document.getElementById("mEvPimDisposisi").value.trim();
+            execPimEviden(id, 'Setuju', dsp);
+          };
+          document.getElementById("mEvPimTolak").onclick = function(){
+            var dsp = document.getElementById("mEvPimDisposisi").value.trim();
+            if (!dsp) { alert("Tuliskan catatan alasan penolakan untuk Tim SKI terlebih dahulu!"); return; }
+            execPimEviden(id, 'Ditolak', dsp);
+          };
+          document.getElementById("mEvPimRevisi").onclick = function(){
+            var dsp = document.getElementById("mEvPimDisposisi").value.trim();
+            if (!dsp) { alert("Tuliskan instruksi revisi perbaikan untuk PIC terlebih dahulu!"); return; }
+            execPimEviden(id, 'Revisi', dsp);
+          };
+        };
+      });
+    }
   }
 
   function execPimEviden(idEviden, kep, cat) {
@@ -10488,7 +12078,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     var FE = [
       { k: "dash", n: "Dashboard Statistik" },
       { k: "mod",  n: "Master Modul & Template" },
-      { k: "jdw",  n: "Jadwal & Periode Unggah" },
       { k: "upl",  n: "Upload Berkas Eviden" },
       { k: "mon",  n: "Monitoring Upload Satker" },
       { k: "rep",  n: "Repositori Eviden & Berkas" },
