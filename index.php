@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/auth.php';
 $isAuth = isLoggedIn();
 $user = getCurrentUser();
 ?>
-<!doctype html>
+<!doctype html>`
 <html lang="id">
 <head>
 <meta charset="utf-8">
