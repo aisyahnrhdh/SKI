@@ -1454,6 +1454,8 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     align-items: stretch;
   }
   .mod-search-box {
+    flex: 0 0 auto;
+    min-width: 0;
     width: 100%;
   }
 }
@@ -3266,8 +3268,11 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 .upl-cat-tabs {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   flex-wrap: wrap;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 10px;
 }
 .upl-cat-tab-btn {
   border: 1px solid transparent;
@@ -3286,10 +3291,10 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   color: #0f172a;
 }
 .upl-cat-tab-btn.active {
-  background: #cbd5e1;
-  border-color: #94a3b8;
-  color: #0f172a;
+  background: #006a55;
+  color: #ffffff;
   font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,106,85,.2);
 }
 
 .upl-cat-right {
@@ -5599,6 +5604,14 @@ textarea {
   }
   .main {
     padding: 16px;
+  }
+  .dash-member-kpis,
+  .dash-member-unit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .dash-member-bottom {
+    grid-template-columns: minmax(0, 1fr);
   }
   .rev-tabs {
     min-width: 0;
