@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/auth.php';
 $isAuth = isLoggedIn();
 $user = getCurrentUser();
 ?>
-<!doctype html>`
+<!doctype html>
 <html lang="id">
 <head>
 <meta charset="utf-8">
@@ -32,7 +32,8 @@ body{
   margin:0;background:#f8fafc;color:var(--tx);
   font:14px/1.5 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
-.app{display:flex;min-height:100vh;align-items:flex-start}
+#appView{height:100vh;height:100dvh;overflow:hidden}
+.app{display:flex;height:100vh;height:100dvh;min-height:0;align-items:flex-start;overflow:hidden}
 .side{
   position:sticky;top:0;height:100vh;height:100dvh;align-self:flex-start;
   display:flex;flex-direction:column;
@@ -152,7 +153,7 @@ body{
   box-shadow:0 1px 4px rgba(225,29,72,.3);
   flex-shrink:0;
 }
-.mw{flex:1;min-width:0;display:flex;flex-direction:column;min-height:100vh;max-width:100%;overflow-x:hidden}
+.mw{flex:1;min-width:0;display:flex;flex-direction:column;height:100%;min-height:0;max-width:100%;overflow-x:hidden}
 .hd{background:#e8f8f6;color:#1b2333;min-height:68px;padding:0 24px;display:flex;align-items:center;gap:14px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;border-bottom:1px solid rgba(13,148,136,.14);box-shadow:0 2px 10px rgba(7,94,87,.08)}
 .hd-brand{font-size:16px;font-weight:800;line-height:1.2;letter-spacing:-.01em;white-space:nowrap}
 .hd-brand small{display:block;margin-top:2px;font-size:11.5px;font-weight:400;color:#64748b}
@@ -169,7 +170,7 @@ body{
 .btn.o:hover{background:var(--pri2)}.btn.lo{background:#fff;color:#075e57;border:1px solid rgba(13,148,136,.28);border-radius:8px;box-shadow:none;display:inline-flex;align-items:center;gap:7px;padding:6px 12px;font-size:12.5px}
 .btn.lo:hover{background:#f4fbf9;border-color:#0d9488;transform:none}
 .btn.sm{padding:6px 11px;font-size:12px;border-radius:8px}
-.main{flex:1;min-width:0;max-width:100%;box-sizing:border-box;padding:20px}
+.main{flex:1;min-width:0;min-height:0;max-width:100%;box-sizing:border-box;padding:20px;overflow-y:auto;overscroll-behavior:contain}
 .hero{background:none;color:var(--tx);padding:2px 0 6px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .hero h1{font-size:24px;margin:0;letter-spacing:-.4px;display:flex;align-items:center;gap:10px;font-weight:700;color:#0f172a}
 .hero p{color:#64748b;margin:0 0 3px;font-size:13px;font-weight:500}
@@ -261,7 +262,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 
 @media(max-width:768px){
   .app{flex-direction:column}
-  .mw{width:100%;min-width:0}
+  .mw{width:100%;min-width:0;height:100%}
   .lv{grid-template-columns:1fr}.lb{padding:28px 20px;text-align:center;align-items:center}.lb h2{font-size:32px}.ul{margin:12px auto 16px}.lb p{font-size:14px}
   .lgr{margin-bottom:20px;justify-content:center}
   .lf{padding:16px 14px 32px}.lf .card{padding:22px 18px;border-radius:20px}
@@ -548,6 +549,9 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   font-size: 20px;
   letter-spacing: -.3px;
 }
+.main.upload-active > .hero {
+  display: none;
+}
 .dash-member-layout {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
@@ -720,8 +724,11 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 }
 .dash-member-review-caption {
   color: #94a3b8;
-  font-size: 12px;
+  max-width: 96px;
+  font-size: 10.5px;
+  line-height: 1.25;
   margin-top: 6px;
+  overflow-wrap: anywhere;
 }
 .dash-member-review-stats {
   display: grid;
@@ -1062,6 +1069,39 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   }
   .dash-member-timeline {
     max-height: 320px;
+  }
+}
+@media (min-width: 1101px) and (max-width: 1350px) {
+  .main.dashboard-active {
+    padding: 14px;
+  }
+  .dash-member-layout {
+    grid-template-columns: minmax(0, 1.9fr) minmax(270px, 1fr);
+    gap: 14px;
+  }
+  .dash-member-left {
+    gap: 14px;
+  }
+  .dash-member-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .dash-member-kpi {
+    gap: 10px;
+    padding: 11px 12px;
+    border-radius: 14px;
+  }
+  .dash-member-kpi-icon {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+    border-radius: 11px;
+  }
+  .dash-member-kpi-value {
+    font-size: 21px;
+  }
+  .dash-member-bottom {
+    gap: 14px;
   }
 }
 @media (max-width: 760px) {
@@ -3257,18 +3297,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   align-items: center;
   gap: 10px;
 }
-.upl-cat-period-sel {
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  background: #ffffff;
-  padding: 7px 12px;
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  color: #334155;
-  cursor: pointer;
-}
-
 /* Cards Grid */
 .upl-cat-grid {
   display: grid;
@@ -4810,10 +4838,42 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   transition: all .15s ease;
 }
 .rev-tab-btn.on {
-  background: #ffffff;
-  color: #0d9488;
+  background: #006a55;
+  color: #ffffff;
   font-weight: 700;
-  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  box-shadow: 0 2px 6px rgba(0,106,85,.2);
+}
+.rev-current-view {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #ffffff;
+  border: 1px solid rgba(13,148,136,.18);
+  border-left: 4px solid #006a55;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+}
+.rev-current-view-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 12px;
+}
+.rev-current-view-label b {
+  color: #075e57;
+  font-size: 13px;
+}
+.rev-current-view-count {
+  background: #e6f4f1;
+  color: #006a55;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
 }
 .rev-select {
   border: 1px solid var(--bd);
@@ -4874,7 +4934,8 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   padding: 14px 16px;
   border-bottom: 1px solid var(--bd);
   font-size: 13px;
-  vertical-align: middle;
+  vertical-align: top;
+  overflow-wrap: anywhere;
 }
 .rev-table tr:last-child td {
   border-bottom: 0;
@@ -4889,6 +4950,15 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
+  flex: 1;
+  max-width: 100%;
+}
+.rev-file-link span {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 .rev-file-link:hover {
   color: var(--pri);
@@ -4920,9 +4990,9 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   transform: translateY(-1px);
 }
 .rev-btn-quick-ok {
-  background: #dcfce7;
-  color: #166534;
-  border: 1px solid #bbf7d0;
+  background: #0a8f83;
+  color: #ffffff;
+  border: 1px solid #0a8f83;
   border-radius: 8px;
   padding: 6px 11px;
   font: inherit;
@@ -4932,7 +5002,8 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   transition: all .15s ease;
 }
 .rev-btn-quick-ok:hover {
-  background: #bbf7d0;
+  background: #08786f;
+  border-color: #08786f;
 }
 
 .rev-choice-card {
@@ -5407,15 +5478,189 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   background: #475569;
   color: #fff;
 }
-.docx-viewer[contenteditable="true"] {
-  outline: 2px dashed #0d9488 !important;
-  cursor: text !important;
+
+/* Keep the application frame fixed while each screen adapts to its content. */
+#appView {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
-.fpv-excel-scroll td[contenteditable="true"]:focus {
-  outline: 2px solid #107c41 !important;
-  background: #ecfdf5 !important;
+.app {
+  width: 100%;
+  min-width: 0;
+}
+.side {
+  flex: 0 0 260px;
+  max-height: 100vh;
+  max-height: 100dvh;
+}
+.side.col {
+  flex-basis: 72px;
+}
+.mw {
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+}
+.hd {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+.main {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: clamp(12px, 1.5vw, 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.scr,
+.scr > div {
+  min-width: 0;
+  max-width: 100%;
+}
+.grid > *,
+.split > * {
+  min-width: 0;
+}
+.tw {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+img,
+video,
+iframe,
+canvas {
+  max-width: 100%;
+}
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+#audC .audit-table th:first-child,
+#audC .audit-table td:first-child {
+  width: 155px;
+  white-space: nowrap;
+}
+#audC .audit-table {
+  min-width: 980px;
+  table-layout: fixed;
+}
+#audC .audit-table th,
+#audC .audit-table td {
+  padding: 12px;
+  line-height: 1.45;
+  vertical-align: top;
+}
+#audC .audit-table th:nth-child(2),
+#audC .audit-table td:nth-child(2) {
+  width: 170px;
+}
+#audC .audit-table th:nth-child(3),
+#audC .audit-table td:nth-child(3) {
+  width: 145px;
+}
+#audC .audit-table th:nth-child(4),
+#audC .audit-table td:nth-child(4) {
+  width: 220px;
+}
+#audC .audit-target-cell {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+#audC .audit-time {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  line-height: 1.3;
+}
+#audC .audit-time small {
+  color: var(--mut);
+  font-size: 11px;
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+  .side:not(.col) {
+    width: 232px;
+    flex-basis: 232px;
+  }
+  .hd {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  .main {
+    padding: 16px;
+  }
+  .rev-tabs {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rev-tab-btn {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .mw {
+    width: 100%;
+    min-height: 0;
+  }
+  .main {
+    padding: 12px 10px;
+  }
+  .rev-toolbar,
+  .rev-filter-group {
+    width: 100%;
+    min-width: 0;
+  }
+  .rev-tabs {
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rev-tab-btn {
+    flex: 0 0 auto;
+  }
+  .rev-search-box {
+    flex: 1 1 100%;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+  }
+  .rev-filter-group > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .rev-select {
+    flex: 1 1 140px;
+  }
+  .rev-btn-bulk {
+    white-space: normal;
+    text-align: center;
+  }
+  .rev-current-view-label {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/docx-preview@0.3.1/dist/docx-preview.min.js"></script>
@@ -5461,14 +5706,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       </div>
     </div>
     <div class="fpv-topbar-right">
-      <a href="#" id="fpvBtnNewTab" target="_blank" rel="noopener noreferrer" class="fpv-btn-action" title="Buka berkas di tab baru">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        <span>Buka Asli</span>
-      </a>
-      <a href="#" id="fpvBtnDownload" download class="fpv-btn-action" title="Unduh berkas ke perangkat">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        <span>Unduh</span>
-      </a>
       <div id="fpvCustomActionSlot" style="display:inline-flex;align-items:center;gap:6px"></div>
       <button type="button" class="fpv-btn-toggle-sidebar" id="fpvBtnToggleSidebar" title="Tampilkan / Sembunyikan Panel Samping">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
@@ -6032,6 +6269,8 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     c.classList.remove("on");
   }
 
+  var fpvPreviewObjectUrl = null;
+
   function closeFullpageViewer() {
     var fpv = document.getElementById("fullpageEvidenViewer");
     if (fpv) {
@@ -6040,6 +6279,10 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       if (bodyEl) bodyEl.innerHTML = '';
       var tabsEl = document.getElementById("fpvSheetTabs");
       if (tabsEl) tabsEl.innerHTML = '';
+    }
+    if (fpvPreviewObjectUrl) {
+      URL.revokeObjectURL(fpvPreviewObjectUrl);
+      fpvPreviewObjectUrl = null;
     }
   }
   var fpvBtnClose = document.getElementById("fpvBtnClose");
@@ -6071,6 +6314,239 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     if (s === null || s === undefined) return '';
     return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
+
+  function openEvidencePreview(e, requestedFormat) {
+    if (!e || !e.path_file || e.path_file === '#') {
+      toast("Berkas eviden tidak tersedia untuk dipratinjau.");
+      return;
+    }
+
+    var isTemplate = !!e.is_template;
+    var fileName = e.nama_file || (isTemplate ? "Format Acuan SKI" : "Berkas Eviden");
+    var filePath = e.path_file;
+    var fileExt = (fileName.match(/\.([a-z0-9]+)$/i) || filePath.match(/\.([a-z0-9]+)(?:[?#].*)?$/i) || [])[1] || "";
+    var storedFormat = String(e.format_file || "").toLowerCase();
+    var cloudFormat = ["link", "gdrive", "onedrive", "dropbox"].indexOf(storedFormat) !== -1 || isEvidenUrl(filePath);
+    var sourceFormat = (["link", "gdrive", "onedrive", "dropbox"].indexOf(storedFormat) === -1 ? storedFormat : fileExt).toLowerCase();
+    if (!/^(pdf|docx|doc|xlsx|xls|csv|pptx|ppt|jpg|jpeg|png|gif|webp|svg)$/.test(sourceFormat)) {
+      sourceFormat = fileExt.toLowerCase();
+    }
+
+    var format = String(requestedFormat || sourceFormat || "cloud").toLowerCase();
+    if (format === "original") format = sourceFormat || "cloud";
+    var requestExport = !!requestedFormat && requestedFormat !== "original" &&
+      (cloudFormat || format !== sourceFormat);
+    if (sourceFormat === "doc" && format === "docx") format = "pdf";
+    if (format === "doc" && !requestedFormat) {
+      format = "pdf";
+      requestExport = true;
+    }
+
+    var previewUrl = filePath;
+    if (requestExport) {
+      previewUrl = "ajax.php?action=download_eviden&id_eviden=" +
+        encodeURIComponent(e.id_eviden) + "&format=" + encodeURIComponent(format);
+    }
+
+    var fpv = document.getElementById("fullpageEvidenViewer");
+    var fileNameEl = document.getElementById("fpvFileName");
+    var moduleEl = document.getElementById("fpvPillModul");
+    var versionEl = document.getElementById("fpvPillVersi");
+    var statusEl = document.getElementById("fpvBadgeStatus");
+    var formatEl = document.getElementById("fpvFormatBadge");
+    var hintEl = document.getElementById("fpvViewerHint");
+    var canvasBody = document.getElementById("fpvCanvasBody");
+    var tabsEl = document.getElementById("fpvSheetTabs");
+    if (!fpv || !canvasBody || !formatEl || !hintEl) return;
+
+    if (fpvPreviewObjectUrl) {
+      URL.revokeObjectURL(fpvPreviewObjectUrl);
+      fpvPreviewObjectUrl = null;
+    }
+    document.getElementById("fpvCustomActionSlot").innerHTML = "";
+    fileNameEl.textContent = fileName;
+    moduleEl.textContent = "Modul: " + (e.nama_modul || "-");
+    versionEl.textContent = isTemplate ? "Acuan" : "v" + (e.versi || 1);
+    statusEl.textContent = isTemplate ? "Format Acuan SKI" : ((SS[e.status_eviden] && SS[e.status_eviden][0]) || "Eviden");
+    formatEl.textContent = format.toUpperCase();
+    hintEl.textContent = isTemplate ? "Pratinjau format acuan hanya baca di dalam aplikasi" : "Pratinjau dokumen di dalam aplikasi";
+    tabsEl.innerHTML = "";
+    canvasBody.innerHTML = '<div style="display:grid;place-items:center;min-height:240px;color:#94a3b8">Memuat pratinjau...</div>';
+
+    var workspace = document.getElementById("fpvWorkspace");
+    if (workspace) workspace.classList.remove("sidebar-hidden");
+    document.getElementById("fpvStatusContent").innerHTML =
+      '<div style="font-size:12px;color:#64748b">' + (isTemplate ? "Jenis dokumen" : "Status eviden") + '</div>' +
+      '<b style="font-size:12px;color:#0f766e">' + escapeHtml(statusEl.textContent) + '</b>' +
+      (e.catatan_temuan ? '<div style="margin-top:8px;font-size:12px;color:#92400e">' + escapeHtml(e.catatan_temuan) + '</div>' : '');
+    document.getElementById("fpvMetaGrid").innerHTML =
+      '<div class="fpv-meta-item"><span class="fpv-meta-label">Modul</span><div class="fpv-meta-value">' + escapeHtml(e.nama_modul || '-') + '</div></div>' +
+      '<div class="fpv-meta-item"><span class="fpv-meta-label">Unit Kerja</span><div class="fpv-meta-value">' + escapeHtml(e.nama_unit || '-') + '</div></div>' +
+      '<div class="fpv-meta-item" style="grid-column:span 2"><span class="fpv-meta-label">' + (isTemplate ? "Jenis Dokumen" : "Indikator") + '</span><div class="fpv-meta-value">' + escapeHtml(isTemplate ? "Format Baku Acuan SKI" : (e.deskripsi_indikator || '-')) + '</div></div>' +
+      '<div class="fpv-meta-item"><span class="fpv-meta-label">' + (isTemplate ? "Sumber" : "Pengunggah") + '</span><div class="fpv-meta-value">' + escapeHtml(isTemplate ? "Tim SKI" : (e.nama_pic || '-')) + '</div></div>' +
+      '<div class="fpv-meta-item"><span class="fpv-meta-label">Format</span><div class="fpv-meta-value">' + escapeHtml(format.toUpperCase()) + '</div></div>';
+    document.getElementById("fpvCardStructured").style.display = "none";
+    document.getElementById("fpvIndList").innerHTML = "";
+    document.getElementById("fpvIndList").parentElement.style.display = isTemplate ? "none" : "";
+    fpv.style.display = "flex";
+
+    function showPreviewError(message) {
+      canvasBody.innerHTML = '<div style="display:grid;place-items:center;min-height:240px;padding:24px;text-align:center;color:#fecaca">' +
+        '<div><b>Pratinjau tidak dapat dimuat</b><div style="margin-top:6px;color:#cbd5e1;font-size:12px">' + escapeHtml(message) + '</div></div></div>';
+    }
+
+    function fetchPreviewBlob() {
+      return fetch(previewUrl).then(function(response){
+        if (!response.ok) throw new Error("Server mengembalikan status " + response.status + ".");
+        return response.blob();
+      });
+    }
+
+    if (cloudFormat && !requestExport) {
+      var embedUrl = filePath;
+      var driveFile = filePath.match(/drive\.google\.com\/file\/d\/([^/?#]+)/i);
+      var driveOpen = filePath.match(/drive\.google\.com\/open\?[^#]*id=([^&#]+)/i);
+      var driveFolder = filePath.match(/drive\.google\.com\/drive\/folders\/([^/?#]+)/i);
+      var googleDoc = filePath.match(/docs\.google\.com\/(document|spreadsheets|presentation)\/d\/([^/?#]+)/i);
+      if (driveFile) embedUrl = "https://drive.google.com/file/d/" + driveFile[1] + "/preview";
+      else if (driveOpen) embedUrl = "https://drive.google.com/file/d/" + driveOpen[1] + "/preview";
+      else if (driveFolder) embedUrl = "https://drive.google.com/embeddedfolderview?id=" + driveFolder[1] + "#grid";
+      else if (googleDoc) embedUrl = "https://docs.google.com/" + googleDoc[1] + "/d/" + googleDoc[2] + "/preview";
+      if (driveFile || driveOpen || driveFolder || googleDoc) {
+        canvasBody.innerHTML = '<iframe src="' + escapeAttr(embedUrl) + '" style="width:100%;height:100%;min-height:60vh;border:0;background:#1e293b" title="Pratinjau eviden hanya baca"></iframe>';
+      } else {
+        showPreviewError("Tautan ini tidak mendukung pratinjau hanya baca di dalam aplikasi.");
+      }
+      return;
+    }
+
+    if (format === "pdf" && !requestExport) {
+      canvasBody.innerHTML = '<iframe src="' + escapeAttr(filePath) + '" style="width:100%;height:100%;min-height:60vh;border:0;background:#1e293b" title="Pratinjau PDF"></iframe>';
+      return;
+    }
+
+    if (format === "jpg" || format === "jpeg" || format === "png" || format === "gif" || format === "webp" || format === "svg") {
+      canvasBody.innerHTML = '<div style="display:grid;place-items:center;min-height:60vh;padding:20px;background:#0f172a"><img src="' + escapeAttr(filePath) + '" alt="Pratinjau eviden" style="max-width:100%;max-height:75vh;object-fit:contain"></div>';
+      return;
+    }
+
+    if (format === "pdf") {
+      fetchPreviewBlob().then(function(blob){
+        fpvPreviewObjectUrl = URL.createObjectURL(blob);
+        canvasBody.innerHTML = '<iframe src="' + escapeAttr(fpvPreviewObjectUrl) + '" style="width:100%;height:100%;min-height:60vh;border:0;background:#1e293b" title="Pratinjau PDF"></iframe>';
+      }).catch(function(error){ showPreviewError(error.message); });
+      return;
+    }
+
+    if (format === "docx") {
+      canvasBody.innerHTML = '<div class="fpv-docx-wrapper"><div id="fpvInlineDocxTarget" class="docx-viewer"></div></div>';
+      fetchPreviewBlob().then(function(blob){
+        var target = document.getElementById("fpvInlineDocxTarget");
+        if (!target) return;
+        if (!window.docx || typeof window.docx.renderAsync !== "function") throw new Error("Library pratinjau DOCX belum tersedia.");
+        return window.docx.renderAsync(blob, target, null, { className: "docx-inner-page", inWrapper: false });
+      }).catch(function(error){ showPreviewError(error.message); });
+      return;
+    }
+
+    if (format === "xlsx" || format === "xls" || format === "csv") {
+      canvasBody.innerHTML = '<div id="fpvInlineXlsxTarget" class="fpv-excel-scroll"></div>';
+      fetchPreviewBlob().then(function(blob){ return blob.arrayBuffer(); }).then(function(buffer){
+        if (!window.XLSX || typeof window.XLSX.read !== "function") throw new Error("Library pratinjau Excel belum tersedia.");
+        var workbook = window.XLSX.read(new Uint8Array(buffer), { type: "array" });
+        var target = document.getElementById("fpvInlineXlsxTarget");
+        if (!target) return;
+        if (!workbook.SheetNames || workbook.SheetNames.length === 0) throw new Error("Berkas tidak memiliki lembar kerja.");
+        function showSheet(sheetName) {
+          target.innerHTML = window.XLSX.utils.sheet_to_html(workbook.Sheets[sheetName], { editable: false });
+        }
+        workbook.SheetNames.forEach(function(sheetName, index){
+          var tab = document.createElement("button");
+          tab.type = "button";
+          tab.className = "fpv-sheet-tab" + (index === 0 ? " active" : "");
+          tab.textContent = sheetName;
+          tab.onclick = function(){
+            tabsEl.querySelectorAll(".fpv-sheet-tab").forEach(function(item){ item.classList.remove("active"); });
+            tab.classList.add("active");
+            showSheet(sheetName);
+          };
+          tabsEl.appendChild(tab);
+        });
+        showSheet(workbook.SheetNames[0]);
+      }).catch(function(error){ showPreviewError(error.message); });
+      return;
+    }
+
+    if (format === "pptx") {
+      fetchPreviewBlob().then(function(blob){
+        if (!window.JSZip || typeof window.JSZip.loadAsync !== "function") throw new Error("Library pratinjau PowerPoint belum tersedia.");
+        return window.JSZip.loadAsync(blob);
+      }).then(function(zip){
+        var slideNames = Object.keys(zip.files).filter(function(name){ return /^ppt\/slides\/slide\d+\.xml$/i.test(name); });
+        slideNames.sort(function(a, b){ return parseInt(a.match(/slide(\d+)/i)[1], 10) - parseInt(b.match(/slide(\d+)/i)[1], 10); });
+        if (!slideNames.length) throw new Error("Tidak ada slide yang dapat ditampilkan.");
+        return Promise.all(slideNames.map(function(name){
+          return zip.files[name].async("text").then(function(xml){
+            var doc = new DOMParser().parseFromString(xml, "application/xml");
+            return [].map.call(doc.getElementsByTagNameNS("*", "p"), function(paragraph){
+              return [].map.call(paragraph.getElementsByTagNameNS("*", "t"), function(text){ return text.textContent; }).join("");
+            }).filter(Boolean);
+          });
+        }));
+      }).then(function(slides){
+        canvasBody.innerHTML = slides.map(function(paragraphs, index){
+          return '<article style="max-width:900px;min-height:360px;margin:18px auto;padding:32px;background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.2);color:#1e293b">' +
+            '<div style="font-size:11px;color:#64748b;margin-bottom:18px">Slide ' + (index + 1) + '</div>' +
+            paragraphs.map(function(text){ return '<p>' + escapeHtml(text) + '</p>'; }).join("") + '</article>';
+        }).join("");
+        hintEl.textContent = "Pratinjau teks per slide";
+      }).catch(function(error){ showPreviewError(error.message); });
+      return;
+    }
+
+    if (cloudFormat) {
+      showPreviewError("Tautan ini tidak mendukung pratinjau hanya baca di dalam aplikasi.");
+      return;
+    }
+
+    showPreviewError("Format " + format.toUpperCase() + " belum didukung untuk pratinjau di dalam aplikasi.");
+  }
+
+  document.addEventListener("click", function(event){
+    var button = event.target.closest(".btnPreviewEviden");
+    if (!button) return;
+    event.preventDefault();
+    var evidence = (STATE.evidens || []).find(function(item){
+      return String(item.id_eviden) === String(button.dataset.id);
+    });
+    if (!evidence) {
+      toast("Data eviden tidak ditemukan.");
+      return;
+    }
+    openEvidencePreview(evidence, button.dataset.format || "");
+  });
+
+  document.addEventListener("click", function(event){
+    var button = event.target.closest(".btnPreviewTemplate");
+    if (!button) return;
+    event.preventDefault();
+    var fileName = button.dataset.file || "";
+    if (!fileName) {
+      toast("Berkas format acuan tidak tersedia untuk dipratinjau.");
+      return;
+    }
+    openEvidencePreview({
+      nama_file: fileName,
+      path_file: "uploads/templates/" + encodeURIComponent(fileName),
+      format_file: "",
+      nama_modul: button.dataset.module || "-",
+      nama_unit: "-",
+      deskripsi_indikator: "Format Baku Acuan SKI",
+      nama_pic: "Tim SKI",
+      versi: 1,
+      is_template: true
+    }, "original");
+  });
 
   function toast(msg) {
     var t = document.getElementById("toast");
@@ -6158,7 +6634,10 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     document.querySelectorAll(".scr").forEach(function(x){ x.classList.toggle("on", x.id === s); });
     document.querySelectorAll(".nav").forEach(function(b){ b.classList.toggle("on", b.dataset.s === s); });
     var mainEl = document.querySelector('.main');
-    if (mainEl) mainEl.classList.toggle('dashboard-active', s === 'dash');
+    if (mainEl) {
+      mainEl.classList.toggle('dashboard-active', s === 'dash');
+      mainEl.classList.toggle('upload-active', s === 'upl');
+    }
     
     // Toggle page guide button visibility (hidden on dash to match mockup cleanly, visible on other screens)
     var btnGuide = document.getElementById("btnPageGuide");
@@ -6294,7 +6773,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     aud: {
       step: "Audit aktivitas",
       role: "Semua Pengguna (Read-Only Mutlak)",
-      desc: "Merekam setiap aktivitas mutasi data secara objektif (waktu, nama, peran, jenis aksi, objek target, dan IP address) tanpa dapat diubah atau dihapus oleh siapa pun, termasuk Admin.",
+      desc: "Merekam setiap aktivitas mutasi data secara objektif (waktu, nama, peran, jenis aksi, dan objek target) tanpa dapat diubah atau dihapus oleh siapa pun, termasuk Admin.",
       actions: [
         "Gunakan filter jenis aksi untuk melacak jejak perubahan data.",
         "Gunakan kotak pencarian untuk mencari nama pegawai atau objek tertentu."
@@ -7799,6 +8278,11 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                '</p>' +
              '</div>' +
              '<div class="mod-template-actions">';
+    if (hasTpl) {
+      h += '<button type="button" class="mod-ref-btn btnPreviewTemplate" data-file="' + escapeAttr(curMod.file_referensi) + '" data-module="' + escapeAttr(curMod.nama_modul) + '" title="Pratinjau format acuan SKI">' +
+             'Pratinjau' +
+           '</button>';
+    }
     if (canEdit) {
       h += '<button type="button" class="mod-ref-btn mod-ref-btn-primary btnUploadTemplate" data-id="' + escapeAttr(curMod.id_modul) + '" data-name="' + escapeAttr(curMod.nama_modul) + '">' +
              (hasTpl ? 'Ganti' : 'Unggah') +
@@ -8535,10 +9019,10 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 
     // Period Select
     h += '<div class="upl-cat-right">';
-    h += '<select class="upl-cat-period-sel" id="uplCatPeriodSel">';
-    h += '<option value="2026-10"' + (uplCatPeriod === '2026-10' ? ' selected' : '') + '>Oktober 2026 - Siklus Bulanan ▾</option>';
-    h += '<option value="2026-11"' + (uplCatPeriod === '2026-11' ? ' selected' : '') + '>November 2026 - Siklus Bulanan ▾</option>';
-    h += '<option value="2026-12"' + (uplCatPeriod === '2026-12' ? ' selected' : '') + '>Desember 2026 - Siklus Bulanan ▾</option>';
+    h += '<select class="dash-period-select" id="uplCatPeriodSel" aria-label="Pilih periode pengawasan">';
+    h += '<option value="2026-10"' + (uplCatPeriod === '2026-10' ? ' selected' : '') + '>Oktober 2026 - Siklus Bulanan</option>';
+    h += '<option value="2026-11"' + (uplCatPeriod === '2026-11' ? ' selected' : '') + '>November 2026 - Siklus Bulanan</option>';
+    h += '<option value="2026-12"' + (uplCatPeriod === '2026-12' ? ' selected' : '') + '>Desember 2026 - Siklus Bulanan</option>';
     h += '</select>';
     h += '</div>';
 
@@ -8950,7 +9434,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                 h += '<div style="font-size:12px;color:#1e293b;overflow-wrap:anywhere"><b>Isian:</b> ' + escapeAttr(ev.nama_file) + '</div>';
               }
               if (ev.path_file && ev.path_file !== '#') {
-                h += '<div style="margin-top:6px;font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><a href="' + ev.path_file + '" target="_blank" style="color:#006a55;font-weight:700;text-decoration:none">' + escapeAttr(ev.nama_file) + '</a></div>';
+                h += '<div style="margin-top:6px;font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><button type="button" class="btnPreviewEviden" data-id="' + escapeAttr(ev.id_eviden) + '" style="border:0;background:none;padding:0;color:#006a55;font:inherit;font-weight:700;cursor:pointer;text-align:left">' + escapeAttr(ev.nama_file) + '</button></div>';
               }
               h += '</div>';
             } else {
@@ -8963,9 +9447,9 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
               h += '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="' + strokeCol + '" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>';
               h += '</div>';
               h += '<div class="upl-file-meta" style="flex:1;min-width:0;max-width:100%;overflow:hidden">';
-              h += '<a href="' + (ev.path_file || '#') + '" target="_blank" rel="noopener noreferrer" class="upl-file-name" title="' + escapeAttr(ev.nama_file) + '" style="font-size:12.5px;font-weight:700;color:#0f172a;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;max-width:100%">';
+              h += '<button type="button" class="upl-file-name btnPreviewEviden" data-id="' + escapeAttr(ev.id_eviden) + '" title="' + escapeAttr(ev.nama_file) + '" style="font:inherit;text-align:left;border:0;background:none;padding:0;font-size:12.5px;font-weight:700;color:#0f172a;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;max-width:100%">';
               h += escapeAttr(ev.nama_file);
-              h += '</a>';
+              h += '</button>';
               h += '<span class="upl-file-sub" style="font-size:11px;color:#64748b;margin-top:2px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">v' + ev.versi + ' • ' + formatDateIndo(ev.waktu_unggah) + '</span>';
               h += '</div>';
               h += '</div>';
@@ -9049,10 +9533,10 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
               h += '<div>' + escapeAttr(ev.nama_file) + '</div>';
             }
             if (ev.path_file && ev.path_file !== '#') {
-              h += '<div style="margin-top:4px"><a href="' + ev.path_file + '" target="_blank" rel="noopener noreferrer" style="color:var(--pri);font-size:11.5px;text-decoration:none">' + escapeAttr(ev.nama_file) + '</a></div>';
+              h += '<div style="margin-top:4px"><button type="button" class="btnPreviewEviden" data-id="' + escapeAttr(ev.id_eviden) + '" style="border:0;background:none;padding:0;color:var(--pri);font:inherit;font-size:11.5px;cursor:pointer;text-align:left">' + escapeAttr(ev.nama_file) + '</button></div>';
             }
           } else {
-            h += '<a href="' + ev.path_file + '" target="_blank" rel="noopener noreferrer" style="color:var(--pri);font-weight:600;text-decoration:none">' + escapeAttr(ev.nama_file) + ' ↗</a>';
+            h += '<button type="button" class="btnPreviewEviden" data-id="' + escapeAttr(ev.id_eviden) + '" style="border:0;background:none;padding:0;color:var(--pri);font:inherit;font-weight:600;cursor:pointer;text-align:left">' + escapeAttr(ev.nama_file) + '</button>';
           }
           h += '</td>';
 
@@ -10043,16 +10527,13 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
 
   // --- 5. MONITORING UPLOAD ---
   function renderMonitoring() {
-    var h = '<div class="row" style="margin-top:0;justify-content:flex-end;margin-bottom:12px">' +
-            '<button class="btn o sm" onclick="document.getElementById(\'btnPageGuide\').click()">Petunjuk</button></div>';
-
-    h += '<div class="tw"><table><tr><th>Nama Berkas</th><th>Modul Pengawasan</th><th>PIC &amp; Unit</th><th>Waktu Unggah</th><th>Status</th><th>Aksi</th></tr>';
+    var h = '<div class="tw"><table><tr><th>Nama Berkas</th><th>Modul Pengawasan</th><th>PIC &amp; Unit</th><th>Waktu Unggah</th><th>Status</th><th>Aksi</th></tr>';
     STATE.evidens.forEach(function(e){
       var isLink = isEvidenUrl(e.path_file) || e.format_file === 'link' || e.format_file === 'gdrive' || e.format_file === 'onedrive' || e.format_file === 'dropbox';
       var iconSymbol = '';
       var sizeOrLink = isLink ? ('Tautan ' + (e.format_file === 'gdrive' ? 'Google Drive' : (e.format_file === 'onedrive' ? 'OneDrive' : 'Cloud'))) : (e.ukuran_file_mb + ' MB');
       h += '<tr>';
-      h += '<td><a href="' + e.path_file + '" target="_blank" rel="noopener noreferrer" style="color:var(--pri);font-weight:600;text-decoration:none">' + iconSymbol + escapeAttr(e.nama_file) + ' ↗</a><br><small class="mut">v' + e.versi + ' · ' + sizeOrLink + '</small></td>';
+      h += '<td><button type="button" class="btnPreviewEviden" data-id="' + escapeAttr(e.id_eviden) + '" style="border:0;background:none;padding:0;color:var(--pri);font:inherit;font-weight:600;cursor:pointer;text-align:left">' + iconSymbol + escapeAttr(e.nama_file) + '</button><br><small class="mut">v' + e.versi + ' · ' + sizeOrLink + '</small></td>';
       h += '<td><b>' + escapeAttr(e.nama_modul) + '</b><br><small style="color:var(--mut)">' + escapeAttr(e.deskripsi_indikator) + '</small></td>';
       h += '<td>' + escapeAttr(e.nama_pic) + '<br><small style="color:var(--mut)">' + escapeAttr(e.nama_unit || '-') + '</small></td>';
       h += '<td>' + e.waktu_unggah + '</td>';
@@ -10083,7 +10564,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                       '<tr><td style="color:var(--mut);font-weight:600">Status</td><td><span class="tag ' + SS[e.status_eviden][1] + '">' + SS[e.status_eviden][0] + '</span></td></tr>' +
                       '</table>' +
                       '<div style="margin-top:16px;display:flex;gap:10px">' +
-                      '<a href="' + e.path_file + '" target="_blank" rel="noopener noreferrer" class="btn sm" style="text-decoration:none">' + (isLink ? 'Buka Tautan Google Drive / Cloud' : 'Unduh / Buka Dokumen Fisik') + '</a>' +
+                      '<button type="button" class="btn sm btnPreviewEviden" data-id="' + escapeAttr(e.id_eviden) + '" style="text-decoration:none">' + (isLink ? 'Pratinjau Tautan Google Drive / Cloud' : 'Pratinjau Dokumen') + '</button>' +
                       '</div>' +
                       '</div>';
 
@@ -10112,7 +10593,10 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       h += '<td>' + escapeAttr(e.nama_unit || '-') + '</td>';
       h += '<td>' + formatBadge + '</td>';
       h += '<td>' + sizeText + '</td>';
-      h += '<td><a href="' + e.path_file + '" target="_blank" rel="noopener noreferrer" class="btn sm" style="text-decoration:none;display:inline-flex">' + (isLink ? 'Buka Tautan ↗' : 'Pratinjau / Unduh') + '</a></td>';
+      h += '<td><div style="display:flex;gap:6px;flex-wrap:wrap">' +
+        '<button type="button" class="btn sm o btnPreviewEviden" data-id="' + escapeAttr(e.id_eviden) + '" style="display:inline-flex;justify-content:center;min-width:76px">Pratinjau</button>' +
+        '<a class="btn sm" href="ajax.php?action=download_eviden&amp;id_eviden=' + encodeURIComponent(e.id_eviden) + '" download style="display:inline-flex;justify-content:center;min-width:60px;text-decoration:none">Unduh</a>' +
+        '</div></td>';
       h += '</tr>';
     });
     h += '</table></div>';
@@ -10128,6 +10612,20 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     var selesaiItems = allItems.filter(function(e){ return e.status_eviden === 'f'; });
     var revisiItems = allItems.filter(function(e){ return e.status_eviden === 'r'; });
     var historyItems = allItems.filter(function(e){ return e.status_eviden !== 'u'; });
+    var q = revSearchQuery.toLowerCase().trim();
+
+    function matchesReviewFilters(e) {
+      var matchQ = !q || (e.nama_modul || '').toLowerCase().indexOf(q) !== -1 ||
+                         (e.deskripsi_indikator || '').toLowerCase().indexOf(q) !== -1 ||
+                         (e.nama_file || '').toLowerCase().indexOf(q) !== -1 ||
+                         (e.nama_pic || '').toLowerCase().indexOf(q) !== -1 ||
+                         (e.nama_unit || '').toLowerCase().indexOf(q) !== -1;
+      var matchMod = revModFilter === 'all' || e.id_modul === revModFilter;
+      var matchUnit = revUnitFilter === 'all' || String(e.id_unit) === String(revUnitFilter);
+      return matchQ && matchMod && matchUnit;
+    }
+
+    var bulkApproveItems = pendingItems.filter(matchesReviewFilters);
 
     var h = '';
 
@@ -10136,7 +10634,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
            '<div class="rev-tabs">' +
              '<button class="rev-tab-btn ' + (revFilterTab === 'pending' ? 'on' : '') + '" data-tab="pending">Antrean Review (' + pendingItems.length + ')</button>' +
              '<button class="rev-tab-btn ' + (revFilterTab === 'waiting_pim' ? 'on' : '') + '" data-tab="waiting_pim">Menunggu Pimpinan (' + waitingPimItems.length + ')</button>' +
-             '<button class="rev-tab-btn ' + (revFilterTab === 'pim_approved' ? 'on' : '') + '" data-tab="pim_approved" style="' + (pimApprovedItems.length > 0 ? 'background:#dcfce7;color:#15803d;font-weight:700' : '') + '">Disetujui Pimpinan (' + pimApprovedItems.length + ')</button>' +
+             '<button class="rev-tab-btn ' + (revFilterTab === 'pim_approved' ? 'on' : '') + '" data-tab="pim_approved">Disetujui Pimpinan (' + pimApprovedItems.length + ')</button>' +
              '<button class="rev-tab-btn ' + (revFilterTab === 'selesai' ? 'on' : '') + '" data-tab="selesai">Selesai (' + selesaiItems.length + ')</button>' +
              '<button class="rev-tab-btn ' + (revFilterTab === 'revisi' ? 'on' : '') + '" data-tab="revisi">Perlu Revisi (' + revisiItems.length + ')</button>' +
              '<button class="rev-tab-btn ' + (revFilterTab === 'all' ? 'on' : '') + '" data-tab="all">Semua Berkas (' + allItems.length + ')</button>' +
@@ -10154,6 +10652,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                '<option value="all">Semua Unit</option>' +
                STATE.units.map(function(u){ return '<option value="' + u.id_unit + '" ' + (String(revUnitFilter) === String(u.id_unit) ? 'selected' : '') + '>' + escapeHtml(u.nama_unit) + '</option>'; }).join('') +
              '</select>' +
+             (bulkApproveItems.length > 0 && (revFilterTab === 'pending' || revFilterTab === 'all') ? '<button class="rev-btn-bulk" id="btnBulkApproveAll" style="background:#006a55;color:#fff;font-weight:700">Setujui Semua Antrean (' + bulkApproveItems.length + ')</button>' : '') +
              (pimApprovedItems.length > 0 ? '<button class="rev-btn-bulk" id="btnBulkFinalSesuai" style="background:#006a55;color:#fff;font-weight:700" disabled>Selesaikan Terpilih (0)</button>' : '') +
              (pendingItems.length > 0 ? '<button class="rev-btn-bulk" id="btnBulkToPimpinanReview" style="background:#006a55;color:#fff;font-weight:700" disabled>⚡ Ajukan Terpilih ke Pimpinan (0)</button>' : '') +
            '</div>' +
@@ -10167,17 +10666,20 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     else if (revFilterTab === 'selesai') currentList = selesaiItems;
     else if (revFilterTab === 'revisi') currentList = revisiItems;
     else if (revFilterTab === 'history') currentList = historyItems;
-    var q = revSearchQuery.toLowerCase().trim();
-    var filteredList = currentList.filter(function(e){
-      var matchQ = !q || (e.nama_modul || '').toLowerCase().indexOf(q) !== -1 ||
-                         (e.deskripsi_indikator || '').toLowerCase().indexOf(q) !== -1 ||
-                         (e.nama_file || '').toLowerCase().indexOf(q) !== -1 ||
-                         (e.nama_pic || '').toLowerCase().indexOf(q) !== -1 ||
-                         (e.nama_unit || '').toLowerCase().indexOf(q) !== -1;
-      var matchMod = revModFilter === 'all' || e.id_modul === revModFilter;
-      var matchUnit = revUnitFilter === 'all' || String(e.id_unit) === String(revUnitFilter);
-      return matchQ && matchMod && matchUnit;
-    });
+    var filteredList = currentList.filter(matchesReviewFilters);
+    var reviewViewLabels = {
+      pending: 'Antrean Review',
+      waiting_pim: 'Menunggu Pimpinan',
+      pim_approved: 'Disetujui Pimpinan',
+      selesai: 'Selesai',
+      revisi: 'Perlu Revisi',
+      all: 'Semua Berkas',
+      history: 'Riwayat Berkas'
+    };
+    h += '<div class="rev-current-view">' +
+           '<div class="rev-current-view-label"><span>Daftar yang sedang dibuka:</span><b>' + (reviewViewLabels[revFilterTab] || 'Semua Berkas') + '</b></div>' +
+           '<span class="rev-current-view-count">' + filteredList.length + ' berkas ditampilkan</span>' +
+         '</div>';
 
     // 4. Modul & Indikator Cards
     var visibleModuls = STATE.moduls.filter(function(m){
@@ -10239,9 +10741,9 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                  '<div style="display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-bottom:4px">';
 
         if (pimApprovedModCount > 0) {
-          h += '<span class="tag t-ok" style="font-weight:700;font-size:11.5px"><span class="apr-dot green"></span> ' + pimApprovedModCount + ' Disetujui Pimpinan</span>';
+          h += '<span class="tag t-ok" style="font-weight:700;font-size:11.5px">' + pimApprovedModCount + ' Disetujui Pimpinan</span>';
         } else if (waitingPimModCount > 0) {
-          h += '<span class="tag t-pk" style="font-weight:700;font-size:11.5px"><span class="apr-dot pink"></span> ' + waitingPimModCount + ' Menunggu Pimpinan</span>';
+          h += '<span class="tag t-pk" style="font-weight:700;font-size:11.5px">' + waitingPimModCount + ' Menunggu Pimpinan</span>';
         } else if (pendingReviewModCount > 0) {
           h += '<span class="tag t-bl" style="font-size:11px">' + pendingReviewModCount + ' Menunggu Review SKI</span>';
         } else if (selesaiCount === totalInd && totalInd > 0) {
@@ -10259,7 +10761,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
              '</div>';
 
         // 2. Tabel Butir Indikator & Berkas Eviden Modul Ini
-        h += '<div class="tw" style="margin:0;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden">' +
+        h += '<div class="tw" style="margin:0;min-width:0;max-width:100%;border:1px solid #e2e8f0;border-radius:12px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch">' +
                '<table class="rev-table" style="margin:0">' +
                  '<thead><tr>' +
                    '<th style="width:36px"><input type="checkbox" class="cbModAll" data-mod="' + m.id_modul + '" title="Pilih semua berkas modul ini"></th>' +
@@ -10308,14 +10810,14 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                  '<span class="tag t-in" style="font-size:10px;margin-top:4px">' + escapeHtml(e.nama_unit || '-') + '</span>' +
                '</td>';
           h += '<td>' +
-                 '<div style="display:flex;align-items:center;gap:6px">' +
-                   '<a href="javascript:void(0)" class="rev-file-link btnOpenDetailCard" data-id="' + e.id_eviden + '" title="Klik untuk melihat rincian modul, eviden &amp; status dalam bentuk card">' +
+                 '<div style="display:flex;align-items:center;gap:6px;min-width:0;max-width:100%">' +
+                   '<a href="javascript:void(0)" class="rev-file-link btnOpenDetailCard" data-id="' + e.id_eviden + '" title="' + escapeAttr(e.nama_file) + '">' +
                      getFileIconSvg(e.nama_file, e.format_file, e.path_file) +
                      '<span>' + escapeAttr(e.nama_file) + '</span>' +
                    '</a>' +
-                   '<a href="' + e.path_file + '" target="_blank" rel="noopener noreferrer" style="color:var(--mut);display:inline-flex;align-items:center;padding:2px" title="Buka berkas langsung di jendela baru">' +
-                     '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg>' +
-                   '</a>' +
+                   '<button type="button" class="btnOpenDetailCard" data-id="' + e.id_eviden + '" style="border:1px solid #cbd5e1;background:#fff;color:#006a55;display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:7px;cursor:pointer;font:inherit;font-size:11px;font-weight:700;white-space:nowrap" title="Lihat berkas ini di aplikasi">' +
+                     '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="3"/></svg><span>Lihat</span>' +
+                   '</button>' +
                  '</div>' +
                  '<div style="font-size:11px;color:var(--mut);margin-top:3px">' +
                    sizeOrLink + ' · <span class="tag ' + (isRevisi ? 't-pu' : 't-gy') + '" style="font-size:9.5px;padding:1px 5px">' + (isRevisi ? 'Versi ' + e.versi + ' (Revisi)' : 'Versi 1') + '</span>' +
@@ -10338,7 +10840,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
           } else if (isPimApp) {
             h += '<div class="rev-actions-wrap" style="justify-content:flex-end">' +
                    '<button class="btn o sm btnOpenDetailCard" data-id="' + e.id_eviden + '" style="font-size:11.5px;color:#006a55;border-color:#006a55;font-weight:600">Lihat Berkas</button>' +
-                   '<button class="rev-btn-quick-ok btnQuickFinalSesuai" data-id="' + e.id_eviden + '" style="background:#16a34a;color:#fff;font-weight:700" title="Pimpinan telah menyetujui berkas ini. Klik Selesai untuk menyelesaikan status akhir berkas.">Selesai</button>' +
+                   '<button class="rev-btn-quick-ok btnQuickFinalSesuai" data-id="' + e.id_eviden + '" title="Pimpinan telah menyetujui berkas ini. Klik Selesai untuk menyelesaikan status akhir berkas.">Selesai</button>' +
                  '</div>';
           } else if (isWaitPim) {
             h += '<div class="rev-actions-wrap" style="justify-content:flex-end">' +
@@ -10369,7 +10871,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                    '<b style="color:#166534;font-size:13px">✓ ' + pimApprovedModCount + ' Berkas Telah Disetujui Pimpinan</b>' +
                    '<div style="color:#15803d;font-size:12px">Kepala BBPK telah menyetujui berkas. Silakan tekan tombol Selesai untuk mengonfirmasi status akhir.</div>' +
                  '</div>' +
-                 '<button type="button" class="btn sm btnFinalizeModul" data-mod="' + m.id_modul + '" style="background:#16a34a;color:#fff;font-weight:700">' +
+                 '<button type="button" class="btn sm btnFinalizeModul" data-mod="' + m.id_modul + '" style="background:#0a8f83;color:#fff;font-weight:700">' +
                    'Selesaikan Seluruh Berkas Modul Ini (Selesai)' +
                  '</button>' +
                '</div>';
@@ -10468,6 +10970,47 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
         bulkPimBtn.textContent = "⚡ Ajukan Terpilih ke Pimpinan (" + countPim + ")";
         bulkPimBtn.disabled = (countPim === 0);
       }
+    }
+
+    var btnBulkApproveAll = document.getElementById("btnBulkApproveAll");
+    if (btnBulkApproveAll) {
+      btnBulkApproveAll.onclick = function(){
+        var ids = bulkApproveItems.map(function(e){ return e.id_eviden; });
+        if (!ids.length) return;
+        if (!confirm("Setujui dan ajukan semua " + ids.length + " berkas yang sesuai filter ke Pimpinan? Pastikan seluruh eviden sudah diperiksa.")) return;
+
+        var payload = ids.map(function(id){
+          return {
+            id_eviden: id,
+            status: 'ok',
+            catatan: 'Disetujui secara massal setelah review dan cross-check SKI.'
+          };
+        });
+        var fd = new FormData();
+        fd.append('action', 'submit_review');
+        fd.append('reviews', JSON.stringify(payload));
+        btnBulkApproveAll.disabled = true;
+        btnBulkApproveAll.textContent = "Menyetujui...";
+        fetch('ajax.php', { method: 'POST', body: fd })
+          .then(function(r){
+            if (!r.ok) throw new Error("Gagal mengirim persetujuan (" + r.status + ").");
+            return r.json();
+          })
+          .then(function(res){
+            toast(res.message);
+            if (res.success) {
+              fetchInit(function(){ renderReview(); });
+            } else {
+              btnBulkApproveAll.disabled = false;
+              btnBulkApproveAll.textContent = "Setujui Semua Antrean (" + ids.length + ")";
+            }
+          })
+          .catch(function(error){
+            btnBulkApproveAll.disabled = false;
+            btnBulkApproveAll.textContent = "Setujui Semua Antrean (" + ids.length + ")";
+            toast(error.message || "Terjadi kesalahan saat menyetujui berkas.");
+          });
+      };
     }
 
     document.querySelectorAll(".cbRevItem").forEach(function(cb){
@@ -10644,19 +11187,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
         bSt.style.color = "#1e40af";
       }
 
-      // Link Buttons
-      var btnNewTab = document.getElementById("fpvBtnNewTab");
-      btnNewTab.href = e.path_file || "#";
-
-      var btnDownload = document.getElementById("fpvBtnDownload");
-      btnDownload.href = e.path_file || "#";
-      btnDownload.setAttribute("download", e.nama_file || "dokumen");
-      if (isLink) {
-        btnDownload.style.display = "none";
-      } else {
-        btnDownload.style.display = "inline-flex";
-      }
-
       // Slot Tombol Aksi di Topbar
       var actionSlot = document.getElementById("fpvCustomActionSlot");
       actionSlot.innerHTML = '';
@@ -10716,27 +11246,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       } else if (isDocx) {
         badgeFmt.textContent = "WORD (DOCX)";
         badgeFmt.style.color = "#3b82f6";
-        viewerHint.textContent = "";
-
-        // Toolbar Editor DOCX
-        var docxToolbarHtml = '<div style="display:inline-flex;align-items:center;gap:6px">' +
-                                '<button type="button" class="fpv-btn-grid-tool" id="fpvBtnToggleEditDocx" title="Aktifkan atau nonaktifkan mode edit teks">' +
-                                  '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>' +
-                                  '<span id="fpvEditDocxLabel">Mode Edit</span>' +
-                                '</button>' +
-                                '<div class="fpv-edit-bar" id="fpvDocxFmtBar" style="display:none">' +
-                                  '<button type="button" class="fpv-btn-fmt" id="fpvFmtBold" title="Tebal (Ctrl+B)"><b>B</b></button>' +
-                                  '<button type="button" class="fpv-btn-fmt" id="fpvFmtItalic" title="Miring (Ctrl+I)"><i>I</i></button>' +
-                                  '<button type="button" class="fpv-btn-fmt" id="fpvFmtUnderline" title="Garis Bawah (Ctrl+U)"><u>U</u></button>' +
-                                  '<button type="button" class="fpv-btn-fmt" id="fpvFmtH2" title="Judul / Sub-heading">H2</button>' +
-                                  '<button type="button" class="fpv-btn-fmt" id="fpvFmtList" title="Daftar Poin">• List</button>' +
-                                '</div>' +
-                                '<button type="button" class="fpv-btn-save-doc" id="fpvBtnSaveDocx" style="display:none" title="Simpan perubahan teks ke berkas DOCX di server">' +
-                                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>' +
-                                  '<span>Simpan DOCX</span>' +
-                                '</button>' +
-                              '</div>';
-        viewerHint.innerHTML = docxToolbarHtml;
+        viewerHint.textContent = "Pratinjau DOCX (hanya baca)";
 
         canvasBody.innerHTML = '<div class="fpv-docx-wrapper"><div id="fpvDocxTarget" class="docx-viewer"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:360px;color:#94a3b8"><div style="width:32px;height:32px;border:3px solid #cbd5e1;border-top-color:#006a55;border-radius:50%;animation:spin 1s linear infinite"></div><p style="margin-top:14px;font-size:13px;font-weight:600">Memuat dan merender isi berkas DOCX...</p></div></div></div>';
 
@@ -10751,7 +11261,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
           var targetEl = document.getElementById("fpvDocxTarget");
           if (!targetEl) return;
           if (isDocxEditMode) {
-            targetEl.contentEditable = "true";
+            targetEl.contentEditable = "false";
             targetEl.focus();
             if (docxFmtBar) docxFmtBar.style.display = "inline-flex";
             if (btnSaveDocx) btnSaveDocx.style.display = "inline-flex";
@@ -10854,19 +11364,18 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                 ignoreWidth: false,
                 ignoreHeight: false
               }).then(function(){
-                // DOCX siap diedit jika user menekan tombol edit
-                if (btnSaveDocx) btnSaveDocx.style.display = "inline-flex";
+                targetEl.contentEditable = "false";
               }).catch(function(err){
-                targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444"><b style="font-size:15px">Gagal Merender DOCX</b><p style="margin-top:6px;font-size:12.5px;color:#64748b">' + escapeHtml(err.message) + '</p><a href="' + escapeAttr(e.path_file) + '" class="btn sm" style="margin-top:12px;display:inline-block">Unduh Berkas DOCX Langsung ↗</a></div>';
+                targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444"><b style="font-size:15px">Gagal Merender DOCX</b><p style="margin-top:6px;font-size:12.5px;color:#64748b">' + escapeHtml(err.message) + '</p></div>';
               });
             } else {
-              targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#475569"><b style="font-size:14px">Library DOCX belum siap dimuat.</b><p style="margin-top:6px;font-size:12.5px">Anda tetap dapat membuka atau mengunduh berkas fisik secara langsung.</p><a href="' + escapeAttr(e.path_file) + '" target="_blank" class="btn sm" style="margin-top:12px;display:inline-block">Buka / Unduh DOCX ↗</a></div>';
+              targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#475569"><b style="font-size:14px">Library DOCX belum siap dimuat.</b><p style="margin-top:6px;font-size:12.5px">Pratinjau DOCX tidak dapat ditampilkan sampai library tersedia.</p></div>';
             }
           })
           .catch(function(err){
             var targetEl = document.getElementById("fpvDocxTarget");
             if (targetEl) {
-              targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444"><b style="font-size:15px">Gagal Mengunduh Berkas DOCX</b><p style="margin-top:6px;font-size:12.5px;color:#64748b">' + escapeHtml(err.message) + '</p><a href="' + escapeAttr(e.path_file) + '" class="btn sm" style="margin-top:12px;display:inline-block">Buka Link Langsung ↗</a></div>';
+              targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444"><b style="font-size:15px">Gagal Memuat Berkas DOCX</b><p style="margin-top:6px;font-size:12.5px;color:#64748b">' + escapeHtml(err.message) + '</p></div>';
             }
           });
       } else if (isXlsx) {
@@ -10889,7 +11398,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                                   '<span>Simpan Excel</span>' +
                                 '</button>' +
                               '</div>';
-        viewerHint.innerHTML = xlsxToolbarHtml;
+        viewerHint.textContent = "Pratinjau Excel (hanya baca)";
 
         canvasBody.innerHTML = '<div id="fpvXlsxTarget" class="fpv-excel-scroll"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:360px;color:#94a3b8"><div style="width:32px;height:32px;border:3px solid #cbd5e1;border-top-color:#006a55;border-radius:50%;animation:spin 1s linear infinite"></div><p style="margin-top:14px;font-size:13px;font-weight:600">Membaca lembar kerja Excel...</p></div></div>';
 
@@ -10905,7 +11414,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
             var targetEl = document.getElementById("fpvXlsxTarget");
             if (!targetEl) return;
             if (!window.XLSX || typeof window.XLSX.read !== "function") {
-              targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#475569"><b style="font-size:14px">Library Excel belum siap dimuat.</b><p style="margin-top:6px;font-size:12.5px">Anda tetap dapat membuka atau mengunduh berkas secara langsung.</p><a href="' + escapeAttr(e.path_file) + '" target="_blank" class="btn sm" style="margin-top:12px;display:inline-block">Buka / Unduh Excel ↗</a></div>';
+              targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#475569"><b style="font-size:14px">Library Excel belum siap dimuat.</b><p style="margin-top:6px;font-size:12.5px">Pratinjau Excel tidak dapat ditampilkan sampai library tersedia.</p></div>';
               return;
             }
 
@@ -10915,22 +11424,12 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
               return;
             }
 
-            function makeCellsEditable() {
-              var tbl = targetEl.querySelector("table");
-              if (!tbl) return;
-              tbl.querySelectorAll("td").forEach(function(td){
-                td.setAttribute("contenteditable", "true");
-                td.setAttribute("spellcheck", "false");
-              });
-            }
-
             function showSheet(sName) {
               activeSheetName = sName;
               var ws = activeWorkbook.Sheets[sName];
               if (!ws) return;
               var tableHtml = window.XLSX.utils.sheet_to_html(ws, { editable: false });
               targetEl.innerHTML = tableHtml;
-              makeCellsEditable();
             }
 
             sheetTabsContainer.innerHTML = '';
@@ -10966,7 +11465,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                 var newTr = document.createElement("tr");
                 for (var ci = 0; ci < colCount; ci++) {
                   var newTd = document.createElement("td");
-                  newTd.setAttribute("contenteditable", "true");
+                  newTd.setAttribute("contenteditable", "false");
                   newTd.setAttribute("spellcheck", "false");
                   newTd.textContent = "";
                   newTr.appendChild(newTd);
@@ -10986,7 +11485,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                 var rows = tbl.querySelectorAll("tr");
                 rows.forEach(function(tr, rIdx){
                   var newCell = (rIdx === 0 && tr.querySelector("th")) ? document.createElement("th") : document.createElement("td");
-                  newCell.setAttribute("contenteditable", "true");
+                  newCell.setAttribute("contenteditable", "false");
                   newCell.setAttribute("spellcheck", "false");
                   newCell.textContent = rIdx === 0 ? "Kolom Baru" : "";
                   tr.appendChild(newCell);
@@ -11051,7 +11550,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
           .catch(function(err){
             var targetEl = document.getElementById("fpvXlsxTarget");
             if (targetEl) {
-              targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444"><b style="font-size:15px">Gagal Membaca Berkas Excel</b><p style="margin-top:6px;font-size:12.5px;color:#64748b">' + escapeHtml(err.message) + '</p><a href="' + escapeAttr(e.path_file) + '" class="btn sm" style="margin-top:12px;display:inline-block">Unduh Berkas Excel ↗</a></div>';
+              targetEl.innerHTML = '<div style="padding:40px;text-align:center;color:#ef4444"><b style="font-size:15px">Gagal Membaca Berkas Excel</b><p style="margin-top:6px;font-size:12.5px;color:#64748b">' + escapeHtml(err.message) + '</p></div>';
             }
           });
       } else if (isImage) {
@@ -11073,7 +11572,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                                    '</div>' +
                                    '<h4 style="margin:0 0 6px;color:#fff;font-size:16px">Tautan Dokumen Eksternal</h4>' +
                                    '<p style="max-width:440px;color:#94a3b8;font-size:13px;word-break:break-all;margin:0 0 20px">' + escapeHtml(e.path_file) + '</p>' +
-                                   '<a href="' + escapeAttr(e.path_file) + '" target="_blank" rel="noopener noreferrer" class="btn" style="background:#006a55;padding:10px 20px;font-size:13.5px;font-weight:700">Buka di Tab Baru ↗</a>' +
+                                   '<span style="font-size:12px;color:#cbd5e1">Penyedia tautan ini tidak mendukung pratinjau tertanam.</span>' +
                                  '</div>';
         }
       } else {
@@ -11085,7 +11584,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                                  '</div>' +
                                  '<h4 style="margin:0 0 6px;color:#fff;font-size:16px">Berkas Dokumen (' + String(e.format_file).toUpperCase() + ')</h4>' +
                                  '<p style="max-width:440px;color:#94a3b8;font-size:13px;margin:0 0 20px">' + escapeHtml(e.nama_file) + '</p>' +
-                                 '<a href="' + escapeAttr(e.path_file) + '" target="_blank" rel="noopener noreferrer" class="btn" style="background:#006a55;padding:10px 20px;font-size:13.5px;font-weight:700">Unduh / Buka Berkas Fisik ↗</a>' +
+                                 '<span style="font-size:12px;color:#cbd5e1">Pratinjau untuk format ini belum didukung.</span>' +
                                '</div>';
       }
 
@@ -11290,12 +11789,12 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
               '<span style="color:var(--mut);font-size:12px">PIC: <b>' + e.nama_pic + '</b> (' + (e.nama_unit || '-') + ')</span> · ' +
               '<span style="color:var(--mut);font-size:12px">' + e.waktu_unggah + '</span>' +
             '</div>' +
-            '<a href="' + e.path_file + '" target="_blank" rel="noopener noreferrer" class="btn sm" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">' +
+            '<button type="button" class="btn sm btnPreviewEviden" data-id="' + escapeAttr(e.id_eviden) + '" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">' +
               (isLink
-                ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Buka Tautan (' + (e.format_file === 'gdrive' ? 'Google Drive' : 'Cloud Link') + ') ↗</span>'
-                : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>Buka Berkas Fisik (' + e.ukuran_file_mb + ' MB) ↗</span>'
+                ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Pratinjau Tautan (' + (e.format_file === 'gdrive' ? 'Google Drive' : 'Cloud Link') + ')</span>'
+                : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>Pratinjau Berkas (' + e.ukuran_file_mb + ' MB)</span>'
               ) +
-            '</a>' +
+            '</button>' +
           '</div>' +
         '</div>';
 
@@ -11540,11 +12039,11 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
     URL.revokeObjectURL(url);
   }
 
-  function printModulAkhirPdf(m, mInds, mEvs, rec) {
+  function printModulAkhirPdf(m, mInds, mEvs, rec, previewOnly) {
     var isPimApproved = (rec && rec.keputusan_pimpinan === 'Disetujui') || (mEvs.length > 0 && mEvs.every(function(e){ return e.status_eviden === 'f'; }));
     var safeTitle = escapeHtml(m.nama_modul);
-    var printWin = window.open('', '_blank');
-    if (!printWin) {
+    var printWin = previewOnly ? null : window.open('', '_blank');
+    if (!previewOnly && !printWin) {
       alert("Jendela pratinjau cetak diblokir oleh browser. Harap izinkan pop-up untuk mencetak berkas laporan resmi.");
       return;
     }
@@ -11585,14 +12084,14 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
         '</style>' +
       '</head>' +
       '<body>' +
-        '<div class="no-print" style="position:sticky;top:0;background:#0f172a;color:#fff;padding:12px 18px;border-radius:10px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,.2)">' +
-          '<div><b>Pratinjau cetak</b></div>' +
-          '<div style="display:flex;gap:8px">' +
-            '<button onclick="window.print()" style="background:#0d9488;color:#fff;border:none;padding:7px 16px;border-radius:6px;font-weight:700;cursor:pointer">Cetak PDF</button>' +
-            '<button onclick="window.close()" style="background:#475569;color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer">Tutup</button>' +
-          '</div>' +
-        '</div>' +
-
+        (previewOnly ? '' :
+          '<div class="no-print" style="position:sticky;top:0;background:#0f172a;color:#fff;padding:12px 18px;border-radius:10px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(0,0,0,.2)">' +
+            '<div><b>Pratinjau cetak</b></div>' +
+            '<div style="display:flex;gap:8px">' +
+              '<button onclick="window.print()" style="background:#0d9488;color:#fff;border:none;padding:7px 16px;border-radius:6px;font-weight:700;cursor:pointer">Cetak PDF</button>' +
+              '<button onclick="window.close()" style="background:#475569;color:#fff;border:none;padding:7px 14px;border-radius:6px;cursor:pointer">Tutup</button>' +
+            '</div>' +
+          '</div>') +
         '<div class="kop">' +
           '<div class="kop-text">' +
             '<h2>KEMENTERIAN KESEHATAN REPUBLIK INDONESIA</h2>' +
@@ -11691,18 +12190,35 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       '</body>' +
       '</html>';
 
+    if (previewOnly) {
+      openModal({
+        title: "Pratinjau Laporan: " + safeTitle,
+        body: '<iframe sandbox="" srcdoc="' + escapeAttr(docHtml) + '" title="Pratinjau laporan PDF" style="width:100%;height:68vh;border:0;background:#fff"></iframe>',
+        width: "1100px"
+      });
+      return;
+    }
+
     printWin.document.open();
     printWin.document.write(docHtml);
     printWin.document.close();
   }
 
-  function exportModulePdf(modulId) {
+  function openModuleReport(modulId, previewOnly) {
     var m = STATE.moduls.find(function(item){ return item.id_modul === modulId; });
     if (!m) return;
     var mInds = STATE.indikators.filter(function(item){ return item.id_modul === modulId; });
     var mEvs = STATE.evidens.filter(function(item){ return item.id_modul === modulId; });
     var rec = (STATE.rekomendasi || []).find(function(item){ return item.id_modul === modulId; });
-    printModulAkhirPdf(m, mInds, mEvs, rec);
+    printModulAkhirPdf(m, mInds, mEvs, rec, previewOnly);
+  }
+
+  function exportModulePdf(modulId) {
+    openModuleReport(modulId, false);
+  }
+
+  function previewModulePdf(modulId) {
+    openModuleReport(modulId, true);
   }
 
   function modulHasPhysicalFiles(modulId) {
@@ -11733,6 +12249,9 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       var p = (e.path_file || '').toLowerCase(), n = (e.nama_file || '').toLowerCase(), f = (e.format_file || '').toLowerCase();
       return p.endsWith('.docx') || p.endsWith('.doc') || f === 'docx' || f === 'doc' || n.endsWith('.docx') || n.endsWith('.doc');
     });
+    function previewAction(e, format, label, style) {
+      return '<button type="button" class="btn sm btnPreviewEviden" data-id="' + escapeAttr(e.id_eviden) + '" data-format="' + format + '" style="' + style + '">' + label + '</button>';
+    }
 
     var bannerHtml = '';
     if (hasPhysical) {
@@ -11792,7 +12311,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       '<div style="background:#fff;border:1px solid var(--bd);border-radius:12px;padding:12px 14px;margin-bottom:12px">' +
         '<div style="font-weight:700;color:var(--dk);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between">' +
           '<span style="display:inline-flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Eviden (' + mEvs.length + ')</span>' +
-          '<span style="font-size:11.5px;color:var(--mut)">Pilih format unduhan</span>' +
+          '<span style="font-size:11.5px;color:var(--mut)">Pilih format pratinjau</span>' +
         '</div>' +
         '<div style="max-height:280px;overflow-y:auto;border:1px solid var(--bd);border-radius:8px">' +
           '<table style="width:100%;font-size:11.5px;border-collapse:collapse">' +
@@ -11801,7 +12320,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
               '<th style="padding:7px 8px;text-align:left;width:32%">Butir Indikator / Tugas</th>' +
               '<th style="padding:7px 8px;text-align:left;width:28%">Berkas Bukti Dukung (Eviden)</th>' +
               '<th style="padding:7px 8px;text-align:center;width:15%">Format</th>' +
-              '<th style="padding:7px 8px;text-align:right;width:25%">Aksi Ekspor Satuan</th>' +
+              '<th style="padding:7px 8px;text-align:right;width:25%">Aksi Pratinjau</th>' +
             '</tr>' +
             mInds.map(function(ind, idx){
               var evList = mEvs.filter(function(e){ return e.id_indikator === ind.id_indikator; });
@@ -11827,40 +12346,33 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                   if (isGDoc) {
                     formatBadge = '<span class="tag" style="background:#e0e7ff;color:#3730a3;font-size:10px;font-weight:700">Google Docs</span>';
                     actBtns = '<div style="display:inline-flex;gap:4px;justify-content:flex-end;flex-wrap:wrap">' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '&format=docx" class="btn sm" style="background:#2563eb;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh Word">Word</a>' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '&format=pdf" class="btn sm" style="background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh PDF">PDF</a>' +
-                                '<a href="' + escapeHtml(latestEv.path_file) + '" target="_blank" rel="noopener noreferrer" class="btn sm o" style="padding:2px 6px;font-size:10.5px;text-decoration:none" title="Buka Google Docs">Buka</a>' +
+                                previewAction(latestEv, 'docx', 'Word', 'background:#2563eb;color:#fff;padding:2px 7px;font-size:10.5px') +
+                                previewAction(latestEv, 'pdf', 'PDF', 'background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px') +
+                                previewAction(latestEv, 'original', 'Pratinjau', 'background:#fff;padding:2px 6px;font-size:10.5px') +
                               '</div>';
                   } else if (isGSheet) {
                     formatBadge = '<span class="tag" style="background:#dcfce7;color:#166534;font-size:10px;font-weight:700">Google Sheets</span>';
                     actBtns = '<div style="display:inline-flex;gap:4px;justify-content:flex-end;flex-wrap:wrap">' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '&format=xlsx" class="btn sm" style="background:#059669;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh Excel">Excel</a>' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '&format=pdf" class="btn sm" style="background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh PDF">PDF</a>' +
-                                '<a href="' + escapeHtml(latestEv.path_file) + '" target="_blank" rel="noopener noreferrer" class="btn sm o" style="padding:2px 6px;font-size:10.5px;text-decoration:none" title="Buka Google Sheets">Buka</a>' +
+                                previewAction(latestEv, 'xlsx', 'Excel', 'background:#059669;color:#fff;padding:2px 7px;font-size:10.5px') +
+                                previewAction(latestEv, 'pdf', 'PDF', 'background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px') +
+                                previewAction(latestEv, 'original', 'Pratinjau', 'background:#fff;padding:2px 6px;font-size:10.5px') +
                               '</div>';
                   } else if (isGSlide) {
                     formatBadge = '<span class="tag" style="background:#fef3c7;color:#92400e;font-size:10px;font-weight:700">Google Slides</span>';
                     actBtns = '<div style="display:inline-flex;gap:4px;justify-content:flex-end;flex-wrap:wrap">' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '&format=pptx" class="btn sm" style="background:#d97706;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh PPTX">PPTX</a>' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '&format=pdf" class="btn sm" style="background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh PDF">PDF</a>' +
-                                '<a href="' + escapeHtml(latestEv.path_file) + '" target="_blank" rel="noopener noreferrer" class="btn sm o" style="padding:2px 6px;font-size:10.5px;text-decoration:none" title="Buka Google Slides">Buka</a>' +
+                                previewAction(latestEv, 'pptx', 'PPTX', 'background:#d97706;color:#fff;padding:2px 7px;font-size:10.5px') +
+                                previewAction(latestEv, 'pdf', 'PDF', 'background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px') +
+                                previewAction(latestEv, 'original', 'Pratinjau', 'background:#fff;padding:2px 6px;font-size:10.5px') +
                               '</div>';
                   } else if (isGFolder) {
                     formatBadge = '<span class="tag" style="background:#f1f5f9;color:#334155;font-size:10px;font-weight:700">Folder GDrive</span>';
                     actBtns = '<div style="display:inline-flex;gap:4px;justify-content:flex-end">' +
-                                '<a href="' + escapeHtml(latestEv.path_file) + '" target="_blank" rel="noopener noreferrer" class="btn sm o" style="border-color:#0284c7;color:#0284c7;padding:2px 7px;font-size:10.5px;text-decoration:none">' +
-                                  'Buka Folder Drive' +
-                                '</a>' +
+                                previewAction(latestEv, 'original', 'Pratinjau Folder', 'border-color:#0284c7;color:#0284c7;padding:2px 7px;font-size:10.5px') +
                               '</div>';
                   } else {
                     formatBadge = '<span class="tag" style="background:#e0f2fe;color:#0369a1;font-size:10px;font-weight:700">File GDrive</span>';
                     actBtns = '<div style="display:inline-flex;gap:4px;justify-content:flex-end;flex-wrap:wrap">' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '" class="btn sm" style="background:#0d9488;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh langsung berkas">' +
-                                  'Unduh' +
-                                '</a>' +
-                                '<a href="' + escapeHtml(latestEv.path_file) + '" target="_blank" rel="noopener noreferrer" class="btn sm o" style="padding:2px 6px;font-size:10.5px;text-decoration:none" title="Buka tautan">' +
-                                  'Buka' +
-                                '</a>' +
+                                previewAction(latestEv, 'original', 'Pratinjau', 'background:#fff;padding:2px 6px;font-size:10.5px') +
                               '</div>';
                   }
                 } else if (hasLocal) {
@@ -11871,36 +12383,23 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                   if (isWord) {
                     formatBadge = '<span class="tag" style="background:#dbeafe;color:#1e40af;font-size:10px;font-weight:700">Word (.docx)</span>';
                     actBtns = '<div style="display:inline-flex;gap:4px;justify-content:flex-end;flex-wrap:wrap">' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '" class="btn sm" style="background:#2563eb;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh berkas Word asli">' +
-                                  'Word' +
-                                '</a>' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '&format=pdf" target="_blank" class="btn sm" style="background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" title="Ekspor dokumen Word ke PDF">' +
-                                  'PDF' +
-                                '</a>' +
+                                previewAction(latestEv, 'docx', 'Word', 'background:#2563eb;color:#fff;padding:2px 7px;font-size:10.5px') +
+                                previewAction(latestEv, 'pdf', 'PDF', 'background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px') +
                               '</div>';
                   } else if (isExcel) {
                     formatBadge = '<span class="tag" style="background:#dcfce7;color:#166534;font-size:10px;font-weight:700">Excel (.xlsx)</span>';
                     actBtns = '<div style="display:inline-flex;gap:4px;justify-content:flex-end;flex-wrap:wrap">' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '" class="btn sm" style="background:#059669;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh berkas Excel">' +
-                                  'Excel' +
-                                '</a>' +
+                                previewAction(latestEv, 'xlsx', 'Excel', 'background:#059669;color:#fff;padding:2px 7px;font-size:10.5px') +
                               '</div>';
                   } else if (isPdf) {
                     formatBadge = '<span class="tag" style="background:#fee2e2;color:#991b1b;font-size:10px;font-weight:700">PDF (.pdf)</span>';
                     actBtns = '<div style="display:inline-flex;gap:4px;justify-content:flex-end">' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '" class="btn sm" style="background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh berkas PDF">' +
-                                  'Unduh' +
-                                '</a>' +
-                                '<a href="' + escapeHtml(latestEv.path_file) + '" target="_blank" class="btn sm o" style="padding:2px 6px;font-size:10.5px;text-decoration:none" title="Buka berkas di tab baru">' +
-                                  'Buka' +
-                                '</a>' +
+                                previewAction(latestEv, 'pdf', 'Pratinjau PDF', 'background:#dc2626;color:#fff;padding:2px 7px;font-size:10.5px') +
                               '</div>';
                   } else {
                     formatBadge = '<span class="tag" style="background:#f1f5f9;color:#334155;font-size:10px;font-weight:700">Berkas Fisik</span>';
                     actBtns = '<div style="display:inline-flex;gap:4px;justify-content:flex-end">' +
-                                '<a href="ajax.php?action=download_eviden&id_eviden=' + latestEv.id_eviden + '" class="btn sm" style="background:#0d9488;color:#fff;padding:2px 7px;font-size:10.5px;text-decoration:none" download title="Unduh berkas">' +
-                                  'Unduh' +
-                                '</a>' +
+                                previewAction(latestEv, 'original', 'Pratinjau', 'background:#0d9488;color:#fff;padding:2px 7px;font-size:10.5px') +
                               '</div>';
                   }
                 }
@@ -11922,12 +12421,12 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:12.5px;color:#1e3a8a">' +
         '<div style="font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px">' +
           '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>' +
-          'Panduan Ekspor Berkas Eviden:' +
+          'Panduan Pratinjau dan Ekspor Berkas Eviden:' +
         '</div>' +
         '<ul style="margin:4px 0 0;padding-left:18px;line-height:1.6">' +
           (hasPhysical ? '<li>Unduh semua berkas dalam ZIP.</li>' : '<li>Buka atau salin tautan Google Drive.</li>') +
-          '<li>Berkas dokumen Word dapat diunduh dalam format <b>Word (.docx)</b> atau diekspor langsung menjadi <b>PDF</b>.</li>' +
-          '<li>Tautan Google Drive (Docs, Sheets, dll.) otomatis diunduh sesuai format file dokumen aslinya.</li>' +
+          '<li>Berkas Word, Excel, dan PDF pada daftar dapat dipratinjau langsung di dalam aplikasi.</li>' +
+          '<li>Dokumen Google Drive dapat dipratinjau tanpa membuka tab baru.</li>' +
         '</ul>' +
       '</div>' +
     '</div>';
@@ -12105,9 +12604,9 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
           var reviewerName = e.nama_reviewer || 'Rina - Anggota SKI';
                '<td><input type="checkbox" class="cbAprItem" data-id="' + e.id_eviden + '" data-modid="' + m.id_modul + '"></td>' +
                '<td><b>' + escapeAttr(e.deskripsi_indikator) + '</b></td>' +
-               '<td><a href="' + e.path_file + '" target="_blank" rel="noopener noreferrer" class="apr-file-link">' +
+               '<td><button type="button" class="apr-file-link btnPreviewEviden" data-id="' + escapeAttr(e.id_eviden) + '" style="border:0;background:none;padding:0;text-align:left;cursor:pointer">' +
                  fileIcon + ' ' +
-                 escapeAttr(e.nama_file) + fileBadge + ' ↗</a></td>' +
+                 escapeAttr(e.nama_file) + fileBadge + '</button></td>' +
                '<td>' + escapeAttr(e.nama_pic) + '<br><small class="mut">' + escapeAttr(e.nama_unit || '-') + '</small></td>' +
                '<td><span class="apr-tag apr-tag-sesuai"><span class="apr-dot green"></span> Sesuai</span><br><small class="mut">' + escapeAttr(reviewerName) + '</small></td>' +
                '<td>' +
@@ -12389,7 +12888,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                          (e.catatan_temuan ? '<div style="font-size:11px;color:#92400e;background:#fffbeb;border-radius:6px;padding:6px 8px;margin-top:8px"><b>Catatan evaluasi:</b> ' + escapeHtml(e.catatan_temuan) + '</div>' : '') +
                        '</div>' +
                        '<div style="display:flex;align-items:center;gap:7px;flex:0 0 auto;flex-wrap:wrap;justify-content:flex-end">' +
-                         '<a class="btn sm o" href="' + escapeAttr(e.path_file || '#') + '" target="_blank" rel="noopener noreferrer" style="text-decoration:none">Lihat Berkas</a>' +
+                         '<button type="button" class="btn sm o btnPreviewEviden" data-id="' + escapeAttr(e.id_eviden) + '">Lihat Berkas</button>' +
                          (apmActiveTab === 'pending' ? '<button type="button" class="btn sm btnEvalEvidenPim" data-id="' + escapeAttr(e.id_eviden) + '" data-mod="' + escapeAttr(e.nama_modul) + '" data-desc="' + escapeAttr(e.deskripsi_indikator) + '" data-file="' + escapeAttr(e.nama_file) + '" data-path="' + escapeAttr(e.path_file) + '" data-ver="' + escapeAttr(e.versi) + '" data-pic="' + escapeAttr(e.nama_pic) + '" data-unit="' + escapeAttr(e.nama_unit || '') + '" data-cat="' + escapeAttr(e.catatan_temuan || '') + '" style="background:#087066;color:#fff;font-weight:700">Tinjau &amp; Keputusan</button>' : '') +
                        '</div>' +
                      '</article>';
@@ -12423,7 +12922,6 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
           var mod = this.dataset.mod;
           var desc = this.dataset.desc;
           var file = this.dataset.file;
-          var path = this.dataset.path;
           var ver = parseInt(this.dataset.ver, 10);
           var pic = this.dataset.pic;
           var unit = this.dataset.unit;
@@ -12440,9 +12938,9 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
                           '<div class="row" style="margin-top:0"><span style="font-weight:700;color:var(--dk)">Dokumen Eviden Bukti:</span>' +
                           '<span class="tag ' + (isRevisi ? 't-pu' : 't-bl') + '" style="font-weight:700">' + (isRevisi ? 'Versi ' + ver + ' (Revisi)' : 'Versi 1') + '</span></div>' +
                           '<div style="margin:8px 0">' +
-                            '<a href="' + escapeAttr(path) + '" target="_blank" rel="noopener noreferrer" class="btn sm o" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px">' +
-                              'Buka Dokumen di Tab Baru ↗' +
-                            '</a>' +
+                            '<button type="button" class="btn sm o btnPreviewEviden" data-id="' + escapeAttr(id) + '" style="display:inline-flex;align-items:center;gap:6px">' +
+                              'Pratinjau Dokumen' +
+                            '</button>' +
                           '</div>' +
                           (cat ? '<div style="margin-top:8px;padding:8px 12px;background:#fef3c7;border-radius:8px;font-size:12px;color:#92400e"><b>Catatan Evaluasi Tim SKI:</b><br>' + escapeAttr(cat) + '</div>' : '') +
                         '</div>' +
@@ -12601,6 +13099,7 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
         h += '<td style="text-align:right">';
         h += '<div style="display:inline-flex;gap:6px;flex-wrap:wrap;justify-content:flex-end">';
         if (hasEviden) {
+          h += '<button class="btn sm o btnPreviewPdf" data-id="' + m.id_modul + '" title="Lihat pratinjau laporan">Pratinjau</button>';
           h += '<button class="btn sm btnExportPdf" data-id="' + m.id_modul + '" style="background:#0d9488;color:#fff" title="Ekspor laporan PDF">Ekspor PDF</button>';
         } else {
           h += '<span style="font-size:12px;color:var(--mut)">Belum ada eviden</span>';
@@ -12622,6 +13121,12 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
       };
     });
 
+    document.querySelectorAll(".btnPreviewPdf").forEach(function(b){
+      b.onclick = function(){
+        previewModulePdf(this.dataset.id);
+      };
+    });
+
     // Listener ekspor laporan PDF
     document.querySelectorAll(".btnExportPdf").forEach(function(b){
       b.onclick = function(){
@@ -12634,15 +13139,21 @@ td{padding:10px 8px;border-bottom:1px solid var(--bd);vertical-align:middle}
   function renderAudit() {
     var h = '';
 
-    h += '<div class="tw"><table><tr><th>Waktu Aktivitas</th><th>Pengguna</th><th>Peran Saat Aksi</th><th>Jenis Aksi</th><th>Objek Target</th><th>Alamat IP</th></tr>';
+    h += '<div class="tw"><table class="audit-table"><tr><th>Waktu Aktivitas</th><th>Pengguna</th><th>Peran Saat Aksi</th><th>Jenis Aksi</th><th>Objek Target</th></tr>';
     STATE.audit.forEach(function(a){
+      var auditTimestamp = String(a.timestamp_aktivitas || '');
+      var auditTimestampParts = auditTimestamp.split(/[ T]/);
+      var auditDateLabel = formatDateIndo(auditTimestampParts[0]);
+      var auditTimeLabel = (auditTimestampParts[1] || '').slice(0, 8);
       h += '<tr>';
-      h += '<td><small>' + a.timestamp_aktivitas + '</small></td>';
+      h += '<td class="audit-time-cell"><time class="audit-time" datetime="' + escapeAttr(auditTimestamp) + '">' +
+             '<span>' + escapeHtml(auditDateLabel) + '</span>' +
+             (auditTimeLabel ? '<small>' + escapeHtml(auditTimeLabel) + '</small>' : '') +
+           '</time></td>';
       h += '<td><b>' + a.nama_lengkap + '</b></td>';
       h += '<td>' + a.role_saat_aksi + '</td>';
       h += '<td><span class="tag t-in">' + a.jenis_aksi + '</span></td>';
-      h += '<td>' + a.objek_target + '</td>';
-      h += '<td><code>' + a.ip_address + '</code></td>';
+      h += '<td class="audit-target-cell">' + a.objek_target + '</td>';
       h += '</tr>';
     });
     h += '</table></div>';

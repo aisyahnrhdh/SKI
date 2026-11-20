@@ -1522,6 +1522,12 @@ if ($action === 'upload_eviden') {
     exit;
 }
 
+if ($action === 'save_edited_document') {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'message' => 'Penyimpanan hasil edit dari pratinjau telah dinonaktifkan.']);
+    exit;
+}
+
 // 5A. SIMPAN HASIL EDIT DOKUMEN DOCX / XLSX DARI FULL-PAGE VIEWER
 // Dipanggil oleh indexcampuran.php melalui FormData:
 // action=save_edited_document, id_eviden, file
